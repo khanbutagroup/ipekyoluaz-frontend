@@ -200,10 +200,9 @@ export default function Footer(){
                                 <div className="category-box">
                                     <h6 className="category-name">{x.title}:</h6>
                                     {x.sub_categories.map(v=>(
-                                        <a href="#">{v.title}</a>
+                                        <a href="/shop">{v.title}</a>
                                     ))}
                                 </div>
-
                         </div>
                         ))}
                     </div>

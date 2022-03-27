@@ -19,6 +19,8 @@ export default function MainForShop() {
   const [subSubCategoriesTitle, subSubCategoriesData] = useState([]);
   const [subCategoriesTitle, subCategoriesData] = useState([]);
   const [filtersBySubsubTitle, filtersBySubsubData] = useState([]);
+  const [getCategory, setCategory] = useState([]);
+
   let dataClass = "null";
   useEffect(() => {
     let mounted = true;
@@ -391,11 +393,28 @@ export default function MainForShop() {
       });
     } else {
       console.log("window.location.href.split(" / ")");
-      subCategoriesTitle.map((e, i) => {
-        e.sub_sub_categories.map((k) =>
-          k.id == urlSubSubCategoriaId ? setUrlSubCategoriaId(e.id) : null
-        );
+
+      // subCategoriesTitle.map((e, i) => {
+      //   e.sub_sub_categories.map((k) =>
+      //   k.map((l) =>
+      //     l.id == urlSubSubCategoriaId ? setUrlCategoriaId(e.id) : null
+      //   ))
+      // });
+
+      subCategoriesTitle.map((item) => {
+        setCategory(item.sub_sub_categories);
+
+        // setCategory(item);
+        // item.id == urlSubSubCategoriaId ? setUrlCategoriaId(item.id) : null;
       });
+
+      getCategory.map((event) => {
+        event.forEach((element) => {
+          console.log(element,"dsajhdkjhsd");
+          // element.id == urlSubSubCategoriaId ? setUrlCategoriaId(element.id) : null;
+        });
+      });
+
       optionsTitle.map((e, i) => {
         e.sub_categories.map((k) =>
           k.id == urlSubCategoriaId ? setUrlCategoriaId(e.id) : null
@@ -826,9 +845,7 @@ export default function MainForShop() {
                               </a>
                             </div>
                             <div className="product-pa-wrapper">
-                              <div className="product-price">
-                                ₼{" "} {e?.price}
-                              </div>
+                              <div className="product-price">₼ {e?.price}</div>
                             </div>
                           </div>
                         </div>
