@@ -1,0 +1,90 @@
+@charset 'UTF-8';
+
+/*
+1. config
+2. mixins
+3. plugins
+4. base
+5. components
+6. header
+7. footer
+8. demo
+*/
+/* 1. color */
+$secondary-color: #f77c29;
+
+/* 2. config */
+@import 'public/gh/assets/scss/config/variables';
+
+/* 3. mixins */
+@import 'public/gh/assets/scss/mixins/breakpoint';
+@import 'public/gh/assets/scss/mixins/core';
+@import 'public/gh/assets/scss/mixins/buttons';
+@import 'public/gh/assets/scss/mixins/direction';
+
+@import 'demo1_config';
+
+/* 4. plugins */
+@import 'public/gh/assets/scss/components/slider';
+
+/* 5. base */
+@import 'public/gh/assets/scss/base/base';
+@import 'public/gh/assets/scss/base/helper';
+@import 'public/gh/assets/scss/base/type';
+@import 'public/gh/assets/scss/base/layout';
+@import 'public/gh/assets/scss/base/grid';
+@import 'public/gh/assets/scss/base/spacing';
+
+/* 6. components */
+@import 'public/gh/assets/scss/components/animation';
+@import 'public/gh/assets/scss/components/banner';
+@import 'public/gh/assets/scss/components/blog';
+@import 'public/gh/assets/scss/components/buttons';
+@import 'public/gh/assets/scss/components/categories';
+@import 'public/gh/assets/scss/components/font-icons';
+@import 'public/gh/assets/scss/components/forms';
+@import 'public/gh/assets/scss/components/icons';
+@import 'public/gh/assets/scss/components/icon-boxes';
+@import 'public/gh/assets/scss/components/overlay';
+@import 'public/gh/assets/scss/components/page-header';
+@import 'public/gh/assets/scss/components/pagination';
+@import 'public/gh/assets/scss/components/popup';
+@import 'public/gh/assets/scss/components/product-single';
+@import 'public/gh/assets/scss/components/products';
+@import 'public/gh/assets/scss/components/minipopup';
+@import 'public/gh/assets/scss/components/sidebar';
+@import 'public/gh/assets/scss/components/social-icons';
+@import 'public/gh/assets/scss/components/tab';
+@import 'public/gh/assets/scss/components/titles';
+@import 'public/gh/assets/scss/components/tooltip';
+@import 'public/gh/assets/scss/components/widget';
+
+@import 'public/gh/assets/scss/pages/categories';
+@import 'public/gh/assets/scss/pages/compare';
+@import 'public/gh/assets/scss/pages/products';
+@import 'public/gh/assets/scss/pages/product-single';
+
+
+
+/* Unused components
+@import '../../components/accordion';
+@import '../../components/alerts';
+@import '../../components/breadcrumb';
+@import '../../components/instagram';
+@import '../../components/page-header';
+@import '../../components/pagination';
+@import '../../components/sidebar';
+@import '../../components/sidebar-shopShop';
+@import '../../components/testimonials';
+*/
+
+/* 7. header */
+@import 'public/gh/assets/scss/base/header/header';
+@import 'public/gh/assets/scss/base/header/dropdown';
+@import 'public/gh/assets/scss/base/header/menu';
+
+/* 8. footer */
+@import 'public/gh/assets/scss/base/footer/footer';
+
+/* 9. Demo */
+@import 'demo1_custom';
