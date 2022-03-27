@@ -568,7 +568,7 @@ export default function HeaderForAllPage(){
                                 <a href="#" className="mobile-menu-toggle text-white w-icon-hamburger" aria-label="menu-toggle">
                                 </a>
                                 <a href="/" className="logo ml-lg-0">
-                                    <img src={logoTitle} alt="logo" width="82" height="45"/>
+                                    <img src={logoTitle} alt="logo" width="150" height="150"/>
                                 </a>
                                 <form method="get" action="#"
                                       className="input-wrapper header-search hs-expanded hs-round d-none d-md-flex">

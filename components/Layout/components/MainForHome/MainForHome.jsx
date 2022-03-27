@@ -552,7 +552,7 @@ const MainForHome = (props) => {
               </div>
             </div>
             <div className="row category-wrapper cols-lg-3 cols-sm-2 mt-3 appear-animate ">
-              {displayedCategoriesTitle.map((e) => (
+              {displayedCategoriesTitle.slice(0,6).map((e) => (
                 <div className="category-wrap mb-4">
                   <div className="category category-group-image br-sm">
                     <div className="category-content">
@@ -560,7 +560,7 @@ const MainForHome = (props) => {
                         <a href={`shop/${e.id}?card`}>{e.category.title}</a>
                       </h4>
                       <ul className="category-list">
-                        {e.category.sub_categories.map((item) => (
+                        {e.category.sub_categories.slice(0, 6).map((item) => (
                           <li>
                             <a href={`shop/${e.id}?card`}>{item.title}</a>
                           </li>
