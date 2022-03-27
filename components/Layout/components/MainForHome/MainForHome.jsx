@@ -13,10 +13,37 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCardMain } from "../../../../store/actions";
 import { cartByUserID } from "../../../../services/card/cartByUserID";
 import { vendors } from "../../../../services/vendors/vendors";
+<<<<<<< HEAD
+=======
+import axios from 'axios'
+import styles from '../../../../public/assets/css/newShopSlider.module.css'
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
+import Image from 'next/image'
+import { FaStar } from 'react-icons/fa'
+
+
+
+>>>>>>> master
 
 const MainForHome = (props) => {
   const [optionsTitle, setOptionsData] = useState([]);
 
+<<<<<<< HEAD
+=======
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 4
+  };
+
+
+
+
+>>>>>>> master
   useEffect(() => {
     if (localStorage.getItem("optionsTitle")) {
       setOptionsData(JSON.parse(localStorage.getItem("optionsTitle")));
@@ -46,6 +73,7 @@ const MainForHome = (props) => {
 
   useEffect(() => {
     if (localStorage.getItem("displayedCategoriesTitle")) {
+<<<<<<< HEAD
       setDisplayedCategoriesData(
         JSON.parse(localStorage.getItem("displayedCategoriesTitle"))
       );
@@ -71,6 +99,21 @@ const MainForHome = (props) => {
               JSON.parse(localStorage.getItem("displayedCategoriesTitle"))
             )
           : [];
+=======
+      setDisplayedCategoriesData(JSON.parse(localStorage.getItem("displayedCategoriesTitle")));
+      displayedCategories().then((items) => {
+        localStorage.setItem("displayedCategoriesTitle", JSON.stringify(items?.data));
+        JSON.parse(localStorage.getItem("displayedCategoriesTitle"))
+            ? setDisplayedCategoriesData(JSON.parse(localStorage.getItem("displayedCategoriesTitle")))
+            : [];
+      });
+    } else {
+      displayedCategories().then((items) => {
+        localStorage.setItem("displayedCategoriesTitle", JSON.stringify(items?.data));
+        JSON.parse(localStorage.getItem("displayedCategoriesTitle"))
+            ? setDisplayedCategoriesData(JSON.parse(localStorage.getItem("displayedCategoriesTitle")))
+            : [];
+>>>>>>> master
       });
     }
   }, []);
@@ -86,10 +129,15 @@ const MainForHome = (props) => {
   const [allProductsTitle, setAllProductsData] = useState([]);
   useEffect(() => {
     productFilter({}).then((items) => {
+<<<<<<< HEAD
+=======
+      console.log(items.data.results, "dsjkahdjkash");
+>>>>>>> master
       setAllProductsData(items.data.results);
     });
   }, []);
 
+<<<<<<< HEAD
   const [data2, setData2] = useState([]);
   console.log(data2, "data2");
   useEffect(() => {
@@ -98,6 +146,55 @@ const MainForHome = (props) => {
       console.log(items.data, "data2");
     });
   }, [data2]);
+=======
+
+  // const [data2, setData2] = useState([]);
+  // useEffect(() => {
+  //   if (localStorage.getItem("data2")) {
+  //     setData2(JSON.parse(localStorage.getItem("data2")));
+  //     vendors().then((items) => {
+  //       localStorage.setItem("data2", JSON.stringify(items?.data.results));
+  //       JSON.parse(localStorage.getItem("data2"))
+  //           ? setData2(JSON.parse(localStorage.getItem("data2")))
+  //           : [];
+            
+  //     });
+  //   } else {
+  //     vendors().then((items) => {
+  //       localStorage.setItem("optionsTitle", JSON.stringify(items?.data.results));
+  //       JSON.parse(localStorage.getItem("data2"))
+  //           ? setData2(JSON.parse(localStorage.getItem("data2")))
+  //           : [];
+  //     });
+  //   }
+  // }, []);
+
+
+  const [data2, setData2] = useState([])
+
+useEffect(() => {
+  getData()
+},[])
+  
+
+
+const getData = async () => {
+  const newShops = await axios.get('http://34.125.5.25/api/auth/vendors/')
+  .then(res => setData2(res.data.results))
+  .catch(err => console.log(err))
+  
+}
+
+console.log(data2, "Salam2222")
+
+
+  
+
+
+
+
+
+>>>>>>> master
 
   const [partnersTitle, setPartnersData] = useState([]);
   useEffect(() => {
@@ -223,7 +320,10 @@ const MainForHome = (props) => {
   }, []);
 
   const productHome = useSelector((state) => state.productHome);
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
   return (
     <>
       <style jsx>
@@ -544,15 +644,24 @@ const MainForHome = (props) => {
                       <img src={e.icon} style={{ width: "30px" }} />
                     </span>
                     <div className="icon-box-content">
+<<<<<<< HEAD
                       <h4 className="icon-box-title">{e?.title}</h4>
                       <p className="text-default">{e?.description}</p>
+=======
+                      <h4 className="icon-box-title">{e.title}</h4>
+                      <p className="text-default">{e.description}</p>
+>>>>>>> master
                     </div>
                   </div>
                 ))}
               </div>
             </div>
             <div className="row category-wrapper cols-lg-3 cols-sm-2 mt-3 appear-animate ">
+<<<<<<< HEAD
               {displayedCategoriesTitle.slice(0,6).map((e) => (
+=======
+              {displayedCategoriesTitle.map((e) => (
+>>>>>>> master
                 <div className="category-wrap mb-4">
                   <div className="category category-group-image br-sm">
                     <div className="category-content">
@@ -560,7 +669,11 @@ const MainForHome = (props) => {
                         <a href={`shop/${e.id}?card`}>{e.category.title}</a>
                       </h4>
                       <ul className="category-list">
+<<<<<<< HEAD
                         {e.category.sub_categories.slice(0, 6).map((item) => (
+=======
+                        {e.category.sub_categories.map((item) => (
+>>>>>>> master
                           <li>
                             <a href={`shop/${e.id}?card`}>{item.title}</a>
                           </li>
@@ -586,6 +699,7 @@ const MainForHome = (props) => {
             <h2 className="title title-underline mb-4 appear-animate">
               Ən yeni Mağazalar
             </h2>
+<<<<<<< HEAD
             <div
               className="swiper-container swiper-theme mb-10 pb-2 appear-animate"
               data-swiper-options="{
@@ -671,6 +785,49 @@ const MainForHome = (props) => {
                   ))}
               </div>
               <div className="swiper-pagination"></div>
+=======
+            <div className={styles.newShopslider}>
+              
+              <Slider {...settings}>
+                {data2.map((shop)=> (
+                  <div className={styles.cardContainer}>
+                  <div className={styles.cardItem}>
+                    <div className={styles.firstRow}>
+                        <div className={styles.frImage}>
+                          <img src={shop.cover_image} width="100%" height="100%"/>
+                        </div>
+                        <div className={styles.rRow}>
+                          <div className={styles.shopName}>
+                              {shop.name} 
+                          </div>
+                          <div className={styles.raiting}>
+                            {[ ...Array(shop.rating)].map(star => (
+                              <FaStar color="fda706"/>
+                            ))}
+                                
+                          </div>
+                        </div>
+                    </div>
+                    <div className={styles.secondRow}>
+                        <div className={styles.srImage}>
+                          <img src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1601895550-1258191_in_2000_q80.jpg" width="100%" height="100%" style={{"borderRadius": "10px"}}/>
+                        </div>
+                        <div className={styles.srImage}>
+                          <img src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1601895550-1258191_in_2000_q80.jpg" width="100%" height="100%" style={{"borderRadius": "10px"}}/>
+                        </div>
+                        <div className={styles.srImage}>
+                          <img src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1601895550-1258191_in_2000_q80.jpg" width="100%" height="100%" style={{"borderRadius": "10px"}}/>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                ))}
+                
+                
+                
+              </Slider>
+              
+>>>>>>> master
             </div>
           </div>
           <div className="container mt-1 pt-2">

@@ -309,7 +309,11 @@ export default function HeaderForHome(){
                     padding-top: 3.2rem;
                     padding-bottom: 3.2rem;
                     color: #fff;
+<<<<<<< HEAD
                     background: #0b899b;
+=======
+                    background: #0088dd;
+>>>>>>> master
                     font-size: 1.2rem;
                     border-bottom: 0;
                 }
@@ -598,7 +602,11 @@ export default function HeaderForHome(){
                             <a href="#" className="mobile-menu-toggle text-white w-icon-hamburger" aria-label="menu-toggle">
                             </a>
                             <a href="/" className="logo ml-lg-0">
+<<<<<<< HEAD
                                 <img src={logoTitle} alt="logo" width="150" height="150"/>
+=======
+                                <img src={logoTitle} alt="logo" width="82" height="45"/>
+>>>>>>> master
                             </a>
                             <form method="get" action="#"
                                   className="input-wrapper header-search hs-expanded hs-round d-none d-md-flex">

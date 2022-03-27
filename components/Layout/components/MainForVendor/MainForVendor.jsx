@@ -325,7 +325,11 @@ export default function MainForVendor() {
             padding-top: 3.2rem;
             padding-bottom: 3.2rem;
             color: #fff;
+<<<<<<< HEAD
             background: #0b899b;
+=======
+            background: #0088dd;
+>>>>>>> master
             font-size: 1.2rem;
             border-bottom: 0;
           }
