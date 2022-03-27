@@ -168,16 +168,6 @@ export default function Footer(){
                             </div>
                             <div className="col-lg-3 col-sm-6">
                                 <div className="widget">
-<<<<<<< HEAD
-                                    <h4 className="widget-title">My Account</h4>
-                                    <ul className="widget-body">
-                                        <li><a href="#">Track My Order</a></li>
-                                        <li><a href="cart.html">View Cart</a></li>
-                                        <li><a href="login.html">Sign In</a></li>
-                                        <li><a href="#">Help</a></li>
-                                        <li><a href="wishlist.html">My Wishlist</a></li>
-                                        <li><a href="#">Privacy Policy</a></li>
-=======
                                     <h4 className="widget-title">Hesabım</h4>
                                     <ul className="widget-body">
                                         <li><a href="#">Track My Order</a></li>
@@ -186,7 +176,6 @@ export default function Footer(){
                                         <li><a href="#">Bəyəndiklərim</a></li>
                                         <li><a href="wishlist.html">My Wishlist</a></li>
                                         <li><a href="#">Müqayisə</a></li>
->>>>>>> master
                                     </ul>
                                 </div>
                             </div>
@@ -211,16 +200,9 @@ export default function Footer(){
                                 <div className="category-box">
                                     <h6 className="category-name">{x.title}:</h6>
                                     {x.sub_categories.map(v=>(
-<<<<<<< HEAD
                                         <a href="/shop">{v.title}</a>
                                     ))}
                                 </div>
-=======
-                                        <a href="#">{v.title}</a>
-                                    ))}
-                                </div>
-
->>>>>>> master
                         </div>
                         ))}
                     </div>

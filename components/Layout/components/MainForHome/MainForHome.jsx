@@ -13,8 +13,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCardMain } from "../../../../store/actions";
 import { cartByUserID } from "../../../../services/card/cartByUserID";
 import { vendors } from "../../../../services/vendors/vendors";
-<<<<<<< HEAD
-=======
 import axios from 'axios'
 import styles from '../../../../public/assets/css/newShopSlider.module.css'
 import "slick-carousel/slick/slick.css";
@@ -25,13 +23,10 @@ import { FaStar } from 'react-icons/fa'
 
 
 
->>>>>>> master
 
 const MainForHome = (props) => {
   const [optionsTitle, setOptionsData] = useState([]);
 
-<<<<<<< HEAD
-=======
   const settings = {
     dots: false,
     infinite: true,
@@ -39,11 +34,6 @@ const MainForHome = (props) => {
     slidesToShow: 4,
     slidesToScroll: 4
   };
-
-
-
-
->>>>>>> master
   useEffect(() => {
     if (localStorage.getItem("optionsTitle")) {
       setOptionsData(JSON.parse(localStorage.getItem("optionsTitle")));
@@ -73,7 +63,6 @@ const MainForHome = (props) => {
 
   useEffect(() => {
     if (localStorage.getItem("displayedCategoriesTitle")) {
-<<<<<<< HEAD
       setDisplayedCategoriesData(
         JSON.parse(localStorage.getItem("displayedCategoriesTitle"))
       );
@@ -99,21 +88,6 @@ const MainForHome = (props) => {
               JSON.parse(localStorage.getItem("displayedCategoriesTitle"))
             )
           : [];
-=======
-      setDisplayedCategoriesData(JSON.parse(localStorage.getItem("displayedCategoriesTitle")));
-      displayedCategories().then((items) => {
-        localStorage.setItem("displayedCategoriesTitle", JSON.stringify(items?.data));
-        JSON.parse(localStorage.getItem("displayedCategoriesTitle"))
-            ? setDisplayedCategoriesData(JSON.parse(localStorage.getItem("displayedCategoriesTitle")))
-            : [];
-      });
-    } else {
-      displayedCategories().then((items) => {
-        localStorage.setItem("displayedCategoriesTitle", JSON.stringify(items?.data));
-        JSON.parse(localStorage.getItem("displayedCategoriesTitle"))
-            ? setDisplayedCategoriesData(JSON.parse(localStorage.getItem("displayedCategoriesTitle")))
-            : [];
->>>>>>> master
       });
     }
   }, []);
@@ -129,24 +103,11 @@ const MainForHome = (props) => {
   const [allProductsTitle, setAllProductsData] = useState([]);
   useEffect(() => {
     productFilter({}).then((items) => {
-<<<<<<< HEAD
-=======
       console.log(items.data.results, "dsjkahdjkash");
->>>>>>> master
       setAllProductsData(items.data.results);
     });
   }, []);
 
-<<<<<<< HEAD
-  const [data2, setData2] = useState([]);
-  console.log(data2, "data2");
-  useEffect(() => {
-    vendors().then((items) => {
-      setData2(items.data);
-      console.log(items.data, "data2");
-    });
-  }, [data2]);
-=======
 
   // const [data2, setData2] = useState([]);
   // useEffect(() => {
@@ -184,17 +145,6 @@ const getData = async () => {
   .catch(err => console.log(err))
   
 }
-
-console.log(data2, "Salam2222")
-
-
-  
-
-
-
-
-
->>>>>>> master
 
   const [partnersTitle, setPartnersData] = useState([]);
   useEffect(() => {
@@ -320,10 +270,6 @@ console.log(data2, "Salam2222")
   }, []);
 
   const productHome = useSelector((state) => state.productHome);
-<<<<<<< HEAD
-
-=======
->>>>>>> master
   return (
     <>
       <style jsx>
@@ -644,24 +590,15 @@ console.log(data2, "Salam2222")
                       <img src={e.icon} style={{ width: "30px" }} />
                     </span>
                     <div className="icon-box-content">
-<<<<<<< HEAD
                       <h4 className="icon-box-title">{e?.title}</h4>
                       <p className="text-default">{e?.description}</p>
-=======
-                      <h4 className="icon-box-title">{e.title}</h4>
-                      <p className="text-default">{e.description}</p>
->>>>>>> master
                     </div>
                   </div>
                 ))}
               </div>
             </div>
             <div className="row category-wrapper cols-lg-3 cols-sm-2 mt-3 appear-animate ">
-<<<<<<< HEAD
               {displayedCategoriesTitle.slice(0,6).map((e) => (
-=======
-              {displayedCategoriesTitle.map((e) => (
->>>>>>> master
                 <div className="category-wrap mb-4">
                   <div className="category category-group-image br-sm">
                     <div className="category-content">
@@ -669,11 +606,7 @@ console.log(data2, "Salam2222")
                         <a href={`shop/${e.id}?card`}>{e.category.title}</a>
                       </h4>
                       <ul className="category-list">
-<<<<<<< HEAD
                         {e.category.sub_categories.slice(0, 6).map((item) => (
-=======
-                        {e.category.sub_categories.map((item) => (
->>>>>>> master
                           <li>
                             <a href={`shop/${e.id}?card`}>{item.title}</a>
                           </li>
@@ -699,93 +632,6 @@ console.log(data2, "Salam2222")
             <h2 className="title title-underline mb-4 appear-animate">
               Ən yeni Mağazalar
             </h2>
-<<<<<<< HEAD
-            <div
-              className="swiper-container swiper-theme mb-10 pb-2 appear-animate"
-              data-swiper-options="{
-                    'spaceBetween': 20,
-                    'slidesPerView': 1,
-                    'breakpoints': {
-                        '576': {
-                            'slidesPerView': 2
-                        },
-                        '768': {
-                            'slidesPerView': 3
-                        },
-                        '1200': {
-                            'slidesPerView': 4
-                        }
-                    }
-                }"
-            >
-              <div className="swiper-wrapper row cols-lg-4 cols-md-3 cols-sm-2 cols-1">
-                {data2 &&
-                  data2.length > 0 &&
-                  data2.map((e) => (
-                    <div className="swiper-slide vendor-widget mb-0">
-                      <div className="vendor-widget-2">
-                        <div className="vendor-details">
-                          <figure className="vendor-logo">
-                            <a href={`shop/${e.id}`}>
-                              <img
-                                src={e.logo}
-                                alt="Vendor Logo"
-                                width="70"
-                                height="70"
-                              />
-                            </a>
-                          </figure>
-                          <div className="vendor-personal">
-                            <h4 className="vendor-name">
-                              <a href={`shop/${e.id}`}>{e.title}</a>
-                            </h4>
-                            {/*<span className="vendor-product-count">(27 Products)</span>*/}
-                            <div className="ratings-container">
-                              <div className="ratings-full">
-                                <span
-                                  className="ratings"
-                                  style={{ width: `${18 * e.rating + "%"}` }}
-                                ></span>
-                                <span className="tooltiptext tooltip-top"></span>
-                              </div>
-                            </div>
-                            <span className="vendor-product-count">
-                              category
-                            </span>
-                          </div>
-                        </div>
-                        <div className="vendor-products row cols-3 gutter-sm">
-                          <div className="vendor-product">
-                            {/*<figure className="product-media">*/}
-                            {/*  <a href={`shop/${e.id}`}>*/}
-                            {/*    <img src={e.images[0]}*/}
-                            {/*         alt=" Product" width="100" height="113"/>*/}
-                            {/*  </a>*/}
-                            {/*</figure>*/}
-                          </div>
-                          <div className="vendor-product">
-                            {/*<figure className="product-media">*/}
-                            {/*  <a href={`shop/${e.id}`}>*/}
-                            {/*    <img src={e.images[1]}*/}
-                            {/*         alt=" Product" width="100" height="113"/>*/}
-                            {/*  </a>*/}
-                            {/*</figure>*/}
-                          </div>
-                          <div className="vendor-product">
-                            {/*<figure className="product-media">*/}
-                            {/*  <a href={`shop/${e.id}`}>*/}
-                            {/*    <img src={e.images[2]}*/}
-                            {/*         alt=" Product" width="100" height="113"/>*/}
-                            {/*  </a>*/}
-                            {/*</figure>*/}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-              </div>
-              <div className="swiper-pagination"></div>
-=======
             <div className={styles.newShopslider}>
               
               <Slider {...settings}>
@@ -827,7 +673,6 @@ console.log(data2, "Salam2222")
                 
               </Slider>
               
->>>>>>> master
             </div>
           </div>
           <div className="container mt-1 pt-2">
