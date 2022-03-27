@@ -46,19 +46,31 @@ const MainForHome = (props) => {
 
   useEffect(() => {
     if (localStorage.getItem("displayedCategoriesTitle")) {
-      setDisplayedCategoriesData(JSON.parse(localStorage.getItem("displayedCategoriesTitle")));
-      displayedCategories().then((items) => {
-        localStorage.setItem("displayedCategoriesTitle", JSON.stringify(items?.data));
+      setDisplayedCategoriesData(
         JSON.parse(localStorage.getItem("displayedCategoriesTitle"))
-            ? setDisplayedCategoriesData(JSON.parse(localStorage.getItem("displayedCategoriesTitle")))
-            : [];
+      );
+      displayedCategories().then((items) => {
+        localStorage.setItem(
+          "displayedCategoriesTitle",
+          JSON.stringify(items?.data)
+        );
+        JSON.parse(localStorage.getItem("displayedCategoriesTitle"))
+          ? setDisplayedCategoriesData(
+              JSON.parse(localStorage.getItem("displayedCategoriesTitle"))
+            )
+          : [];
       });
     } else {
       displayedCategories().then((items) => {
-        localStorage.setItem("displayedCategoriesTitle", JSON.stringify(items?.data));
+        localStorage.setItem(
+          "displayedCategoriesTitle",
+          JSON.stringify(items?.data)
+        );
         JSON.parse(localStorage.getItem("displayedCategoriesTitle"))
-            ? setDisplayedCategoriesData(JSON.parse(localStorage.getItem("displayedCategoriesTitle")))
-            : [];
+          ? setDisplayedCategoriesData(
+              JSON.parse(localStorage.getItem("displayedCategoriesTitle"))
+            )
+          : [];
       });
     }
   }, []);
@@ -74,31 +86,18 @@ const MainForHome = (props) => {
   const [allProductsTitle, setAllProductsData] = useState([]);
   useEffect(() => {
     productFilter({}).then((items) => {
-      console.log(items.data.results, "dsjkahdjkash");
       setAllProductsData(items.data.results);
     });
   }, []);
 
-
   const [data2, setData2] = useState([]);
+  console.log(data2, "data2");
   useEffect(() => {
-    if (localStorage.getItem("data2")) {
-      setData2(JSON.parse(localStorage.getItem("data2")));
-      vendors().then((items) => {
-        localStorage.setItem("data2", JSON.stringify(items?.data.results));
-        JSON.parse(localStorage.getItem("data2"))
-            ? setData2(JSON.parse(localStorage.getItem("data2")))
-            : [];
-      });
-    } else {
-      vendors().then((items) => {
-        localStorage.setItem("optionsTitle", JSON.stringify(items?.data.results));
-        JSON.parse(localStorage.getItem("data2"))
-            ? setData2(JSON.parse(localStorage.getItem("data2")))
-            : [];
-      });
-    }
-  }, []);
+    vendors().then((items) => {
+      setData2(items.data);
+      console.log(items.data, "data2");
+    });
+  }, [data2]);
 
   const [partnersTitle, setPartnersData] = useState([]);
   useEffect(() => {
@@ -224,6 +223,7 @@ const MainForHome = (props) => {
   }, []);
 
   const productHome = useSelector((state) => state.productHome);
+
   return (
     <>
       <style jsx>
@@ -544,8 +544,8 @@ const MainForHome = (props) => {
                       <img src={e.icon} style={{ width: "30px" }} />
                     </span>
                     <div className="icon-box-content">
-                      <h4 className="icon-box-title">{e.title}</h4>
-                      <p className="text-default">{e.description}</p>
+                      <h4 className="icon-box-title">{e?.title}</h4>
+                      <p className="text-default">{e?.description}</p>
                     </div>
                   </div>
                 ))}
@@ -605,66 +605,70 @@ const MainForHome = (props) => {
                 }"
             >
               <div className="swiper-wrapper row cols-lg-4 cols-md-3 cols-sm-2 cols-1">
-                {data2.map((e) => (
-                  <div className="swiper-slide vendor-widget mb-0">
-                    <div className="vendor-widget-2">
-                      <div className="vendor-details">
-                        <figure className="vendor-logo">
-                          <a href={`shop/${e.id}`}>
-                            <img
-                              src={e.main_image}
-                              alt="Vendor Logo"
-                              width="70"
-                              height="70"
-                            />
-                          </a>
-                        </figure>
-                        <div className="vendor-personal">
-                          <h4 className="vendor-name">
-                            <a href={`shop/${e.id}`}>{e.title}</a>
-                          </h4>
-                          {/*<span className="vendor-product-count">(27 Products)</span>*/}
-                          <div className="ratings-container">
-                            <div className="ratings-full">
-                              <span
-                                className="ratings"
-                                style={{ width: `${18 * e.rating + "%"}` }}
-                              ></span>
-                              <span className="tooltiptext tooltip-top"></span>
+                {data2 &&
+                  data2.length > 0 &&
+                  data2.map((e) => (
+                    <div className="swiper-slide vendor-widget mb-0">
+                      <div className="vendor-widget-2">
+                        <div className="vendor-details">
+                          <figure className="vendor-logo">
+                            <a href={`shop/${e.id}`}>
+                              <img
+                                src={e.logo}
+                                alt="Vendor Logo"
+                                width="70"
+                                height="70"
+                              />
+                            </a>
+                          </figure>
+                          <div className="vendor-personal">
+                            <h4 className="vendor-name">
+                              <a href={`shop/${e.id}`}>{e.title}</a>
+                            </h4>
+                            {/*<span className="vendor-product-count">(27 Products)</span>*/}
+                            <div className="ratings-container">
+                              <div className="ratings-full">
+                                <span
+                                  className="ratings"
+                                  style={{ width: `${18 * e.rating + "%"}` }}
+                                ></span>
+                                <span className="tooltiptext tooltip-top"></span>
+                              </div>
                             </div>
+                            <span className="vendor-product-count">
+                              category
+                            </span>
                           </div>
-                          <span className="vendor-product-count">category</span>
                         </div>
-                      </div>
-                      <div className="vendor-products row cols-3 gutter-sm">
-                        <div className="vendor-product">
-                          {/*<figure className="product-media">*/}
-                          {/*  <a href={`shop/${e.id}`}>*/}
-                          {/*    <img src={e.images[0]}*/}
-                          {/*         alt=" Product" width="100" height="113"/>*/}
-                          {/*  </a>*/}
-                          {/*</figure>*/}
-                        </div>
-                        <div className="vendor-product">
-                          {/*<figure className="product-media">*/}
-                          {/*  <a href={`shop/${e.id}`}>*/}
-                          {/*    <img src={e.images[1]}*/}
-                          {/*         alt=" Product" width="100" height="113"/>*/}
-                          {/*  </a>*/}
-                          {/*</figure>*/}
-                        </div>
-                        <div className="vendor-product">
-                          {/*<figure className="product-media">*/}
-                          {/*  <a href={`shop/${e.id}`}>*/}
-                          {/*    <img src={e.images[2]}*/}
-                          {/*         alt=" Product" width="100" height="113"/>*/}
-                          {/*  </a>*/}
-                          {/*</figure>*/}
+                        <div className="vendor-products row cols-3 gutter-sm">
+                          <div className="vendor-product">
+                            {/*<figure className="product-media">*/}
+                            {/*  <a href={`shop/${e.id}`}>*/}
+                            {/*    <img src={e.images[0]}*/}
+                            {/*         alt=" Product" width="100" height="113"/>*/}
+                            {/*  </a>*/}
+                            {/*</figure>*/}
+                          </div>
+                          <div className="vendor-product">
+                            {/*<figure className="product-media">*/}
+                            {/*  <a href={`shop/${e.id}`}>*/}
+                            {/*    <img src={e.images[1]}*/}
+                            {/*         alt=" Product" width="100" height="113"/>*/}
+                            {/*  </a>*/}
+                            {/*</figure>*/}
+                          </div>
+                          <div className="vendor-product">
+                            {/*<figure className="product-media">*/}
+                            {/*  <a href={`shop/${e.id}`}>*/}
+                            {/*    <img src={e.images[2]}*/}
+                            {/*         alt=" Product" width="100" height="113"/>*/}
+                            {/*  </a>*/}
+                            {/*</figure>*/}
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
               </div>
               <div className="swiper-pagination"></div>
             </div>

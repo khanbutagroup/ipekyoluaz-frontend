@@ -59,7 +59,7 @@ export default function MainForProduct() {
             padding-top: 3.2rem;
             padding-bottom: 3.2rem;
             color: #fff;
-            background: #0088dd;
+            background: #0b899b;
             font-size: 1.2rem;
             border-bottom: 0;
           }
