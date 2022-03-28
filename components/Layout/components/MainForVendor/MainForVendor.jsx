@@ -14,6 +14,7 @@ export default function MainForVendor() {
     const [orderbyTitle, setOrderby] = useState([]);
 
     const [vendorsTitle, vendorsData] = useState([]);
+    console.log(vendorsTitle);
     useEffect(() => {
         vendors()
             .then(items => {
@@ -23,9 +24,6 @@ export default function MainForVendor() {
                 console.log(e)
             })
     }, [])
-
-
-
 
 
     const [optionsTitle, optionsData] = useState([]);

@@ -18,6 +18,7 @@ import {productFilter} from "../../../../services/productFilter";
 import {useRouter} from "next/router";
 import {useDispatch, useSelector} from "react-redux";
 import { homeProductFilter } from '../../../../store/actions';
+import { verifyNumber } from "../../../../services/auth/verifyNumber";
 export default function HeaderForHome(){
     const dispatch = useDispatch();
     const [logoPost, setLogoPost] = React.useState([]);
@@ -58,6 +59,7 @@ export default function HeaderForHome(){
     const [showMeNumber, setShowMeNumber] = useState("none");
     const [logoTitle, logoData] = useState(null);
     const [headerTextTitle, setHeaderText] = useState(null);
+    const [userId, setUserId] = useState(null);
 
     const [hiddenText, setHiddenText] = useState(null);
 
@@ -65,6 +67,32 @@ export default function HeaderForHome(){
         let data = {number:loginPhoneInput,
             password:passwordLogin}
         login(data)
+            .then(items => {
+                localStorage.setItem('username', items.data.access);
+                localStorage.setItem('token', items.data.refresh)
+                setLoginPost(items.data)
+                getUserDataByToken()
+                    .then(e=>{
+                        if (e){
+                            setHiddenText("none")
+                            setShowMe("none")
+                            localStorage.setItem('userData',  JSON.stringify(e.data))
+                            localStorage.setItem('userId', e.data.id);
+                        }else {
+                            setHiddenText("")
+                            localStorage.setItem('userData',  JSON.stringify(e.data))
+                            localStorage.setItem('userId', e.data.id);
+                        }
+                    })
+            })
+            .catch(e=>console.log(e))
+    }
+
+    const handleVerifyInput = () =>{
+        let data = {
+            id:userId,
+            code:numberLogin}
+        verifyNumber(data)
             .then(items => {
                 localStorage.setItem('username', items.data.access);
                 localStorage.setItem('token', items.data.refresh)
@@ -171,7 +199,6 @@ export default function HeaderForHome(){
     }
 
 
-
     const handleRegisterInput = () =>{
         let data = {number:number,
             password:password,
@@ -181,6 +208,7 @@ export default function HeaderForHome(){
         }
         register(data)
             .then(items => {
+                setUserId(items.data.id)
                 showMeFunc()
                 showMeNumberFunc()
             }).catch(e =>{
@@ -189,7 +217,7 @@ export default function HeaderForHome(){
         console.log(data)
     }
     const handleOnChange = (value) => {
-        setPhoneInput(`+${value}`)
+        setNumber(`+${value}`);
     };
 
     const deleteCardProduct = ({quantity:quantity,productId:productId}) => {
@@ -491,7 +519,7 @@ export default function HeaderForHome(){
                                             <input type="text" onChange={e=>setNumberLogin(e.target.value)} className="form-control" name="password_1" id="password_1"
                                                    required/>
                                         </div>
-                                        <a href="#" className="btn btn-primary" onClick={()=> handleLoginInput()}>Codu daxil edin</a>
+                                        <a href="#" className="btn btn-primary" onClick={()=> handleVerifyInput()}>Codu daxil edin</a>
                                     </div>
 
                                     <div className="tab-pane" id="sign-up">

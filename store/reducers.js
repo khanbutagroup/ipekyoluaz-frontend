@@ -13,7 +13,6 @@ const productReducer = (state =[], { type,payload }) => {
 };
 // ADD TO CARD DATA
 const addToCardDataReducer = (state =[], { type,payload }) => {
-    console.log(payload,"gg")
     switch (type) {
         case types.ADDTOCARDDATA:
             return payload ;
