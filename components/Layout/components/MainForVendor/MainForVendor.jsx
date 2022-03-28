@@ -14,6 +14,7 @@ export default function MainForVendor() {
     const [orderbyTitle, setOrderby] = useState([]);
 
     const [vendorsTitle, vendorsData] = useState([]);
+    console.log(vendorsTitle);
     useEffect(() => {
         vendors()
             .then(items => {
@@ -23,9 +24,6 @@ export default function MainForVendor() {
                 console.log(e)
             })
     }, [])
-
-
-
 
 
     const [optionsTitle, optionsData] = useState([]);
@@ -84,24 +82,24 @@ export default function MainForVendor() {
     const [count, setCount] = useState([]);
 
     const [sizeAllData, setSizeAllData] = useState([]);
-    useEffect(() => {
-        let mounted = true;
-        allProducts(page,sizeForPage)
-            .then(items => {
-                if(mounted) {
-                    let sizeData =[]
-                    for (let i=0;i<= items.data.count;i++){
-                        if (i%12==0){
-                            sizeData.push({size:12})
-                        }
-                    }
-                    setSizeAllData(sizeData)
-                    setCount(items.data.count)
-                    vendorsData(items.data.results)
-                }
-            })
-        return () => mounted = false;
-    }, [])
+    // useEffect(() => {
+    //     let mounted = true;
+    //     allProducts(page,sizeForPage)
+    //         .then(items => {
+    //             if(mounted) {
+    //                 let sizeData =[]
+    //                 for (let i=0;i<= items.data.count;i++){
+    //                     if (i%12==0){
+    //                         sizeData.push({size:12})
+    //                     }
+    //                 }
+    //                 setSizeAllData(sizeData)
+    //                 setCount(items.data.count)
+    //                 vendorsData(items.data.results)
+    //             }
+    //         })
+    //     return () => mounted = false;
+    // }, [])
 
 
     const [showMe, setShowMe] = useState(true);
