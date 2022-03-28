@@ -64,7 +64,7 @@ export default function HeaderForHome(){
     const [hiddenText, setHiddenText] = useState(null);
 
     const handleLoginInput = () =>{
-        let data = {number:loginPhoneInput,
+        let data = {number:number,
             password:passwordLogin}
         login(data)
             .then(items => {
