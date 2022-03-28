@@ -18,6 +18,9 @@ import {productFilter} from "../../../../services/productFilter";
 import {useRouter} from "next/router";
 import {useDispatch, useSelector} from "react-redux";
 import { homeProductFilter } from '../../../../store/actions';
+import axios from 'axios'
+
+
 export default function HeaderForHome(){
     const dispatch = useDispatch();
     const [logoPost, setLogoPost] = React.useState([]);
@@ -60,6 +63,15 @@ export default function HeaderForHome(){
     const [headerTextTitle, setHeaderText] = useState(null);
 
     const [hiddenText, setHiddenText] = useState(null);
+
+
+
+
+
+    const searchAPI = "http://34.125.5.25/api/product-search/"
+    const searchCategoryAPI= "http://34.125.5.25/api/product-filter/"
+
+
 
     const handleLoginInput = () =>{
         let data = {number:loginPhoneInput,
@@ -212,26 +224,57 @@ export default function HeaderForHome(){
 
     };
 
-    // search func
-    const [selectData, setSelectData] = useState("");
-    const [searchData, setSearchData] = useState("");
-    let handleChange = (selectedOptions) => {
-        setSelectData(selectedOptions.label)
-    }
-    const mainSearch = () =>{
-        let data ={
-            title:searchData,
-            category:selectData
-        }
-        productFilter(data).then(e=>{
-            dispatch(homeProductFilter(e.data.results))
-        })
+    // SEARCH FUNCTIONALITY
+    const [searchData, setSearchData] = useState([]);
+    const [categoryData, setCategoryData] = useState([]);
+    const [categoryId, setCategoryId] = useState("")
+    const [products, setProducts] = useState([])
+
+    console.log(searchData, "zaza")
+    console.log(categoryId, "301")
 
 
-    }
+
+    
     useEffect(() => {
-        mainSearch()
-    })
+        if (categoryId == ""){
+            setProducts(searchData)
+        }else{
+            const results = searchData?.filter(product => product.category == categoryId)
+            setProducts(results)
+        }
+    },[searchData, categoryId])
+
+
+    
+    
+    const searchInput = (e) => {
+        const body = {title : e.target.value}
+        body.title != "" && axios.post(searchAPI, body)
+            .then(res => setSearchData(res.data.results))
+            .catch(err => err)
+        
+
+        categoryData.map((cd)=> (
+            setCategoryId(cd.category.id)
+        ))
+    }
+
+  
+  
+
+    const getCategory = (selectedOptions) => {
+        const body = {category : selectedOptions.label}
+        axios.post(searchCategoryAPI, body)
+            .then(res => setCategoryData(res.data.results))
+            .catch(err => err)    
+    }
+    
+    
+   
+
+
+
 
     const router = useRouter()
     const myAccountForUserOrVendor = () =>{
@@ -613,10 +656,10 @@ export default function HeaderForHome(){
                                         components={{
                                             IndicatorSeparator: () => null
                                         }}
-                                        onChange={handleChange}
+                                        onChange={getCategory}
                                     />
                                 </div>
-                                <input type="text" className="form-control bg-white" onChange={e=>setSearchData(e.target.value)} name="search" id="search"
+                                <input type="text" className="form-control bg-white" onChange={(e) => searchInput(e)} name="search" id="search"
                                        placeholder="Axtarın..." required/>
                                 <button className="btn btn-search" type="button" onClick={()=>mainSearch()}><i className="w-icon-search"></i>
                                 </button>

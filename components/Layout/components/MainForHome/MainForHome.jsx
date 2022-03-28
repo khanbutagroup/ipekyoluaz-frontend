@@ -140,7 +140,7 @@ useEffect(() => {
 
 
 const getData = async () => {
-  const newShops = await axios.get('http://34.125.5.25/api/auth/vendors/')
+  await axios.get('http://34.125.5.25/api/auth/vendors/')
   .then(res => setData2(res.data.results))
   .catch(err => console.log(err))
   

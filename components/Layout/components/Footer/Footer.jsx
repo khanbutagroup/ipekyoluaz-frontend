@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useContext} from 'react'
 import {allCategories} from "../../../../services/allCategories";
 import {subCategories} from "../../../../services/subCategories";
 import {phoneNumber} from "../../../../services/phoneNumber";
@@ -7,6 +7,10 @@ import {urlTopForImg} from "../../../../services/apiUrl/urlTopForImg";
 import {subscribers} from "../../../../services/subscribers";
 import {socilaLinks} from "../../../../services/socilaLinks";
 
+
+
+
+
 export default function Footer(){
     const [categorieTitle, categorieData] = useState([]);
     const [subCategoriesTitle, subCategoriesData] = useState([]);
@@ -14,6 +18,14 @@ export default function Footer(){
     const [logoTitle, logoData] = useState(null);
 
     const [socilaIconLink, setSocilaIconLink] = useState(null);
+
+
+
+
+
+
+
+
     useEffect(() => {
         allCategories()
                 .then(items => {
@@ -52,6 +64,9 @@ export default function Footer(){
             console.log(e)
         })
     }
+
+
+
 
     return (
         <div>
@@ -172,7 +187,7 @@ export default function Footer(){
                                     <ul className="widget-body">
                                         <li><a href="#">Track My Order</a></li>
                                         <li><a href="cart.html">Səbət</a></li>
-                                        <li><a href="login.html">Daxil ol/Qeydiyyat</a></li>
+                                        <li><a >Daxil ol/Qeydiyyat</a></li>
                                         <li><a href="#">Bəyəndiklərim</a></li>
                                         <li><a href="wishlist.html">My Wishlist</a></li>
                                         <li><a href="#">Müqayisə</a></li>
