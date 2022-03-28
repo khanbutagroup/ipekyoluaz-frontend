@@ -497,12 +497,15 @@ export default function MainForVendor() {
                                     </div>
                                     <div className="row cols-sm-2">
                                         {vendorsTitle.map(e=>(
+
+                                            console.log(e,"sahdjkagsjkdh"),
+
                                             <div className="store-wrap mb-4">
                                                 <div className="store store-grid store-wcfm">
                                                     <div className="store-header">
                                                         <figure className="store-banner">
-                                                            <img src="assets/images/vendor/dokan/1.jpg" alt="Vendor" width="400"
-                                                                 height="194" style={{backgroundColor: '#40475E'}}/>
+                                                            <img src={e.cover_image} alt="Vendor" width="400"
+                                                                 height="194" style={{backgroundColor: '#40475E',maxWidth:"454px",maxHeight:"194.1px",objectFit:"cover"}}/>
                                                         </figure>
                                                     </div>
                                                     <div className="store-content">

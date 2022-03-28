@@ -468,7 +468,7 @@ export default function MainForShop() {
                       backgroundColor: "#FFC74E",
                     }}
                   >
-                    <div className="banner-content">
+                    <div className="banner-content" style={{zIndex:"0"}}>
                       <h4 className="banner-subtitle font-weight-bold"></h4>
                       <h3 className="banner-title text-white text-uppercase font-weight-bolder ls-normal"></h3>
                       <a

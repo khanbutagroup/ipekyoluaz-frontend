@@ -1164,11 +1164,15 @@ export default function HeaderForHome(){
                                     {/*    </ul>*/}
                                     {/*</div>*/}
                                     <div className="dropdown-box text-default" style={{zIndex:"1"}}>
-                                        <ul className="menu vertical-menu category-menu">
+                                        <ul className="menu vertical-menu category-menu" style={{zIndex:"9"}}>
                                             {logoPost.map(item => (
+                                                console.log(item.icon,"hellow world"),
                                                 <li>
                                                     <a href="javascript:void(0)">
-                                                        <img src={item.icon}/> {item.title}
+                                                        <img src={item?.icon}/>
+                                                        <span>
+                                                        {item.title}
+                                                        </span>
                                                         <ul className="megamenu" style={{height:"500px"}}>
                                                             <li style={{overflow:"scroll"}}>
                                                                 {item.sub_categories.map(e=>(
