@@ -402,18 +402,20 @@ export default function MainForShop() {
       // });
 
       subCategoriesTitle.map((item) => {
-        setCategory(item.sub_sub_categories);
+        console.log(item, 'item111');
+        setCategory(item?.sub_sub_categories);
 
         // setCategory(item);
         // item.id == urlSubSubCategoriaId ? setUrlCategoriaId(item.id) : null;
       });
 
-      getCategory.map((event) => {
-        event.forEach((element) => {
-          console.log(element,"dsajhdkjhsd");
-          // element.id == urlSubSubCategoriaId ? setUrlCategoriaId(element.id) : null;
-        });
-      });
+      // getCategory.map((event) => {
+      //   console.log(event, 'eventtt');
+      //   // event.forEach((element) => {
+      //   //   console.log(element,"dsajhdkjhsd");
+      //   //   // element.id == urlSubSubCategoriaId ? setUrlCategoriaId(element.id) : null;
+      //   // });
+      // });
 
       optionsTitle.map((e, i) => {
         e.sub_categories.map((k) =>
