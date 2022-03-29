@@ -820,7 +820,7 @@ const getData = async () => {
               <h2 className="title">Bütün məhsullar</h2>
               <ul
                 className="nav-filters filter-boxed"
-                data-target="#products-1"
+                data-target="#products-1" style={{display:"none"}}
               >
                 <li>
                   <a href="#" className="nav-filter active" data-filter=".1-1">

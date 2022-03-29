@@ -192,23 +192,12 @@ const logout = () =>{
                                 <div className="tab-content mb-6">
                                     <div className="tab-pane active in" id="account-dashboard">
                                         <p className="greeting">
-                                            Hello
-                                            <span className="text-dark font-weight-bold">John Doe</span>
-                                            (not
-                                            <span className="text-dark font-weight-bold">John Doe</span>?
-                                            <a href="#" className="text-primary">Log out</a>)
+                                            <span>İpək Yoluna Xoş Gəldiniz!</span>
+                                            
+                                            <a href="#" style={{marginLeft:"1%"}} className="text-primary">ÇIXIŞ</a>
                                         </p>
 
-                                        <p className="mb-4">
-                                            Hesabınızın idarə panelindən
-                                            <a href="#account-orders" className="text-primary link-to-tab">
-                                             son sifarişlərinizə baxa </a>,
-                                            <a href="#account-addresses" className="text-primary link-to-tab"> göndərmə və faktura ünvanlarınızı </a>
-                                             idarə edə,
-                                            <a href="#account-details" className="text-primary link-to-tab"> parol və hesab məlumatlarınızı </a>
-                                             redaktə edə bilərsiniz.
-
-                                        </p>
+        
 
                                         <div className="row">
                                             <div className="col-lg-4 col-md-6 col-sm-4 col-xs-6 mb-4">

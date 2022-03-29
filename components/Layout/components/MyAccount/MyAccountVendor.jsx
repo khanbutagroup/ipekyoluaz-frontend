@@ -368,17 +368,11 @@ export default function MyAccountVendor(){
                                             <div className="tab-content mb-6">
                                                 <div className="tab-pane active in" id="account-dashboard">
                                                     <p className="greeting">
-                                                        Salam
-                                                        <span className="text-dark font-weight-bold">John Doe</span>
-                                                        (
-                                                        <span className="text-dark font-weight-bold">John Doe</span>?
-                                                        <a href="#" className="text-primary">ÇIXIŞ</a>)
+                                                        <span>İpək Yoluna Xoş Gəldiniz!</span>
+                                                        <a href="#" style={{marginLeft: "1%"}} className="text-primary">ÇIXIŞ</a>
                                                     </p>
 
-                                                    <p className="mb-4">
-                                                        Hesabınızın idarə panelindən <a href="#account-orders" className="text-primary link-to-tab">son sifarişlərinizə</a>  baxa, göndərmə və faktura ünvanlarınızı idarə edə,  <a href="#account-details" className="text-primary link-to-tab">Şifrə və hesab məlumatlarınızı </a> redaktə edə bilərsiniz.
-
-                                                    </p>
+                                                    
 
                                                     <div className="row">
                                                         <div className="col-lg-4 col-md-6 col-sm-4 col-xs-6 mb-4">

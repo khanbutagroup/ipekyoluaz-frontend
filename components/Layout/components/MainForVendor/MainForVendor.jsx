@@ -9,20 +9,23 @@ import {productFilter} from "../../../../services/productFilter";
 import {subBySubsub} from "../../../../services/subBySubsub";
 import {subByCategory} from "../../../../services/subByCategory";
 import {productsPost} from "../../../../services/productsPost";
+import axios from "axios";
 
 export default function MainForVendor() {
     const [orderbyTitle, setOrderby] = useState([]);
 
-    const [vendorsTitle, vendorsData] = useState([]);
-    console.log(vendorsTitle);
+    const [vendorsData, setVendorsData] = useState([]);
+
+    
+
+    const getData = () => (
+        axios.get("http://34.125.5.25/api/auth/vendors/")
+        .then(res => setVendorsData(res.data.results))
+        .catch(err => err)
+    )
+
     useEffect(() => {
-        vendors()
-            .then(items => {
-                vendorsData(items.data.results)
-            })
-            .catch((e)=>{
-                console.log(e)
-            })
+        getData()
     }, [])
 
 
@@ -496,43 +499,47 @@ export default function MainForVendor() {
                                         </div>
                                     </div>
                                     <div className="row cols-sm-2">
-                                        {vendorsTitle.map((e)=>(
+                                       {vendorsData.map((vendorData) => (
+                                          
                                             <div className="store-wrap mb-4">
                                                 <div className="store store-grid store-wcfm">
                                                     <div className="store-header">
                                                         <figure className="store-banner">
-                                                            <img src={e.cover_image} alt="Vendor" width="400"
+                                                            <img src={vendorData.cover_image} alt="Vendor" width="400"
                                                                  height="194" style={{backgroundColor: '#40475E',maxWidth:"454px",maxHeight:"194.1px",objectFit:"cover"}}/>
                                                         </figure>
                                                     </div>
                                                     <div className="store-content">
                                                         <h4 className="store-title" style={{marginBottom: '0.9rem',marginTop:'2.9rem'}}>
-                                                            <a href="vendor-dokan-store.html">{e.name}</a>
+                                                            <a href="vendor-dokan-store.html">{vendorData.name}</a>
                                                         </h4>
-                                                        <span style={{color:"white"}}>{e.category}</span>
+                                                        <span style={{color:"white"}}>{vendorData.category?.title}</span>
                                                         <ul className="seller-info-list list-style-none">
                                                             <li className="store-phone">
                                                                 <a href="tel:123456789">
                                                                     <i className="w-icon-phone"></i>
-                                                                    {e.number}
+                                                                    {vendorData.number}
                                                                 </a>
                                                             </li>
                                                             <li className="store-address">
                                                                 <i className="w-icon-map-marker"></i>
-                                                                {e.address + " " + e.address_addtional}
+                                                                {vendorData.address + " " + vendorData.address_addtional}
                                                             </li>
                                                         </ul>
                                                     </div>
                                                     <div className="store-footer">
-                                                        <figure className="seller-brand">
-                                                            <img src={e.logo} alt="Brand" width="80"
+                                                        <figure className="seller-brand" style={{backgroundColor: "#0b899b"}}> 
+                                                            <img src={vendorData.logo} alt="Brand" width="80"
                                                                  height="80"/>
                                                         </figure>
-                                                        <a href={`/vendorStore/${e.id}`} className="btn btn-rounded btn-visit">Ziyarət Edin</a>
+                                                        <a href={`/vendorStore/${vendorData.id}`} className="btn btn-rounded btn-visit">Ziyarət Edin</a>
                                                     </div>
                                                 </div>
                                             </div>
-                                        ))}
+                                        
+
+                                            
+                                       ))}
                                     </div>
                                 </div>
                             </div>

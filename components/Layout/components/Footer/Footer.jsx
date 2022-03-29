@@ -176,8 +176,8 @@ export default function Footer(){
                                         <li><a href="/vendor">Satıcılar</a></li>
                                         <li><a href="/contact">Haqqımızda</a></li>
                                         <li><a href="/contact">Əlaqə</a></li>
-                                        <li><a href="/faq">Faq</a></li>
-                                        <li><a href="/more-products">Endirimli Məhsullar</a></li>
+                                        
+                                        
                                     </ul>
                                 </div>
                             </div>
@@ -194,14 +194,11 @@ export default function Footer(){
                             </div>
                             <div className="col-lg-3 col-sm-6">
                                 <div className="widget">
-                                    <h4 className="widget-title">Customer Service</h4>
+                                    <h4 className="widget-title">Müştəri Xidmətləri</h4>
                                     <ul className="widget-body">
-                                        <li><a href="#">Payment Methods</a></li>
-                                        <li><a href="#">Money-back guarantee!</a></li>
-                                        <li><a href="#">Product Returns</a></li>
-                                        <li><a href="#">Support Center</a></li>
-                                        <li><a href="#">Shipping</a></li>
-                                        <li><a href="#">Term and Conditions</a></li>
+                                        <li><a href="tel:#">Bizə zəng</a></li>
+                                        <li><a href="#">Günün endirimləri</a></li>
+                                        <li><a href="/faq">Faq</a></li>
                                     </ul>
                                 </div>
                             </div>

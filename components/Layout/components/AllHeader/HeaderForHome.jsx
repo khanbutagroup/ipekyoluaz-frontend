@@ -1214,6 +1214,7 @@ export default function HeaderForHome(){
 
                                                             </li>
                                                             <li>
+                                                                {/* ŞƏKİLLL */}
                                                                 <div className="menu-banner banner-fixed menu-banner4">
                                                                     <figure>
                                                                         <img src="assets/images/menu/banner-4.jpg"
