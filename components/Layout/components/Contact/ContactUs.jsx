@@ -69,7 +69,7 @@ export default function Contact(){
                                 'slidesPerView': 5
                             }
                         }
-                    }">
+                    }" style={{zIndex:"0 !important"}}>
                                 <div className="swiper-wrapper row gutter-no cols-lg-5 cols-md-4 cols-sm-3 cols-2">
                                     {partnersTitle.map(e=>(
                                         <div className="swiper-slide brand-col">
@@ -123,7 +123,7 @@ export default function Contact(){
                                     'slidesPerView': 4
                                 }
                             }
-                        }">
+                        }" style={{zIndex:"0!important"}}>
                                     <div className="swiper-wrapper row cols-xl-4 cols-md-3 cols-sm-2 cols-1">
                                         <div className="swiper-slide icon-box text-center icon-box-primary">
                                     <span className="icon-box-icon icon-email">

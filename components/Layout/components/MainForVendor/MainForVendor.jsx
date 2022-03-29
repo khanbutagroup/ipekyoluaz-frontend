@@ -16,13 +16,13 @@ export default function MainForVendor() {
     const [vendorsTitle, vendorsData] = useState([]);
     console.log(vendorsTitle);
     useEffect(() => {
-        vendors()
-            .then(items => {
-                vendorsData(items.data.results)
-            })
-            .catch((e)=>{
-                console.log(e)
-            })
+        // vendors()
+        //     .then(items => {
+        //         vendorsData(items.data.results)
+        //     })
+        //     .catch((e)=>{
+        //         console.log(e)
+        //     })
     }, [])
 
 
@@ -416,7 +416,7 @@ export default function MainForVendor() {
 
                                             <div className="widget widget-collapsible ">
                                                 <h3 className="widget-title"><span>Bütün Kateqoriyalar</span></h3>
-                                                <ul className="widget-body filter-items item-check mt-1 right-scroll" style={{border:"red solid"}}>
+                                                <ul className="widget-body filter-items item-check mt-1 right-scroll">
                                                     {optionsTitle.map((item, index) => (
                                                         <div  onChange={(e) => handleChangeAllCategories(e,item.id,item.title)}>
                                                             <div key={item.id} className="mt-2">

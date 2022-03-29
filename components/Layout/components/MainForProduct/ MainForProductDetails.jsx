@@ -64,7 +64,7 @@ export default function  MainForProductDetails(){
                         </div>
                         <button className="btn btn-primary btn-cart">
                             <i className="w-icon-cart"></i>
-                            <span>Add to Cart</span>
+                            <span>hello</span>
                         </button>
                     </div>
                 </div>

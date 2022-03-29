@@ -20,9 +20,9 @@ import {useDispatch, useSelector} from "react-redux";
 import { homeProductFilter } from '../../../../store/actions';
 import axios from 'axios'
 import styles from '../../../../public/assets/css/mainForHome.module.css'
-
-
 import { verifyNumber } from "../../../../services/auth/verifyNumber";
+
+
 export default function HeaderForHome(){
     const dispatch = useDispatch();
     const [logoPost, setLogoPost] = React.useState([]);
@@ -269,12 +269,17 @@ export default function HeaderForHome(){
     const [categoryData, setCategoryData] = useState([]);
     const [categoryId, setCategoryId] = useState("")
     const [products, setProducts] = useState([])
+    const [url, setUrl] = useState("")
 
 
 
 
     
     useEffect(() => {
+
+        console.log(window.location.href.split('/')[3],"dsads");
+        setUrl(window.location.href.split('/')[3]);
+
         if (categoryId == ""){
             setProducts(searchData)
         }else{
@@ -1190,7 +1195,8 @@ export default function HeaderForHome(){
                                     {/*        </li>*/}
                                     {/*    </ul>*/}
                                     {/*</div>*/}
-                                    <div className="dropdown-box text-default" style={{zIndex:"1"}}>
+
+                                    <div className="dropdown-box text-default" style={{zIndex:"4",display:url === "vendor" || url === "contact" || url === "vendorStore" || url === "my-account-for-vendor" || url === "shop" || url === "compare" ? "none" : "" }}>
                                         <ul className="menu vertical-menu category-menu" style={{zIndex:"9"}}>
                                             {logoPost.map(item => (
                                                 console.log(item.icon,"hellow world"),
@@ -1256,10 +1262,10 @@ export default function HeaderForHome(){
                                             <a href="/vendor">Mağazalar</a>
                                         </li>
                                         <li>
-                                            <a href="/aboutUs">Haqqımızda</a>
+                                            <a href="/about">Haqqımızda</a>
                                         </li>
                                         <li>
-                                            <a href="/contact-us">Əlaqə</a>
+                                            <a href="/contact">Əlaqə</a>
                                         </li>
                                         <li>
                                             <a href="/faq">Faq</a>

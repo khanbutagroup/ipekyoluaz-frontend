@@ -801,7 +801,7 @@ export default function MainForShop() {
                               <a
                                 href="#"
                                 className="btn-product-icon btn-cart w-icon-cart"
-                                title="Add to cart"
+                                title="Səbətə Əlavə Et"
                               ></a>
                               <a
                                 href="#"
@@ -866,7 +866,7 @@ export default function MainForShop() {
                         <figure className="product-media">
                           <a href={`/${e.id}`}>
                             <img
-                              src={e?.images[0]}
+                              src={`http://34.125.5.25${e?.images[0]}`}
                               alt="Product"
                               width="300"
                               height="338"
@@ -914,7 +914,7 @@ export default function MainForShop() {
                             </a>
                           </div>
                           <div className="product-price">
-                            <ins className="new-price">{e.price}</ins>
+                            <ins className="new-price">{e.price}₼</ins>
                             {/*<del className="old-price">$60.00</del>*/}
                           </div>
                           <div className="product-desc">

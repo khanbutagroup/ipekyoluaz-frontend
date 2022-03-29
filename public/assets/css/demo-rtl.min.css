@@ -279,6 +279,9 @@
   width: 18px;
   border-radius: 9rem;
 }
+.swiper-theme{
+  z-index: 0!important;
+}
 
 .pg-inner .swiper-pagination {
   position: absolute;

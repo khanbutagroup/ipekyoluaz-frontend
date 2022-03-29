@@ -12,7 +12,7 @@ class MyDocument extends Document {
                 <Head>
                  <meta charSet="UTF-8"/>
                  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0"/>
-                 <title>Wolmart - Marketplace</title>
+                 <title>İPƏK YOLU- SİZİN ONLAYN MAĞAZANIZ</title>
                  <link rel="icon" type="image/png" href="assets/images/icons/favicon.png"/>
                  <link rel="stylesheet" type="text/css" href="assets/vendor/photoswipe/photoswipe.min.css"/>
                  <link rel="stylesheet" type="text/css" href="assets/vendor/photoswipe/default-skin/default-skin.min.css"/>
