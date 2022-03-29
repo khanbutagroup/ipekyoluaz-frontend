@@ -999,11 +999,6 @@ const getData = async () => {
             </div>
           </section>
           <div className="container pt-10">
-            <div className="title-link-wrapper title-recent mb-6 after-none appear-animate">
-              <h2 className="title mb-0 ls-normal appear-animate pb-1">
-                Ən son baxdığınız məhsullar
-              </h2>
-            </div>
             {/*<div className="swiper-container swiper-theme recent-view shadow-swiper appear-animate mb-8 pb-2"*/}
             {/*     data-swiper-options="{*/}
             {/*    'spaceBetween': 20,*/}
