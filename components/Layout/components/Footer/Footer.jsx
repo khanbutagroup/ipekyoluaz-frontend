@@ -185,11 +185,9 @@ export default function Footer(){
                                 <div className="widget">
                                     <h4 className="widget-title">Hesabım</h4>
                                     <ul className="widget-body">
-                                        <li><a href="#">Track My Order</a></li>
+                                        <li><a href="#">Hesabım</a></li>
                                         <li><a href="cart.html">Səbət</a></li>
-                                        <li><a >Daxil ol/Qeydiyyat</a></li>
-                                        <li><a href="#">Bəyəndiklərim</a></li>
-                                        <li><a href="wishlist.html">My Wishlist</a></li>
+                                        <li><a href="wishlist.html">Bəyəndiklərim</a></li>
                                         <li><a href="#">Müqayisə</a></li>
                                     </ul>
                                 </div>

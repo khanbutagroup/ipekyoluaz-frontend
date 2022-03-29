@@ -408,12 +408,12 @@ export default function MainForShop() {
         // item.id == urlSubSubCategoriaId ? setUrlCategoriaId(item.id) : null;
       });
 
-      getCategory.map((event) => {
-        event.forEach((element) => {
-          console.log(element,"dsajhdkjhsd");
-          // element.id == urlSubSubCategoriaId ? setUrlCategoriaId(element.id) : null;
-        });
-      });
+      // getCategory.map((event) => {
+      //   event.forEach((element) => {
+      //     console.log(element,"dsajhdkjhsd");
+      //     // element.id == urlSubSubCategoriaId ? setUrlCategoriaId(element.id) : null;
+      //   });
+      // });
 
       optionsTitle.map((e, i) => {
         e.sub_categories.map((k) =>
@@ -787,11 +787,14 @@ export default function MainForShop() {
                           <figure className="product-media">
                             <a href={`/${e?.id}`}>
                               <img
-                                src={e?.images[0]}
+                                src={e?.main_image}
                                 alt="Product"
                                 width="300"
                                 height="338"
+                                style={{maxHeight: "100px !important"}}
                               />
+                              
+                              
                             </a>
                             <div className="product-action-horizontal">
                               <a

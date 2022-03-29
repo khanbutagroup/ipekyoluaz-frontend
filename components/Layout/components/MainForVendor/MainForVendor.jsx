@@ -416,7 +416,7 @@ export default function MainForVendor() {
 
                                             <div className="widget widget-collapsible ">
                                                 <h3 className="widget-title"><span>Bütün Kateqoriyalar</span></h3>
-                                                <ul className="widget-body filter-items item-check mt-1 right-scroll">
+                                                <ul className="widget-body filter-items item-check mt-1 right-scroll" style={{border:"red solid"}}>
                                                     {optionsTitle.map((item, index) => (
                                                         <div  onChange={(e) => handleChangeAllCategories(e,item.id,item.title)}>
                                                             <div key={item.id} className="mt-2">
@@ -496,7 +496,7 @@ export default function MainForVendor() {
                                         </div>
                                     </div>
                                     <div className="row cols-sm-2">
-                                        {vendorsTitle.map(e=>(
+                                        {vendorsTitle.map((e)=>(
                                             <div className="store-wrap mb-4">
                                                 <div className="store store-grid store-wcfm">
                                                     <div className="store-header">
@@ -509,7 +509,7 @@ export default function MainForVendor() {
                                                         <h4 className="store-title" style={{marginBottom: '0.9rem',marginTop:'2.9rem'}}>
                                                             <a href="vendor-dokan-store.html">{e.name}</a>
                                                         </h4>
-                                                        <span style={{color:"white"}}>categories</span>
+                                                        <span style={{color:"white"}}>{e.category}</span>
                                                         <ul className="seller-info-list list-style-none">
                                                             <li className="store-phone">
                                                                 <a href="tel:123456789">

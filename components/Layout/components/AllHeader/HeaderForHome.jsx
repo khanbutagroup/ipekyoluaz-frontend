@@ -19,6 +19,7 @@ import {useRouter} from "next/router";
 import {useDispatch, useSelector} from "react-redux";
 import { homeProductFilter } from '../../../../store/actions';
 import axios from 'axios'
+import styles from '../../../../public/assets/css/mainForHome.module.css'
 
 
 import { verifyNumber } from "../../../../services/auth/verifyNumber";
@@ -67,6 +68,17 @@ export default function HeaderForHome(){
     const [hiddenText, setHiddenText] = useState(null);
 
 
+    const [situtaion, setSituation] = useState("none")
+
+    useEffect(() => {
+        if (products.length > 0){
+            setSituation("block")
+        }else{
+            setSituation("none")
+        }
+    })
+
+    
 
 
 
@@ -258,8 +270,6 @@ export default function HeaderForHome(){
     const [categoryId, setCategoryId] = useState("")
     const [products, setProducts] = useState([])
 
-    console.log(searchData, "zaza")
-    console.log(categoryId, "301")
 
 
 
@@ -449,7 +459,7 @@ export default function HeaderForHome(){
                     background-color: white;
                 }
             `} </style>
-            <header className="header">
+            <header className="header" style={{"position": "relative"}}>
                 <div className="header-top">
                     <div className="container">
                         <div className="header-left">
@@ -664,7 +674,24 @@ export default function HeaderForHome(){
 
 
                 <div className="header-middle">
-                    <div className="container">
+                    <div className="container" style={{position: "relative"}}>
+                        
+                        <div className={styles.searchContainer} style={{display: situtaion}}>
+                            {products.map((product) => (
+                                <div className={styles.searchItem}>
+                                <div className={styles.itemImg}>
+                                    <img src={product.main_image} width="100%" height="80% !important"/>
+                                </div>
+                                <div className={styles.rightSide}>
+                                    <div className={styles.title}>{product.title}</div>
+                                    <div className={styles.description}>{product.description}</div>
+                                </div>
+                                </div>
+                                
+                            ))}
+                            
+                            
+                        </div>
                         <div className="header-left mr-md-4">
                             <a href="#" className="mobile-menu-toggle text-white w-icon-hamburger" aria-label="menu-toggle">
                             </a>
@@ -1219,10 +1246,10 @@ export default function HeaderForHome(){
                                             <a href="/">Ana səhifə</a>
                                         </li>
                                         <li>
-                                            <a href="/shop">Mağaza</a>
+                                            <a href="/shop">Məhsullar</a>
                                         </li>
                                         <li>
-                                            <a href="/vendor">Satıcılar</a>
+                                            <a href="/vendor">Mağazalar</a>
                                         </li>
                                         <li>
                                             <a href="/aboutUs">Haqqımızda</a>
@@ -1243,6 +1270,7 @@ export default function HeaderForHome(){
                         </div>
                     </div>
                 </div>
+                
             </header>
         </>
     )}
