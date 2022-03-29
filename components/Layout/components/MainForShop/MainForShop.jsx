@@ -402,17 +402,26 @@ export default function MainForShop() {
       // });
 
       subCategoriesTitle.map((item) => {
-        setCategory(item.sub_sub_categories);
+        console.log(item, 'item111');
+        setCategory(item?.sub_sub_categories);
 
         // setCategory(item);
         // item.id == urlSubSubCategoriaId ? setUrlCategoriaId(item.id) : null;
       });
 
       // getCategory.map((event) => {
+<<<<<<< HEAD
       //   event.forEach((element) => {
       //     console.log(element,"dsajhdkjhsd");
       //     // element.id == urlSubSubCategoriaId ? setUrlCategoriaId(element.id) : null;
       //   });
+=======
+      //   console.log(event, 'eventtt');
+      //   // event.forEach((element) => {
+      //   //   console.log(element,"dsajhdkjhsd");
+      //   //   // element.id == urlSubSubCategoriaId ? setUrlCategoriaId(element.id) : null;
+      //   // });
+>>>>>>> 9993215c25d075fc4c8cf3f5d41a09ac7ab36464
       // });
 
       optionsTitle.map((e, i) => {
@@ -466,7 +475,7 @@ export default function MainForShop() {
                       backgroundColor: "#FFC74E",
                     }}
                   >
-                    <div className="banner-content">
+                    <div className="banner-content" style={{zIndex:"0"}}>
                       <h4 className="banner-subtitle font-weight-bold"></h4>
                       <h3 className="banner-title text-white text-uppercase font-weight-bolder ls-normal"></h3>
                       <a

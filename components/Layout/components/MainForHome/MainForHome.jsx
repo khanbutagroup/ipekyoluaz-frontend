@@ -526,7 +526,7 @@ const getData = async () => {
                           // }}
                         >
                           <img src={e?.image} alt="" />
-                          <div className="banner-content y-50">
+                          <div className="banner-content y-50" style={{zIndex:"0"}}>
                             <div
                               className="slide-animate"
                               data-animation-options="{
@@ -536,7 +536,7 @@ const getData = async () => {
                               <h3 className="banner-subtitle text-white text-uppercase font-weight-bold">
                                 {e.title}
                               </h3>
-
+                                    
                               <p className="text-white">{e.description} </p>
                               <a
                                 href={e.button_link}
