@@ -410,18 +410,10 @@ export default function MainForShop() {
       });
 
       // getCategory.map((event) => {
-<<<<<<< HEAD
       //   event.forEach((element) => {
       //     console.log(element,"dsajhdkjhsd");
       //     // element.id == urlSubSubCategoriaId ? setUrlCategoriaId(element.id) : null;
       //   });
-=======
-      //   console.log(event, 'eventtt');
-      //   // event.forEach((element) => {
-      //   //   console.log(element,"dsajhdkjhsd");
-      //   //   // element.id == urlSubSubCategoriaId ? setUrlCategoriaId(element.id) : null;
-      //   // });
->>>>>>> 9993215c25d075fc4c8cf3f5d41a09ac7ab36464
       // });
 
       optionsTitle.map((e, i) => {

@@ -496,14 +496,7 @@ export default function MainForVendor() {
                                         </div>
                                     </div>
                                     <div className="row cols-sm-2">
-<<<<<<< HEAD
                                         {vendorsTitle.map((e)=>(
-=======
-                                        {vendorsTitle.map(e=>(
-
-                                            console.log(e,"sahdjkagsjkdh"),
-
->>>>>>> 9993215c25d075fc4c8cf3f5d41a09ac7ab36464
                                             <div className="store-wrap mb-4">
                                                 <div className="store store-grid store-wcfm">
                                                     <div className="store-header">
