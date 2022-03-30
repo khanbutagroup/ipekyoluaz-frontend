@@ -82,8 +82,8 @@ export default function HeaderForHome(){
 
 
 
-    const searchAPI = "http://34.125.5.25/api/product-search/"
-    const searchCategoryAPI= "http://34.125.5.25/api/product-filter/"
+    const searchAPI = "https://api.ipekyolu.az/api/product-search/"
+    const searchCategoryAPI= "https://api.ipekyolu.az/api/product-filter/"
 
 
 
@@ -1199,7 +1199,7 @@ export default function HeaderForHome(){
                                     <div className="dropdown-box text-default" style={{zIndex:"4",display:url === "vendor" || url === "contact" || url === "vendorStore" || url === "my-account-for-vendor" || url === "shop" || url === "compare" ? "none" : "" }}>
                                         <ul className="menu vertical-menu category-menu" style={{zIndex:"9"}}>
                                             {logoPost.map(item => (
-                                                console.log(item.icon,"hellow world"),
+                                                console.log(item.category_reklam.image,"fafa"),
                                                 <li>
                                                     <a href="javascript:void(0)">
                                                         <img src={item?.icon}/>
@@ -1223,25 +1223,11 @@ export default function HeaderForHome(){
                                                                 {/* ŞƏKİLLL */}
                                                                 <div className="menu-banner banner-fixed menu-banner4">
                                                                     <figure>
-                                                                        <img src="assets/images/menu/banner-4.jpg"
+                                                                        <img src={`https://api.ipekyolu.az${item.category_reklam.image}`}
                                                                              alt="Menu Banner"
                                                                              width="235" height="433"/>
                                                                     </figure>
-                                                                    <div className="banner-content">
-                                                                        <h4 className="banner-subtitle font-weight-normal">Deals
-                                                                            Of The
-                                                                            Week</h4>
-                                                                        <h3 className="banner-title text-white">Save On Smart
-                                                                            EarPhone
-                                                                        </h3>
-                                                                        <div
-                                                                            className="banner-price-info text-secondary font-weight-bolder text-uppercase text-secondary">
-                                                                            20% Off
-                                                                        </div>
-                                                                        <a href="shop-banner-sidebar.html"
-                                                                           className="btn btn-white btn-outline btn-sm btn-rounded">Shop
-                                                                            Now</a>
-                                                                    </div>
+                                                                    
                                                                 </div>
                                                             </li>
                                                         </ul>

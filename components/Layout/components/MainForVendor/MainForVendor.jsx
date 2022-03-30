@@ -19,7 +19,7 @@ export default function MainForVendor() {
     
 
     const getData = () => (
-        axios.get("http://34.125.5.25/api/auth/vendors/")
+        axios.get("https://api.ipekyolu.az/api/auth/vendors/")
         .then(res => setVendorsData(res.data.results))
         .catch(err => err)
     )
@@ -171,7 +171,7 @@ export default function MainForVendor() {
                 }
                 setSizeAllData(sizeData)
                 setCount(e.data.count)
-                vendorsData(e.data.results)
+                setVendorsData(e.data.results)
             })
         subBySubsub(id)
             .then((item)=>{
@@ -203,7 +203,7 @@ export default function MainForVendor() {
                 }
                 setSizeAllData(sizeData)
                 setCount(e.data.count)
-                vendorsData(e.data.results)
+                setVendorsData(e.data.results)
             })
         subByCategory(id)
             .then((item)=>{
@@ -235,7 +235,7 @@ export default function MainForVendor() {
                 }
                 setSizeAllData(sizeData)
                 setCount(e.data.count)
-                vendorsData(e.data.results)
+                setVendorsData(e.data.results)
             })
         // const value = e.target.value;
         // const modifiedData = [...optionsTitle];
@@ -267,7 +267,7 @@ export default function MainForVendor() {
                 }
                 setSizeAllData(sizeData)
                 setCount(e.data.count)
-                vendorsData(e.data.results)
+                setVendorsData(e.data.results)
             })
     }
     const setAllPriceData = () =>{
@@ -283,20 +283,20 @@ export default function MainForVendor() {
                 }
                 setSizeAllData(sizeData)
                 setCount(e.data.count)
-                vendorsData(e.data.results)
+                setVendorsData(e.data.results)
             })
     }
     const setPageFunc = (p,s) =>{
         allProducts(p,s)
             .then(items => {
-                vendorsData(items.data.results)
+                setVendorsData(items.data.results)
             })
     }
     const setPartnersPost = (sortByArray) =>{
         let data = {[sortByArray] : [sortByArray]}
         productsPost(data)
             .then(items => {
-                vendorsData(items.data.results)
+                setVendorsData(items.data.results)
             })
     }
 

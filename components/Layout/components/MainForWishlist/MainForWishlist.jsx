@@ -87,7 +87,7 @@ export default function MainForWishlist() {
                         <a href="product-default.html">
                           <figure>
                             <img
-                              src={`http://34.125.5.25${e.main_image}`}
+                              src={`https://api.ipekyolu.az${e.main_image}`}
                               alt="product"
                               width="300"
                               height="338"
