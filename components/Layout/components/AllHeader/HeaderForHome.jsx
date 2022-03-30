@@ -278,7 +278,6 @@ export default function HeaderForHome(){
     
     useEffect(() => {
 
-        console.log(window.location.href.split('/')[3],"dsads");
         setUrl(window.location.href.split('/')[3]);
 
         if (categoryId == ""){
@@ -1200,7 +1199,7 @@ export default function HeaderForHome(){
                                     {/*    </ul>*/}
                                     {/*</div>*/}
 
-                                    <div className="dropdown-box text-default" style={{zIndex:"4",display:url === "vendor" || url === "contact" || url === "vendorStore" || url === "my-account-for-vendor" || url === "shop" || url === "compare" ? "none" : "" }}>
+                                    <div className="dropdown-box text-default" style={{zIndex:"4",display:url === "vendor" || url === "contact" || url === "vendorStore" || url === "my-account-for-vendor" || url === "shop" || url === "compare" || url === "checkout" ? "none" : "" }}>
                                         <ul className="menu vertical-menu category-menu" style={{zIndex:"9"}}>
                                             {logoPost.map(item => (
                                                 <li>
