@@ -6,6 +6,8 @@ import {logo} from "../../../../services/logo";
 import {urlTopForImg} from "../../../../services/apiUrl/urlTopForImg";
 import {subscribers} from "../../../../services/subscribers";
 import {socilaLinks} from "../../../../services/socilaLinks";
+import LogoFooter from '../../../../public/assets/images/icons/footericon.png'
+import Image from 'next/image'
 
 
 
@@ -151,7 +153,7 @@ export default function Footer(){
                             <div className="col-lg-4 col-sm-6">
                                 <div className="widget widget-about mt-0 mb-4">
                                     <a href="/" className="logo-footer">
-                                        <img src={logoTitle} alt="logo-footer" width="145" height="45"/>
+                                        <Image src={LogoFooter} alt="logo-footer" width={170} height="45"/>
                                     </a>
                                     <div className="widget-body">
                                         <p className="widget-about-title">Sualınız var? 24/7 bizə zəng edin</p>
@@ -216,7 +218,7 @@ export default function Footer(){
                         </div>
                         ))}
                     </div>
-                    <div className="footer-bottom">
+                    <div className="footer-bottom" >
                         <span className="copyright" style={{margin:"auto"}}>Copyright © {new Date().getFullYear()}</span>
                     </div>
                 </div>

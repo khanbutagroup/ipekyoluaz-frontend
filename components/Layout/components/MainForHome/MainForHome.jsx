@@ -140,7 +140,7 @@ useEffect(() => {
 
 
 const getData = async () => {
-  await axios.get('http://34.125.5.25/api/auth/vendors/')
+  await axios.get('https://api.ipekyolu.az/api/auth/vendors/')
   .then(res => setData2(res.data.results))
   .catch(err => console.log(err))
   
@@ -504,7 +504,7 @@ const getData = async () => {
           <div className="container pb-2">
             <div className="intro-wrapper mt-4">
               <div
-                style={{ zIndex: "-1" }}
+                style={{zIndex: "-1"}}
                 className="swiper-container swiper-theme pg-inner animation-slider row cols-1 gutter-no"
                 data-swiper-options="{
                         'autoplay': {
@@ -516,7 +516,7 @@ const getData = async () => {
                 <div className="swiper-wrapper">
                   {optionsTitle.map(
                     (e) => (
-                      console.log(e, "di bu"),
+                      
                       (
                         <div
                           className="swiper-slide banner banner-fixed intro-slide intro-slide2 br-sm"
@@ -894,10 +894,10 @@ const getData = async () => {
                     </figure>
                     <div className="product-details">
                       <div className="product-cat">
-                        <a href={`shop/${e.id}`}>{e.title}</a>
+                        <a href={`shop/${e.id}`}>{e.category.title}</a>
                       </div>
                       <h3 className="product-name">
-                        <a href={`shop/${e.id}`}>3D Television</a>
+                        <a href={`shop/${e.id}`}>{e.title}</a>
                       </h3>
                       <div className="ratings-container">
                         <div className="ratings-full">

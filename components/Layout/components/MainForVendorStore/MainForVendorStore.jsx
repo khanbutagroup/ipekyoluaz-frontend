@@ -311,7 +311,7 @@ export default function MainForVendorStore() {
               <div className="store store-wcfm-banner">
                 <figure className="store-media">
                   <img
-                    src={`http://34.125.5.25${vendorDetail.cover_image}`}
+                    src={`https://api.ipekyolu.az${vendorDetail.cover_image}`}
                     alt="Vendor"
                     width="1240"
                     height="460"
@@ -324,7 +324,7 @@ export default function MainForVendorStore() {
                     <div className="personal-info">
                       <figure className="seller-brand">
                         <img
-                          src={`http://34.125.5.25${vendorDetail.logo}`}
+                          src={`https://api.ipekyolu.az${vendorDetail.logo}`}
                           alt="Brand"
                           width="100"
                           height="100"

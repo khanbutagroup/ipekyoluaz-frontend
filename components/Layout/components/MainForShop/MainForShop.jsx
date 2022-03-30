@@ -866,7 +866,7 @@ export default function MainForShop() {
                         <figure className="product-media">
                           <a href={`/${e.id}`}>
                             <img
-                              src={`http://34.125.5.25${e?.images[0]}`}
+                              src={`https://api.ipekyolu.az${e?.images[0]}`}
                               alt="Product"
                               width="300"
                               height="338"
