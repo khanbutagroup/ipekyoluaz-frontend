@@ -20,6 +20,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import Image from 'next/image'
 import { FaStar } from 'react-icons/fa'
+import Link from 'next/link'
 
 
 
@@ -845,20 +846,22 @@ const getData = async () => {
               </ul>
             </div>
             <div className="product-wrapper row cols-lg-5 cols-md-4 cols-sm-2 cols-2">
+              
               {allProductsTitle && allProductsTitle.length > 0 && allProductsTitle.map((e) => (
+                
                 <div
                   className="product-wrap"
                   style={{ width: "50%", height: "50%" }}
                 >
                   <div className="product text-center">
                     <figure className="product-media">
-                      <a href={`/${e.id}`}>
+                      <Link href={`/${e.id}`}>
                         <img
                           src={e.main_image}
                           alt="Product"
                           style={{ maxHeight: "150px" }}
                         />
-                      </a>
+                      </Link>
                       <div className="product-action-horizontal">
                         <a
                           href="#"
@@ -894,10 +897,13 @@ const getData = async () => {
                     </figure>
                     <div className="product-details">
                       <div className="product-cat">
+                      
                         <a href={`shop/${e.id}`}>{e.category.title}</a>
                       </div>
                       <h3 className="product-name">
-                        <a href={`shop/${e.id}`}>{e.title}</a>
+                      <Link href={"/" + e.id}>
+                        <span style={{cursor: "pointer"}}>{e.title}</span>
+                      </Link>
                       </h3>
                       <div className="ratings-container">
                         <div className="ratings-full">
@@ -918,6 +924,7 @@ const getData = async () => {
                     </div>
                   </div>
                 </div>
+                
               ))}
             </div>
             {/*<div className="toolbox toolbox-pagination justify-content-between">*/}

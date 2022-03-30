@@ -21,6 +21,7 @@ import { homeProductFilter } from '../../../../store/actions';
 import axios from 'axios'
 import styles from '../../../../public/assets/css/mainForHome.module.css'
 import { verifyNumber } from "../../../../services/auth/verifyNumber";
+import Link from 'next/link'
 
 
 export default function HeaderForHome(){
@@ -682,7 +683,9 @@ export default function HeaderForHome(){
                     <div className="container" style={{position: "relative"}}>
                         
                         <div className={styles.searchContainer} style={{display: situtaion}}>
+                            
                             {products.map((product) => (
+                                <Link href={`/${product.id}`}>
                                 <div className={styles.searchItem}>
                                 <div className={styles.itemImg}>
                                     <img src={product.main_image} width="100%" height="80% !important"/>
@@ -692,6 +695,7 @@ export default function HeaderForHome(){
                                     <div className={styles.description}>{product.description}</div>
                                 </div>
                                 </div>
+                                </Link>
                                 
                             ))}
                             
@@ -1199,7 +1203,6 @@ export default function HeaderForHome(){
                                     <div className="dropdown-box text-default" style={{zIndex:"4",display:url === "vendor" || url === "contact" || url === "vendorStore" || url === "my-account-for-vendor" || url === "shop" || url === "compare" ? "none" : "" }}>
                                         <ul className="menu vertical-menu category-menu" style={{zIndex:"9"}}>
                                             {logoPost.map(item => (
-                                                console.log(item.category_reklam.image,"fafa"),
                                                 <li>
                                                     <a href="javascript:void(0)">
                                                         
