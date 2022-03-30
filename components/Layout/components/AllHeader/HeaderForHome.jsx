@@ -1195,7 +1195,7 @@ export default function HeaderForHome(){
                                     {/*    </ul>*/}
                                     {/*</div>*/}
 
-                                    <div className="dropdown-box text-default" style={{zIndex:"4",display:url === "vendor" || url === "contact" || url === "vendorStore" || url === "my-account-for-vendor" || url === "shop" || url === "compare" || url === "checkout" ? "none" : "" }}>
+                                    <div className="dropdown-box text-default" style={{zIndex:"4",display:url === "vendor" ||  url === "contact" || url === "vendorStore" || url === "my-account-for-vendor" || url === "shop" || url === "compare" || url === "checkout" ? "none" : "" }}>
                                         <ul className="menu vertical-menu category-menu" style={{zIndex:"9"}}>
                                             {logoPost.map(item => (
                                                 console.log(item.category_reklam.image,"fafa"),

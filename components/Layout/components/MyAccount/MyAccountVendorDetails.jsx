@@ -159,18 +159,30 @@ export default function MyAccountVendorDetails(){
             console.log(i)
             endArray.push(car_array[i][car_array[i].length-1])
         });
+        
         let data = {
             title: productNameTitle,
+
             description: descriptionTitle,
+
             price: priceTitle,
+
             short_desc1: shortDesc1Title,
+
             short_desc2: shortDesc2Title,
+
             short_desc3: shortDesc3Title,
+
             main_image:postImageFile1.image,
+
             sub_sub_category:changeSub,
+
             sub_category: changeSubSub,
+
             category: JSON.parse(localStorage.getItem('userData')).category,
+
             video: videoFilePathEEE,
+
             images: [
                 {
                     image: postImageFile1.image
