@@ -1202,7 +1202,7 @@ export default function HeaderForHome(){
                                                 console.log(item.category_reklam.image,"fafa"),
                                                 <li>
                                                     <a href="javascript:void(0)">
-                                                        <img src={item?.icon}/>
+                                                        
                                                         <span>
                                                         {item.title}
                                                         </span>
