@@ -1,11 +1,11 @@
 import React from "react";
 
-export default function  MainForProductDetails(){
+export default function  MainForProductDetails(props){
     return (
         <div>
 
             <div className="product-details" data-sticky-options="{'minWidth': 767}">
-                <h1 className="product-title">Bodycare Smooth Powder</h1>
+                <h1 className="product-title">{props.title}</h1>
                 <div className="product-bm-wrapper">
                     <figure className="brand">
                         <img src="assets/images/products/brand/brand-5.jpg" alt="Brand"
@@ -26,7 +26,7 @@ export default function  MainForProductDetails(){
                 <hr className="product-divider"/>
 
                 <div className="product-price">
-                    <ins className="new-price">$25.00</ins>
+                    <ins className="new-price">₼ {props.price}</ins>
                 </div>
 
                 <div className="ratings-container">
@@ -40,9 +40,9 @@ export default function  MainForProductDetails(){
 
                 <div className="product-short-desc">
                     <ul className="list-type-check list-style-none">
-                        <li>Ultrices eros in cursus turpis massa cursus mattis.</li>
-                        <li>Volutpat ac tincidunt vitae semper quis lectus.</li>
-                        <li>Aliquam id diam maecenas ultricies mi eget mauris.</li>
+                        <li>{props.des1}</li>
+                        <li>{props.des2}</li>
+                        <li>{props.des3}</li>                    
                     </ul>
                 </div>
 
