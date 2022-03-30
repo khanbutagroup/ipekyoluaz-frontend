@@ -845,7 +845,7 @@ const getData = async () => {
               </ul>
             </div>
             <div className="product-wrapper row cols-lg-5 cols-md-4 cols-sm-2 cols-2">
-              {productHome.map((e) => (
+              {allProductsTitle && allProductsTitle.length > 0 && allProductsTitle.map((e) => (
                 <div
                   className="product-wrap"
                   style={{ width: "50%", height: "50%" }}
