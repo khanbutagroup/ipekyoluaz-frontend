@@ -275,6 +275,7 @@ export default function HeaderForHome(){
 
 
 
+
     
     useEffect(() => {
 
@@ -680,14 +681,13 @@ export default function HeaderForHome(){
 
                 <div className="header-middle">
                     <div className="container" style={{position: "relative"}}>
-                        
                         <div className={styles.searchContainer} style={{display: situtaion}}>
                             
                             {products.map((product) => (
                                 <Link href={`/${product.id}`}>
                                 <div className={styles.searchItem}>
                                 <div className={styles.itemImg}>
-                                    <img src={product.main_image} width="100%" height="80% !important"/>
+                                    <img src={product.main_image} width="50%" height="80% !important"/>
                                 </div>
                                 <div className={styles.rightSide}>
                                     <div className={styles.title}>{product.title}</div>
@@ -1199,7 +1199,7 @@ export default function HeaderForHome(){
                                     {/*    </ul>*/}
                                     {/*</div>*/}
 
-                                    <div className="dropdown-box text-default" style={{zIndex:"4",display:url === "vendor" ||  url === "contact" || url === "vendorStore" || url === "my-account-for-vendor" || url === "shop" || url === "compare" || url === "checkout" ? "none" : "" }}>
+                                    <div className="dropdown-box text-default" style={{display:url === "" ? "block" : "none",zIndex:"-1"}}>
                                         <ul className="menu vertical-menu category-menu" style={{zIndex:"9"}}>
                                             {logoPost.map(item => (
                                                 <li>

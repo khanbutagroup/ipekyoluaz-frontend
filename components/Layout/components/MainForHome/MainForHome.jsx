@@ -716,7 +716,7 @@ const getData = async () => {
                   {allDiscountTitle.map((e) => (
                     <div className="swiper-slide icon-box icon-box-side text-dark">
                       <div className="product product-list br-xs mb-0">
-                        <figure className="product-media">
+                        <figure className="product-media" >
                           <a href={`/moreProducts/${e.product.id}`}>
                             <img
                               src={e.product.main_image}
@@ -724,6 +724,7 @@ const getData = async () => {
                               width="315"
                               height="355"
                             />
+
                           </a>
                           <div className="product-action-vertical">
                             <a
@@ -859,7 +860,8 @@ const getData = async () => {
                         <img
                           src={e.main_image}
                           alt="Product"
-                          style={{ maxHeight: "150px" }}
+                          style={{ maxHeight: "150px",objectFit:"contain" }}
+
                         />
                       </Link>
                       <div className="product-action-horizontal">
