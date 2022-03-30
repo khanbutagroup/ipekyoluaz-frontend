@@ -894,10 +894,10 @@ const getData = async () => {
                     </figure>
                     <div className="product-details">
                       <div className="product-cat">
-                        <a href={`shop/${e.id}`}>{e.title}</a>
+                        <a href={`shop/${e.id}`}>{e.category.title}</a>
                       </div>
                       <h3 className="product-name">
-                        <a href={`shop/${e.id}`}>3D Television</a>
+                        <a href={`shop/${e.id}`}>{e.title}</a>
                       </h3>
                       <div className="ratings-container">
                         <div className="ratings-full">
