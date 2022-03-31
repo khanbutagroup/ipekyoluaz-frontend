@@ -1199,7 +1199,7 @@ export default function HeaderForHome(){
                                     {/*    </ul>*/}
                                     {/*</div>*/}
 
-                                    <div className="dropdown-box text-default" style={{display:url === "" ? "block" : "none",zIndex:"-1"}}>
+                                    <div className="dropdown-box text-default" style={{display:url === "" ? "block" : "none",zIndex:"1"}}>
                                         <ul className="menu vertical-menu category-menu" style={{zIndex:"9"}}>
                                             {logoPost.map(item => (
                                                 <li>

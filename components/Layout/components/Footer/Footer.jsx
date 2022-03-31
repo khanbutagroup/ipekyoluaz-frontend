@@ -176,8 +176,8 @@ export default function Footer(){
                                     <ul className="widget-body">
                                         <li><a href="/shop">Mağaza</a></li>
                                         <li><a href="/vendor">Satıcılar</a></li>
-                                        <li><a href="/contact">Haqqımızda</a></li>
-                                        <li><a href="/contact">Əlaqə</a></li>
+                                        <li><a href="/elaqe">Haqqımızda</a></li>
+                                        <li><a href="/elaqe">Əlaqə</a></li>
                                         
                                         
                                     </ul>

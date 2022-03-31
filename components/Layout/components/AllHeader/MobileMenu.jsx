@@ -58,7 +58,7 @@ export default function MobileMenu(){
                                     </li>
                                 </ul>
                         </div>
-                            <div className="tab-pane" id="categories">
+                            <div className="tab-pane" id="categories" style={{"border": "red solid"}}>
                                     <ul className="mobile-menu">
                                         {mobileCategoryData.map(e=>(
                                             <li>
