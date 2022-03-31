@@ -30,10 +30,21 @@ const MainForHome = (props) => {
 
   const settings = {
     dots: false,
-    infinite: true,
+    infinite: false,
     speed: 500,
     slidesToShow: 4,
-    slidesToScroll: 4
+    slidesToScroll: 4,
+    responsive: [
+      {
+        breakpoint: 650,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2
+        }
+      },
+    ]
+
   };
   useEffect(() => {
     if (localStorage.getItem("optionsTitle")) {
@@ -641,7 +652,7 @@ const getData = async () => {
                   <div className={styles.cardItem}>
                     <div className={styles.firstRow}>
                         <div className={styles.frImage}>
-                          <img src={shop.cover_image} width="100%" height="100%"/>
+                          <img src={shop.cover_image} width="100%" height="100%" style={{objectFit: "contain"}}/>
                         </div>
                         <div className={styles.rRow}>
                           <div className={styles.shopName}>
@@ -657,7 +668,7 @@ const getData = async () => {
                     </div>
                     <div className={styles.secondRow}>
                         <div className={styles.srImage}>
-                          <img src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1601895550-1258191_in_2000_q80.jpg" width="100%" height="100%" style={{"borderRadius": "10px"}}/>
+                          <img src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1601895550-1258191_in_2000_q80.jpg" width="100%" height="100%" style={{"borderRadius": "10px", objectFit:"contain"}}/>
                         </div>
                         <div className={styles.srImage}>
                           <img src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1601895550-1258191_in_2000_q80.jpg" width="100%" height="100%" style={{"borderRadius": "10px"}}/>
