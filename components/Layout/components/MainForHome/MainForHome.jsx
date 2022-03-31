@@ -21,6 +21,8 @@ import Slider from "react-slick";
 import Image from 'next/image'
 import { FaStar } from 'react-icons/fa'
 import Link from 'next/link'
+import { MobileFooter } from "../MobileFooter/MobileFooter";
+
 
 
 
@@ -36,11 +38,11 @@ const MainForHome = (props) => {
     slidesToScroll: 4,
     responsive: [
       {
-        breakpoint: 650,
+        breakpoint: 600,
         settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          initialSlide: 1
         }
       },
     ]
@@ -667,15 +669,13 @@ const getData = async () => {
                         </div>
                     </div>
                     <div className={styles.secondRow}>
-                        <div className={styles.srImage}>
-                          <img src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1601895550-1258191_in_2000_q80.jpg" width="100%" height="100%" style={{"borderRadius": "10px", objectFit:"contain"}}/>
-                        </div>
-                        <div className={styles.srImage}>
-                          <img src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1601895550-1258191_in_2000_q80.jpg" width="100%" height="100%" style={{"borderRadius": "10px"}}/>
-                        </div>
-                        <div className={styles.srImage}>
-                          <img src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1601895550-1258191_in_2000_q80.jpg" width="100%" height="100%" style={{"borderRadius": "10px"}}/>
-                        </div>
+                        {shop.products.slice(0, 3).map((product) => (
+                            <div className={styles.srImage}>
+                              <img src={`${product.main_image}`} width="100%" height="100%" style={{"borderRadius": "10px", objectFit:"contain"}}/>
+                            </div>
+                        ))}
+                        
+
                     </div>
                   </div>
                 </div>
@@ -1158,46 +1158,7 @@ const getData = async () => {
           </div>
         </main>
       </div>
-      <div className="sticky-footer sticky-content fix-bottom">
-        <a href="/" className="sticky-link active">
-          <i className="w-icon-home"></i>
-          <p>Ana Səhifə</p>
-        </a>
-        <a href="/shop" className="sticky-link">
-          <i className="w-icon-category"></i>
-          <p>Mağaza</p>
-        </a>
-        <a href="/my-account-for-vendor" className="sticky-link">
-          <i className="w-icon-account"></i>
-          <p>Profil</p>
-        </a>
-        <div className="cart-dropdown dir-up">
-          <a href="/card" className="sticky-link">
-            <i className="w-icon-cart"></i>
-            <p>Səbət</p>
-          </a>
-        </div>
-
-        <div className="header-search hs-toggle dir-up">
-          <a href="/vendor" className="search-toggle sticky-link">
-            <i className="w-icon-search"></i>
-            <p>Satıcı</p>
-          </a>
-          {/* <form action="#" className="input-wrapper">
-            <input
-              type="text"
-              className="form-control"
-              name="search"
-              autoComplete="off"
-              placeholder="Search"
-              required
-            />
-            <button className="btn btn-search" type="submit">
-              <i className="w-icon-search"></i>
-            </button>
-          </form> */}
-        </div>
-      </div>
+      <MobileFooter/>
 
       <a
         id="scroll-top"
