@@ -7,6 +7,7 @@ import "../../../../node_modules/video-react/dist/video-react.css";
 import ReactPlayer from 'react-player'
 import { TagsInput } from "react-tag-input-component";
 import {subCategories} from "../../../../services/subCategories";
+import Camera from "../../../../public/camera.png";
 export default function MyAccountVendorDetails(){
 
     const [test, testData] = useState([]);
@@ -183,6 +184,8 @@ export default function MyAccountVendorDetails(){
 
             video: videoFilePathEEE,
 
+            user: JSON.parse(localStorage.getItem('userData')).id,
+
             images: [
                 {
                     image: postImageFile1.image
@@ -277,21 +280,25 @@ export default function MyAccountVendorDetails(){
                                                                                name="file1" id="file1"
                                                                                className="inputFile"
                                                                                onChange={(e) => handleFileUploadFile1(e)}/>
-                                                                        <label htmlFor="file1" style={{backgroundImage:"url(" + selectedFile1 + ")",width:'800px', height:'490px',}}>
-                                                                            <span style={{justifyContent:"center", display:"flex",position:"relative", top:"80px", left:"-150px",  fontSize:"20px"}}><i className="w-icon-map-marker  mt-5"></i></span>
+                                                                        <label htmlFor="file1" style={{backgroundImage:"url(" + selectedFile1 + ")",width:'800px', height:'490px',cursor:"pointer"}}>
+                                                                            <span style={{justifyContent:"center", display:"flex",position:"relative", top:"232px", left:"-197px", cursor:"pointer"}}>
+                                                                                <h5 style={{fontSize:"25px",opacity:"0.5"}}>Şəkil əlavə edin</h5>
+                                                                                </span>
                                                                         </label>
                                                                     </form>
                                                                 </div>
                                                             </figure>
                                                         </div>
                                                         <div className="swiper-slide">
-                                                            <figure className="product-image">
+                                                            <figure className="product-image" style={{cursor:"pointer"}}>
                                                                 <form>
                                                                     <input type="file"
                                                                            accept=".jpg, .jpeg, .png"
                                                                            name="file2" id="file2"
                                                                            className="inputFile"
                                                                            onChange={(e) => handleFileUploadFile2(e)}/>
+
+
                                                                     <label htmlFor="file2" style={{width:"800px", height:"490px"}}>
                                                                         <img src={selectedFile2}  data-zoom-image={selectedFile2}/>
                                                                     </label>
@@ -306,6 +313,7 @@ export default function MyAccountVendorDetails(){
                                                                            name="file4" id="file4"
                                                                            className="inputFile"
                                                                            onChange={(e) => handleFileUploadFile3(e)}/>
+
                                                                     <label htmlFor="file4" style={{width:"800px", height:"490px"}}>
                                                                         <img src={selectedFile3}  data-zoom-image={selectedFile3}/>
                                                                     </label>
@@ -320,6 +328,7 @@ export default function MyAccountVendorDetails(){
                                                                            name="file3" id="file3"
                                                                            className="inputFile"
                                                                            onChange={(e) => handleFileUploadFile4(e)}/>
+
                                                                     <label htmlFor="file3" style={{width:"800px", height:"490px"}}>
                                                                         <img src={selectedFile4}  data-zoom-image={selectedFile4}/>
                                                                     </label>
@@ -339,8 +348,9 @@ export default function MyAccountVendorDetails(){
                                                         }">
                                                     <div className="product-thumbs swiper-wrapper row cols-4 gutter-sm">
                                                         <div className="product-thumb swiper-slide">
-                                                            <figure className="product-image" style={{backgroundColor: '#f5f5f5', width:"100px", height:"100px"}}>
-                                                                <img src={selectedFile1}   data-zoom-image={selectedFile1}/>
+                                                            <figure className="product-image" style={{backgroundColor: '#f5f5f5', width:"100px", height:"100px",display:"flex",justifyContent:"center",alignItems:"center"}}>
+                                                                <h5>Şəkil əlavə edin</h5>
+                                                                <img src={selectedFile1}  data-zoom-image={selectedFile1}/>
                                                             </figure>
                                                         </div>
                                                         <div className="product-thumb swiper-slide" style={{backgroundColor: '#f5f5f5', width:"100px", height:"100px"}}>
