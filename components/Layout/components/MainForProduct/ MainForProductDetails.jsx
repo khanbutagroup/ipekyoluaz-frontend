@@ -1,25 +1,36 @@
-import React from "react";
-import { MobileFooter } from "../MobileFooter/MobileFooter";
+import React, {useState} from "react";
+import { FaStar } from 'react-icons/fa'
+
 
 export default function  MainForProductDetails(props){
+
+
+
+
+
+
+
+ 
+
+
+
     return (
         <div>
 
             <div className="product-details" data-sticky-options="{'minWidth': 767}">
-                <h1 className="product-title">{props.title}</h1>
+                <h1 className="product-title">{props.product.title}</h1>
                 <div className="product-bm-wrapper">
                     <figure className="brand">
-                        <img src="assets/images/products/brand/brand-5.jpg" alt="Brand"
+                        <img src={`https://api.ipekyolu.az${props.product.user.logo}`} alt="Brand"
                              width="106" height="48"/>
                     </figure>
                     <div className="product-meta">
                         <div className="product-categories">
                             Category:
-                            <span className="product-category"><a
-                                href="#">Beauty</a></span>
+                            <span style={{marginLeft: "2%"}} className="product-category">{props.product.category.title}</span>
                         </div>
                         <div className="product-sku">
-                            SKU: <span>MS46891390</span>
+                            SKU: <span>{props.product.code}</span>
                         </div>
                     </div>
                 </div>
@@ -27,23 +38,20 @@ export default function  MainForProductDetails(props){
                 <hr className="product-divider"/>
 
                 <div className="product-price">
-                    <ins className="new-price">₼ {props.price}</ins>
+                    <ins className="new-price">₼ {props.product.price}</ins>
                 </div>
 
                 <div className="ratings-container">
-                    <div className="ratings-full">
-                        <span className="ratings" style={{width: '80%'}}></span>
-                        <span className="tooltiptext tooltip-top"></span>
-                    </div>
-                    <a href="#product-tab-reviews" className="rating-reviews">(3
-                        Reviews)</a>
+                {[ ...Array(props.product.rating)].map(star => (
+                              <FaStar color="fda706"/>
+                            ))}
                 </div>
 
                 <div className="product-short-desc">
                     <ul className="list-type-check list-style-none">
-                        <li>{props.des1}</li>
-                        <li>{props.des2}</li>
-                        <li>{props.des3}</li>                    
+                        <li>{props.product.short_desc1}</li>
+                        <li>{props.product.short_desc2}</li>
+                        <li>{props.product.short_desc3}</li>                    
                     </ul>
                 </div>
 
@@ -55,6 +63,7 @@ export default function  MainForProductDetails(props){
                         <div className="product-qty-form">
                             <div className="input-group">
                                 <input className="quantity form-control"
+                                        defaultValue={1}
                                        type="number" min="1"
                                        max="10000000"/>
                                 <button
@@ -65,7 +74,7 @@ export default function  MainForProductDetails(props){
                         </div>
                         <button className="btn btn-primary btn-cart">
                             <i className="w-icon-cart"></i>
-                            <span>hello</span>
+                            <span>Səbətə əlavə et</span>
                         </button>
                     </div>
                 </div>

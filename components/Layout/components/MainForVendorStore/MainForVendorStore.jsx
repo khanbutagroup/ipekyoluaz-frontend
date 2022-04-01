@@ -319,13 +319,13 @@ export default function MainForVendorStore(props) {
           <div className="page-content">
             <div className="container">
               <div className="store store-wcfm-banner">
-                <figure className="store-media">
+                <figure className="store-media" style={{maxHeight: "460px", display: "flex", justifyContent: "center", alignItems:"center"}}>
                   <img
                     src={`https://api.ipekyolu.az${vendorDetail.cover_image}`}
                     alt="Vendor"
                     width="1240"
-                    height="460"
-                    style={{ backgroundColor: "#40475e" }}
+                    style={{ backgroundColor: "#40475e" , objectFit:'contain'}}
+                    
                   />
                 </figure>
 

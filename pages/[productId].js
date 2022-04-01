@@ -158,39 +158,7 @@ const productId = (props) =>{
                                       />
                                     </figure>
                                   </div>
-                                  <div className="swiper-slide">
-                                    <figure className="product-image">
-                                      <img
-                                        src="assets/images/products/accordion/2-800x900.jpg"
-                                        data-zoom-image="assets/images/products/accordion/2-800x900.jpg"
-                                        alt="Bodycare Smooth Powder"
-                                        width="488"
-                                        height="549"
-                                      />
-                                    </figure>
-                                  </div>
-                                  <div className="swiper-slide">
-                                    <figure className="product-image">
-                                      <img
-                                        src="assets/images/products/accordion/3-800x900.jpg"
-                                        data-zoom-image="assets/images/products/accordion/3-800x900.jpg"
-                                        alt="Bodycare Smooth Powder"
-                                        width="800"
-                                        height="900"
-                                      />
-                                    </figure>
-                                  </div>
-                                  <div className="swiper-slide">
-                                    <figure className="product-image">
-                                      <img
-                                        src="assets/images/products/accordion/4-800x900.jpg"
-                                        data-zoom-image="assets/images/products/accordion/4-800x900.jpg"
-                                        alt="Bodycare Smooth Powder"
-                                        width="800"
-                                        height="900"
-                                      />
-                                    </figure>
-                                  </div>
+                                  
                                 </div>
                                 <button className="swiper-button-next"></button>
                                 <button className="swiper-button-prev"></button>
@@ -212,38 +180,18 @@ const productId = (props) =>{
                                         }"
                               >
                                 <div className="product-thumbs swiper-wrapper row cols-4 gutter-sm">
-                                  <div className="product-thumb swiper-slide">
-                                    <img
-                                      src="assets/images/products/accordion/1-800x900.jpg"
-                                      alt="Product Thumb"
-                                      width="800"
-                                      height="900"
-                                    />
-                                  </div>
-                                  <div className="product-thumb swiper-slide">
-                                    <img
-                                      src="assets/images/products/accordion/2-800x900.jpg"
-                                      alt="Product Thumb"
-                                      width="800"
-                                      height="900"
-                                    />
-                                  </div>
-                                  <div className="product-thumb swiper-slide">
-                                    <img
-                                      src="assets/images/products/accordion/3-800x900.jpg"
-                                      alt="Product Thumb"
-                                      width="800"
-                                      height="900"
-                                    />
-                                  </div>
-                                  <div className="product-thumb swiper-slide">
-                                    <img
-                                      src="assets/images/products/accordion/4-800x900.jpg"
-                                      alt="Product Thumb"
-                                      width="800"
-                                      height="900"
-                                    />
-                                  </div>
+                                  {props.product.images?.map((img) => (
+                                      <div className="product-thumb swiper-slide">
+                                      <img
+                                        src={img.image}
+                                        alt="Product Thumb"
+                                        width="800"
+                                        height="900"
+                                      />
+                                    </div>
+                                  ))}
+                                  
+                                  
                                 </div>
                                 <button className="swiper-button-next"></button>
                                 <button className="swiper-button-prev"></button>
@@ -291,18 +239,34 @@ const productId = (props) =>{
                                             }
                                         }"
                               >
-                                <div className="swiper-wrapper row cols-1 gutter-no">
-                                  <div className="swiper-slide">
+                                <div className="swiper-wrapper row cols-1 gutter-no" >
+                                <div className="swiper-slide" style={{ display: "flex", justifyContent:"center", alignItems:"center"}}>
                                     <figure className="product-image">
                                       <img
                                           src={`https://api.ipekyolu.az${props.product.main_image}`}
-                                          data-zoom-image="assets/images/products/accordion/1-800x900.jpg"
+                                          data-zoom-image={`https://api.ipekyolu.az${props.product.main_image}`}
                                           alt="Bodycare Smooth Powder"
                                           width="800"
                                           height="900"
+                                          style={{objectFit: "contain"}}                                                
                                       />
                                     </figure>
                                   </div>
+                                  {props.product.images?.map((img) => (
+                                    <div className="swiper-slide" style={{ display: "flex", justifyContent:"center", alignItems:"center"}}>
+                                    <figure className="product-image">
+                                      <img
+                                          src={`https://api.ipekyolu.az${img.image}`}
+                                          data-zoom-image={`https://api.ipekyolu.az${img.image}`}
+                                          alt="Bodycare Smooth Powder"
+                                          width="800"
+                                          height="900"
+                                          style={{objectFit: "contain"}}                                                
+                                      />
+                                    </figure>
+                                  </div>
+                                  ))}
+                                  
                                 </div>
                                 <button className="swiper-button-next"></button>
                                 <button className="swiper-button-prev"></button>
@@ -325,14 +289,29 @@ const productId = (props) =>{
                               >
 
                                 <div className="product-thumbs swiper-wrapper row cols-4 gutter-sm">
-                                  <div className="product-thumb swiper-slide">
-                                    <img
-                                        src="assets/images/products/accordion/1-800x900.jpg"
+                                <div className="product-thumb swiper-slide" style={{width: "100px", "height": "150px", display:"flex", justifyContent:"center", alignItems: "center"}}>
+                                      <img
+                                      src={`https://api.ipekyolu.az${props.product.main_image}`}
+                                      alt="Product Thumb"
+                                      width="800"
+                                      height="900"
+                                      style={{objectFit: "contain !important"}}
+                                      />
+                                  </div>
+                                    {props.product.images?.map((img) => (
+                                      <div className="product-thumb swiper-slide" style={{width: "100px", "height": "150px", display:"flex", justifyContent:"center", alignItems: "center"}}>
+
+                                        <img
+                                        src={`https://api.ipekyolu.az${img.image}`}
                                         alt="Product Thumb"
                                         width="800"
                                         height="900"
+                                        style={{objectFit: "contain !important"}}
                                     />
-                                  </div>
+                                    </div>
+                                    ))}
+                                    
+                                  
                                 </div>
                                 <button className="swiper-button-next"></button>
                                 <button className="swiper-button-prev"></button>
@@ -343,12 +322,8 @@ const productId = (props) =>{
                       </div>
                       <div className="col-md-6 mb-6 mb-md-8">
                         <MainForProductDetails 
-                        title={props.product.title} 
-                        price={props.product.price}
-                        des1 = {props.product.short_desc1}
-                        des2 = {props.product.short_desc2}
-                        des3 = {props.product.short_desc3
-                        }/>
+                        product = {props.product}
+                        />
                       </div>
                     </div>
                   </div>
