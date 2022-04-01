@@ -629,6 +629,7 @@ const getData = async () => {
               
               <Slider {...settings}>
                 {data2.map((shop)=> (
+                  <a href={`vendorStore/${shop.id}`}>
                   <div className={styles.cardContainer}>
                   <div className={styles.cardItem}>
                     <div className={styles.firstRow}>
@@ -658,6 +659,7 @@ const getData = async () => {
                     </div>
                   </div>
                 </div>
+                </a>
                 ))}
                 
                 

@@ -352,7 +352,7 @@ export default function MainForVendorStore(props) {
                     </div>
                     <div className="address-info">
                       <h4 className="store-title">{vendorDetail?.name}</h4>
-                      <span style={{ color: "white" }}>{vendorDetail?.category}</span>
+                      <span style={{ color: "white" }}>{vendorDetail?.category?.title}</span>
                       <ul className="seller-info-list list-style-none">
                         <li className="store-address">
                           <i className="w-icon-map-marker"></i>
