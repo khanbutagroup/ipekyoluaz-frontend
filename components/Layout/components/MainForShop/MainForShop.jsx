@@ -970,7 +970,7 @@ export default function MainForShop() {
                         <li className="page-item active">
                           <a
                             className="page-link"
-                            href="#"
+                            href=""
                             onClick={() => setPageFunc(i + 1, e.size)}
                           >
                             {i + 1}

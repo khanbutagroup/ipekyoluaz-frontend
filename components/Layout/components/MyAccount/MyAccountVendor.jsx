@@ -12,7 +12,19 @@ import {allStreets} from "../../../../services/address/allStreets";
 import {allCategories} from "../../../../services/allCategories";
 import {savaChangeVendorAccount} from "../../../../services/savaChangeVendorAccount";
 import { MobileFooter } from "../MobileFooter/MobileFooter";
+import axios from "axios";
+import { useRouter } from "next/router";
+
+
+
 export default function MyAccountVendor(){
+    const router = useRouter()
+    
+    if(!localStorage.getItem("token")){
+        router.push('/')
+    }
+
+    
     const [optionsTitle, optionsData] = useState([]);
     useEffect(() => {
         let mounted = true;
@@ -158,7 +170,7 @@ export default function MyAccountVendor(){
         return () => mounted = false;
     }, [])
 
-    const [iconTitle, iconData] = useState([{value:0, label:'Linkedin'},{value:1, label:'Whatsapp'},{value:2, label:'Telegram'},{value:3, label:'Instagram'},{value:4, label:'Facebook'}]);
+    const [iconTitle, iconData] = useState([{value:4, label:'Whatsapp'},{value:3, label:'Telegram'},{value:2, label:'Instagram'},{value:1, label:'Facebook'}]);
     const [selectedIconItem, setSelectedIcon] = useState(null);
     let iconChange = (selectedIcon) => {
         setSelectedIcon(selectedIcon)
@@ -182,8 +194,13 @@ export default function MyAccountVendor(){
         console.log(fhg)
     }
     const logout = () =>{
-        localStorage.setItem('token',null)
-        localStorage.setItem('username',null)
+        localStorage.removeItem("token")
+        localStorage.removeItem('username')
+        localStorage.removeItem("userData")
+        localStorage.removeItem("userId")
+
+
+        router.push('/')
     }
     let windowPassword,
         windowPassword2,
@@ -215,31 +232,173 @@ export default function MyAccountVendor(){
     const [email, setEmail] = useState(windowEmail);
     const [othersPlace, setOthersPlace] = useState(windowOthersPlace);
 
+    // const saveChangeVendor = () => {
+    //     console.log(iconChange1T.label)
+    //     let data = {
+    //         name: name,
+    //         address: email,
+    //         address_addtional: othersPlace,
+    //         cover_image: windowImg2,
+    //         logo: windowImg1,
+    //         city:optionsHandleChange,
+    //         region:optionsHandleChangeRegions,
+    //         avenue:optionsHandleChangeAvenues,
+    //         street:optionsHandleChangeStreets,
+    //         social_icons:[
+    //             {url:iconUrl1,social_media:iconChange1T.label},
+    //             {url:iconUrl2,social_media:iconChange2T.label},
+    //             {url:iconUrl3,social_media:iconChange3T.label},
+    //             {url:iconUrl4,social_media:iconChange4T.label}
+    //         ]
+
+    //     }
+    //     console.log(data)
+    //     savaChangeVendorAccount(localStorage.getItem("userId")).then((e)=>{
+    //         console.log(e,data)
+    //     })
+    // }
+
+
+
+
+
+
+
+
+
+
+
+// men yazdigim
+
+
+const [userModel, setUserModel] = useState([])
+const [addressAddtional, setAddressAddtional] = useState("")
+const [avenue, setAvenue] = useState()
+const [city, setCity] = useState()
+const [coverImage, setCoverImage] = useState("")
+const [logo, setLogo] = useState("")
+const [shopName, setShopName] = useState("")
+const [region, setRegion] = useState()
+const [socialMedia1, setSocialMedia1] = useState(null)
+const [socialMedia2, setSocialMedia2] = useState(null)
+const [socialMedia3, setSocialMedia3] = useState(null)
+const [socialMedia4, setSocialMedia4] = useState(null)
+const [url1, setUrl1] = useState("")
+const [url2, setUrl2] = useState("")
+const [url3, setUrl3] = useState("")
+const [url4, setUrl4] = useState("")
+const [street, setStreet] = useState()
+const [emailUser, setEmailUser] = useState("")
+
+
+const uploadImageCover = async(e) => {
+    const file = e.target.files[0]
+    const base64 = await convertBase64(file)
+    setCoverImage(base64)
+
+}
+
+
+const uploadImageLogo = async(e) => {
+    const file = e.target.files[0]
+    const base64 = await convertBase64(file)
+    setLogo(base64)
+}
+
+const convertBase64 = (file) => {
+    return new Promise((resolve, reject) =>{
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(file)
+        fileReader.onload = () => {
+            resolve(fileReader.result)
+        }
+        fileReader.onerror =() => {
+            reject(error)
+        }
+    })
+}
+
+
+
     const saveChangeVendor = () => {
-        console.log(iconChange1T.label)
-        let data = {
-            name: name,
-            address: email,
-            address_addtional: othersPlace,
-            cover_image: windowImg2,
-            logo: windowImg1,
-            city:optionsHandleChange,
-            region:optionsHandleChangeRegions,
-            avenue:optionsHandleChangeAvenues,
-            street:optionsHandleChangeStreets,
-            social_icons:[
-                {url:iconUrl1,social_media:iconChange1T.label},
-                {url:iconUrl2,social_media:iconChange2T.label},
-                {url:iconUrl3,social_media:iconChange3T.label},
-                {url:iconUrl4,social_media:iconChange4T.label}
-            ]
+        const id = localStorage.getItem("userId")
+        const body = {
+            "address": id,
+            "address_addtional":addressAddtional,
+            "avenue": avenue?.value,
+            "city": city?.value,
+            "cover_image": coverImage,
+            "logo": logo,
+            "name": shopName,
+            "region": region?.value,
+            "social_icons": [
+                {
+                    "social_media": socialMedia1?.value,
+                    "url": url1
+                },
+                {
+                    "social_media": socialMedia2?.value,
+                    "url": url2
+                },
+                {
+                    "social_media": socialMedia3?.value,
+                    "url": url3
+                },
+                {
+                    "social_media": socialMedia4?.value,
+                    "url": url4
+                },
+            ],
+            "street": street?.value,
+            "email": emailUser
+
 
         }
-        console.log(data)
-        savaChangeVendorAccount(localStorage.getItem("userId")).then((e)=>{
-            console.log(e,data)
-        })
+        const {data, status} = axios.patch(`https://api.ipekyolu.az/api/auth/user/${id}`, body)
+        .then(res=> console.log(res.data, "mama"))
+        .catch(err => err)
+
+        router.reload()
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const [storeOrdersTitle, storeOrdersData] = useState([]);
     useEffect(() => {
         storeOrders(localStorage.getItem("userId"))
@@ -360,9 +519,9 @@ export default function MyAccountVendor(){
                                                 </li>
                                                 <hr className="product-divider"/>
                                                 <li className="link-item">
-                                                    <Link href="#">
-                                                        <span  className="nav-link span-link" onClick={()=>{logout()}}>Çıxış</span>
-                                                    </Link>
+                                                    
+                                                        <span style={{cursor: "pointer"}} className="nav-link span-link" onClick={logout}>Çıxış</span>
+                                                    
                                                 </li>
                                             </ul>
 
@@ -431,7 +590,7 @@ export default function MyAccountVendor(){
                                                     <i className="w-icon-logout" style={{fontSize:'52px'}}></i>
                                                 </span>
                                                                     <div className="icon-box-content">
-                                                                        <p className="text-uppercase mb-0" style={{fontSize:'18px'}} onClick={()=>{logout()}}>Çıxış</p>
+                                                                        <p className="text-uppercase mb-0" style={{fontSize:'18px'}} onClick={logout}>Çıxış</p>
                                                                     </div>
                                                                 </div>
                                                             </a>
@@ -535,7 +694,7 @@ export default function MyAccountVendor(){
                                                                 <div className="form-group" style={{backgroundColor:"#f5f5f5", borderRadius:"2rem", padding:"7px"}}>
                                                                     <input type="text"  style={{backgroundColor:"#ffff",marginTop: '7px'}} id="firstname" name="firstname"
                                                                            value={name}
-                                                                           onChange={e=>setName(e.target.value)}
+                                                                           onChange={e=>setShopName(e.target.value)}
                                                                            placeholder="Mağaza adı" className="form-control form-control-md"/>
                                                                 </div>
                                                             </div>
@@ -552,8 +711,8 @@ export default function MyAccountVendor(){
                                                             <div className="col-md-6 mt-2">
                                                                 <div className="form-group" style={{backgroundColor:"#f5f5f5", borderRadius:"2rem", padding:"7px"}}>
                                                                     <input type="text"  style={{backgroundColor:"#ffff",marginTop: '7px'}} id="firstname" name="firstname"
-                                                                           value={email}
-                                                                           onChange={e=>setEmail(e.target.value)}
+                                                                           defaultValue={email}
+                                                                           onChange={e=>setEmailUser('email', e.target.value)}
                                                                            placeholder="E-mail Ünvan" className="form-control form-control-md"/>
                                                                 </div>
                                                             </div>
@@ -568,7 +727,7 @@ export default function MyAccountVendor(){
                                                                         className="basic-multi-select"
                                                                         placeholder={"Şəhər"}
                                                                         classNamePrefix="select"
-                                                                        onChange={handleChange}
+                                                                        onChange={setCity}
                                                                     />
                                                                 </div>
                                                             </div>
@@ -580,7 +739,7 @@ export default function MyAccountVendor(){
                                                                         className="basic-multi-select"
                                                                         placeholder={"Rayon"}
                                                                         classNamePrefix="select"
-                                                                        onChange={handleChangeRegions}
+                                                                        onChange={setRegion}
                                                                     />
                                                                 </div>
                                                             </div>
@@ -592,7 +751,7 @@ export default function MyAccountVendor(){
                                                                         className="basic-multi-select"
                                                                         placeholder={"Qəsəbə"}
                                                                         classNamePrefix="select"
-                                                                        onChange={handleAvenues}
+                                                                        onChange={setAvenue}
                                                                     />
                                                                 </div>
                                                             </div>
@@ -604,7 +763,7 @@ export default function MyAccountVendor(){
                                                                         className="basic-multi-select"
                                                                         placeholder={"Küçə"}
                                                                         classNamePrefix="select"
-                                                                        onChange={handleStreets}
+                                                                        onChange={setStreet}
                                                                     />
                                                                 </div>
                                                             </div>
@@ -612,7 +771,7 @@ export default function MyAccountVendor(){
                                                                     <div className="form-group">
                                                                         <input type="text" id="display-name"
                                                                                value={othersPlace}
-                                                                               onChange={e=>setOthersPlace(e.target.value)}
+                                                                               onChange={e=>setAddressAddtional(e.target.value)}
                                                                                style={{backgroundColor:"#ffff",marginTop: '7px'}} name="display_name" placeholder="Digəri" className="form-control form-control-md mb-0"/>
                                                                     </div>
                                                             </div>
@@ -667,7 +826,7 @@ export default function MyAccountVendor(){
                                                                                     className="basic-multi-select"
                                                                                     placeholder={"Social Icons"}
                                                                                     classNamePrefix="select"
-                                                                                    onChange={iconChange1}
+                                                                                    onChange={setSocialMedia1}
                                                                                 />
                                                                             </div>
                                                                         </div>
@@ -675,7 +834,7 @@ export default function MyAccountVendor(){
                                                                             <div className="form-group">
                                                                                 <input type="text" style={{backgroundColor:"#ffff",marginTop: '7px'}}
                                                                                        value={iconUrl1}
-                                                                                       onChange={e=>setIconUrl1(e.target.value)}
+                                                                                       onChange={e=>setUrl1(e.target.value)}
                                                                                        id="display-name" name="display_name"
                                                                                        className="form-control form-control-md mb-0"/>
                                                                             </div>
@@ -688,7 +847,7 @@ export default function MyAccountVendor(){
                                                                                     className="basic-multi-select"
                                                                                     placeholder={"Social Icons"}
                                                                                     classNamePrefix="select"
-                                                                                    onChange={iconChange2}
+                                                                                    onChange={setSocialMedia2}
                                                                                 />
                                                                             </div>
                                                                         </div>
@@ -696,7 +855,7 @@ export default function MyAccountVendor(){
                                                                             <div className="form-group">
                                                                                 <input type="text" style={{backgroundColor:"#ffff",marginTop: '7px'}}
                                                                                        value={iconUrl2}
-                                                                                       onChange={e=>setIconUrl2(e.target.value)}
+                                                                                       onChange={e=>setUrl2(e.target.value)}
                                                                                        id="display-name" name="display_name"
                                                                                        className="form-control form-control-md mb-0"/>
                                                                             </div>
@@ -709,7 +868,7 @@ export default function MyAccountVendor(){
                                                                                     className="basic-multi-select"
                                                                                     placeholder={"Social Icons"}
                                                                                     classNamePrefix="select"
-                                                                                    onChange={iconChange3}
+                                                                                    onChange={setSocialMedia3}
                                                                                 />
                                                                             </div>
                                                                         </div>
@@ -717,7 +876,7 @@ export default function MyAccountVendor(){
                                                                             <div className="form-group">
                                                                                 <input type="text" style={{backgroundColor:"#ffff",marginTop: '7px'}}
                                                                                        value={iconUrl3}
-                                                                                       onChange={e=>setIconUrl3(e.target.value)}
+                                                                                       onChange={e=>setUrl3(e.target.value)}
                                                                                        id="display-name" name="display_name"
                                                                                        className="form-control form-control-md mb-0"/>
                                                                             </div>
@@ -730,7 +889,7 @@ export default function MyAccountVendor(){
                                                                                     className="basic-multi-select"
                                                                                     placeholder={"Social Icons"}
                                                                                     classNamePrefix="select"
-                                                                                    onChange={iconChange4}
+                                                                                    onChange={setSocialMedia4}
                                                                                 />
                                                                             </div>
                                                                         </div>
@@ -738,7 +897,7 @@ export default function MyAccountVendor(){
                                                                             <div className="form-group">
                                                                                 <input type="text" style={{backgroundColor:"#ffff",marginTop: '7px'}}
                                                                                        value={iconUrl4}
-                                                                                       onChange={e=>setIconUrl4(e.target.value)}
+                                                                                       onChange={e=>setUrl4(e.target.value)}
                                                                                        id="display-name" name="display_name"
                                                                                        className="form-control form-control-md mb-0"/>
                                                                             </div>
@@ -755,8 +914,8 @@ export default function MyAccountVendor(){
                                                                                accept=".jpg, .jpeg, .png"
                                                                                name="frr" id="frr"
                                                                                className="inputFile"
-                                                                               onChange={(event) => setSelectedFile1(window.URL.createObjectURL(event.target.files[0]))}/>
-                                                                        <label htmlFor="frr" style={{backgroundImage:"url(" + selectedFile1 + ")",width:'500px', height:'200px',}}>
+                                                                               onChange={uploadImageCover}/>
+                                                                        <label htmlFor="frr" style={{backgroundImage:"url(" + selectedFile1 + ")",width:'500px', height:'200px'}}>
                                                                            <span style={{justifyContent:"center", display:"flex",position:"relative", top:"80px",  fontSize:"20px"}}><i className="w-icon-map-marker mr-1"></i></span>
                                                                         </label>
                                                                     </form>
@@ -767,7 +926,7 @@ export default function MyAccountVendor(){
                                                                                accept=".jpg, .jpeg, .png"
                                                                                name="dd" id="dd"
                                                                                className="inputFile"
-                                                                               onChange={(event) => setSelectedFile2(window.URL.createObjectURL(event.target.files[0]))}/>
+                                                                               onChange={uploadImageLogo}/>
                                                                         <label htmlFor="dd" style={{backgroundImage:"url(" + selectedFile2 + ")",width:'600px', height:'200px',}}>
                                                                             <span style={{justifyContent:"center", display:"flex",position:"relative", top:"80px", left:"-150px",  fontSize:"20px"}}><i className="w-icon-map-marker mr-1"></i></span>
                                                                         </label>

@@ -7,11 +7,24 @@ import {deleteProduct} from "../../../../services/products/deleteProduct";
 import {userProducts} from "../../../../services/myAccount/userProducts";
 import {storeOrders} from "../../../../services/storeOrders";
 import { MobileFooter } from "../MobileFooter/MobileFooter";
+import { useRouter } from "next/router";
+
+
 export default function MyAccountShop(){
-const logout = () =>{
-    localStorage.setItem('token',null)
-    localStorage.setItem('username',null)
-}
+
+    const router = useRouter()
+
+    
+
+    const logout = () =>{
+        localStorage.removeItem("token")
+        localStorage.removeItem('username')
+        localStorage.removeItem("userData")
+        localStorage.removeItem("userId")
+
+
+        router.push('/')
+    }
     const [optionsTitle, optionsData] = useState([]);
     useEffect(() => {
         let mounted = true;
@@ -184,9 +197,9 @@ const logout = () =>{
                                     </li>
                                     <hr className="product-divider"/>
                                     <li className="link-item">
-                                        <Link href="#">
-                                            <span  className="nav-link span-link" onClick={()=>{logout()}}>ÇIXIŞ</span>
-                                        </Link>
+                                        
+                                            <span style={{cursor: "pointer"}} className="nav-link span-link" onClick={logout}>ÇIXIŞ</span>
+                                        
                                     </li>
                                 </ul>
 
@@ -244,7 +257,7 @@ const logout = () =>{
                                                     <i className="w-icon-logout" style={{fontSize:'52px'}}></i>
                                                 </span>
                                                         <div className="icon-box-content">
-                                                            <p className="text-uppercase mb-0" style={{fontSize:'18px'}} onClick={()=>{logout()}}>ÇIXIŞ</p>
+                                                            <p className="text-uppercase mb-0" style={{fontSize:'18px'}} onClick={logout}>ÇIXIŞ</p>
                                                         </div>
                                                     </div>
                                                 </a>
