@@ -519,7 +519,7 @@ export default function MainForVendor() {
                                                     </div>
                                                     <div className="store-content">
                                                         <h4 className="store-title" style={{marginBottom: '0.9rem',marginTop:'2.9rem'}}>
-                                                            <a href="vendor-dokan-store.html">{vendorData.name}</a>
+                                                            <a href={`/vendorStore/${vendorData.id}`}>{vendorData.name}</a>
                                                         </h4>
                                                         <span style={{color:"white"}}>{vendorData.category?.title}</span>
                                                         <ul className="seller-info-list list-style-none">

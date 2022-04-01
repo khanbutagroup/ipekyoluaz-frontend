@@ -123,27 +123,6 @@ const MainForHome = (props) => {
   }, []);
 
 
-  // const [data2, setData2] = useState([]);
-  // useEffect(() => {
-  //   if (localStorage.getItem("data2")) {
-  //     setData2(JSON.parse(localStorage.getItem("data2")));
-  //     vendors().then((items) => {
-  //       localStorage.setItem("data2", JSON.stringify(items?.data.results));
-  //       JSON.parse(localStorage.getItem("data2"))
-  //           ? setData2(JSON.parse(localStorage.getItem("data2")))
-  //           : [];
-            
-  //     });
-  //   } else {
-  //     vendors().then((items) => {
-  //       localStorage.setItem("optionsTitle", JSON.stringify(items?.data.results));
-  //       JSON.parse(localStorage.getItem("data2"))
-  //           ? setData2(JSON.parse(localStorage.getItem("data2")))
-  //           : [];
-  //     });
-  //   }
-  // }, []);
-
 
   const [data2, setData2] = useState([])
 

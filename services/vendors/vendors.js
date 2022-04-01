@@ -11,3 +11,5 @@ export function vendor(id) {
   const vendorURL = `${apiUrl()}auth/vendors/${id}`;
   return axios.get(`${vendorURL}`).then((response) => response);
 }
+
+

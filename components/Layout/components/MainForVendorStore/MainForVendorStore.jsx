@@ -10,10 +10,11 @@ import { productsPost } from "../../../../services/productsPost";
 import { productByUser } from "../../../../services/products/productByUser";
 import { productById } from "../../../../services/products/productById";
 import { productByUserGet } from "../../../../services/products/productByUserGet";
-import { vendor } from "../../../../services/vendors/vendors";
+import { vendor, vendorProduct } from "../../../../services/vendors/vendors";
 import { MobileFooter } from "../MobileFooter/MobileFooter";
+import axios from "axios";
 
-export default function MainForVendorStore() {
+export default function MainForVendorStore(props) {
   const [optionsTitle, optionsData] = useState([]);
   const [vendorDetail, setVendorDetail] = useState({});
   const [displayedBenefits, displayedBenefitsData] = useState([]);
@@ -27,7 +28,15 @@ export default function MainForVendorStore() {
       setVendorDetail(items.data);
       console.log(items.data, "hello qaqaw");
     });
+
+    console.log(props.product, "oppo")
   }, []);
+
+
+
+
+
+
 
   useEffect(() => {
     let mounted = true;
@@ -632,16 +641,17 @@ export default function MainForVendorStore() {
                     className="product-wrapper row cols-lg-4 cols-md-3 cols-sm-2 cols-2"
                     style={{ display: showMe ? " " : "none" }}
                   >
-                    {allProductsTitle.map((e) => (
+                    {props.product.map((e) => (
                       <div className="product-wrap">
                         <div className="product text-center">
                           <figure className="product-media">
                             <a href={`/${e.id}`}>
                               <img
-                                src={e.images[0]}
+                                src={`https://api.ipekyolu.az${e.main_image}`}
                                 alt="Product"
                                 width="300"
-                                height="338"
+                                height="338px !important"
+                                style={{objectFit:"contain"}}
                               />
                             </a>
                             <div className="product-action-horizontal">
@@ -667,7 +677,7 @@ export default function MainForVendorStore() {
                               ></a>
                             </div>
                           </figure>
-                          <div className="product-details">
+                          <div className="product-details" >
                             <div className="product-cat">
                               <a href="shop-banner-sidebar.html">
                                 sub_sub_category
