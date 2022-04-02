@@ -20,9 +20,6 @@ import { useRouter } from "next/router";
 export default function MyAccountVendor(){
     const router = useRouter()
     
-    if(!localStorage.getItem("token")){
-        router.push('/')
-    }
 
     
     const [optionsTitle, optionsData] = useState([]);
