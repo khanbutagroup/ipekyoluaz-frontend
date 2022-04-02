@@ -29,9 +29,6 @@ import { MobileFooter } from "../MobileFooter/MobileFooter";
 
 const MainForHome = (props) => {
   const [optionsTitle, setOptionsData] = useState([]);
-  console.log('====================================');
-  console.log(optionsTitle,"hello");
-  console.log('====================================');
 
   const settings = {
     dots: false,
@@ -119,8 +116,9 @@ const MainForHome = (props) => {
 
   const [allProductsTitle, setAllProductsData] = useState([]);
   useEffect(() => {
-    allProducts().then((items) => {
-      setAllProductsData(items.data.results.splice(0, 15));
+    productFilter({}).then((items) => {
+      console.log(items.data.results, "dsjkahdjkash");
+      setAllProductsData(items.data.results);
     });
   }, []);
 
@@ -765,7 +763,7 @@ const getData = async () => {
                               className="rating-reviews"
                             >
                               ({e.product.rating}
-                              Baxış)
+                              reviews)
                             </a>
                           </div>
                           <div className="product-price">$235.35 </div>
@@ -781,7 +779,7 @@ const getData = async () => {
                               onClick={() => {
                                 addToCardFunc(e.id);
                               }}
-                              title="Səbətə əlavə et"
+                              title="Add to Cart"
                             >
                               <i className="w-icon-cart"></i> Səbətə əlavə et
                             </a>
@@ -813,7 +811,7 @@ const getData = async () => {
           </div>
           <div className="container mt-1 pt-2">
             <div className="filter-with-title appear-animate">
-              <h2 className="title">Ən Yeni Mehsullar</h2>
+              <h2 className="title">Bütün məhsullar</h2>
               <ul
                 className="nav-filters filter-boxed"
                 data-target="#products-1" style={{display:"none"}}
@@ -865,7 +863,7 @@ const getData = async () => {
                           onClick={() => {
                             addToCardFunc(e.id);
                           }}
-                          title="Səbətə əlavə et"
+                          title="Add to cart"
                         ></a>
                         <a
                           href="#"
@@ -911,7 +909,7 @@ const getData = async () => {
                         </div>
                         <a href={`shop/${e.id}`} className="rating-reviews">
                           ({e.rating}
-                          Baxış)
+                          reviews)
                         </a>
                       </div>
                       <div className="product-pa-wrapper">
@@ -920,14 +918,8 @@ const getData = async () => {
                     </div>
                   </div>
                 </div>
+                
               ))}
-            </div>
-
-            <div className="text-right mb-2">
-              <a href="/shop" className="font-weight-bold ml-2 ls-25">
-                Daha çox məhsul
-                <i class="w-icon-long-arrow-right"></i>
-              </a>
             </div>
             {/*<div className="toolbox toolbox-pagination justify-content-between">*/}
             {/*    <p className="showing-info mb-2 mb-sm-0">*/}
@@ -980,7 +972,7 @@ const getData = async () => {
                     <div className="swiper-slide brand-col">
                       <div
                         style={{
-                          width: "200px",
+                          width: "80%",
                           height: "10%",
                           position: "relative",
                           left: "40px",
@@ -1252,10 +1244,13 @@ const getData = async () => {
               {quickviewList.map((e) => (
                 <h2 className="product-title">{e.title}</h2>
               ))}
+              {quickviewList.map((e) => (
+                
+              
               <div className="product-bm-wrapper">
                 <figure className="brand">
                   <img
-                    src="assets/images/products/brand/brand-1.jpg"
+                    src={e.user.logo}
                     alt="Brand"
                     width="102"
                     height="48"
@@ -1265,15 +1260,15 @@ const getData = async () => {
                   <div className="product-categories">
                     Category:
                     <span className="product-category">
-                      <a href="#">Electronics</a>
+                      <a href="#">{e.category.title}</a>
                     </span>
                   </div>
                   <div className="product-sku">
-                    SKU: <span>MS46891340</span>
+                    SKU: <span>{e.code}</span>
                   </div>
                 </div>
               </div>
-
+))}
               <hr className="product-divider" />
               {quickviewList.map((e) => (
                 <div className="product-price">₼ {e.price}</div>
@@ -1290,7 +1285,7 @@ const getData = async () => {
                   </div>
                   <a href="product-default.html" className="rating-reviews">
                     ({e.rating}
-                    Baxış)
+                    reviews)
                   </a>
                 </div>
               ))}
