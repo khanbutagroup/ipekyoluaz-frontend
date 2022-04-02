@@ -205,8 +205,8 @@ export default function HeaderForHome(){
         let data = {number:number,
             password:password,
             password2:password2,
-            is_vendor:isVendor,
-            is_store:isStore,
+            is_vendor:isStore,
+            // is_store:isStore,
         }
         register(data)
             .then(items => {
@@ -231,8 +231,8 @@ export default function HeaderForHome(){
         let data = {number:number,
             password:password,
             password2:password2,
-            is_vendor:isVendor,
-            is_store:isStore,
+            is_vendor: isStore,
+            // is_store: isStore,
         }
         register(data)
             .then(items => {
