@@ -1,14 +1,40 @@
 import React, {useState} from "react";
 import { FaStar } from 'react-icons/fa'
+import { addToCard } from "../../../../services/card/addToCard";
+import { cartByUserID } from "../../../../services/card/cartByUserID";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCardMain } from "../../../../store/actions";
+import axios from "axios";
 
 
 export default function  MainForProductDetails(props){
 
 
+    const userCardApi = "https://api.ipekyolu.az/api/add-to-cart/"
+    const cardUserIdApi = "https://api.ipekyolu.az/api/user-cart/"
+
+
+    const addToCardF = (id) => {
+        const data = {quantity: 1, product: id}
+        const userToken = localStorage.getItem("username")
+
+        axios.post(userCardApi ,data, { 'headers': { 'Authorization': `Bearer ${userToken}` }})
+        .then((res) => {cardByUserId() ;res.data})
+        .catch(err => console.log(err, "lala"))
+
+    }
 
 
 
-
+    const cardByUserId = () => {
+        const userId = localStorage.get("userId")
+        return (
+            axios.get(cardUserIdApi+userId)
+            .then(dispatch(addToCardMain(res => res.data.product_version)))
+            .catch(console.log(err => err))
+        )
+        
+    }
 
  
 
@@ -72,7 +98,7 @@ export default function  MainForProductDetails(props){
                                     className="quantity-minus w-icon-minus"></button>
                             </div>
                         </div>
-                        <button className="btn btn-primary btn-cart">
+                        <button className="btn btn-primary btn-cart" onClick={() => {addToCardF(props.product.id)}}>
                             <i className="w-icon-cart"></i>
                             <span>Səbətə əlavə et</span>
                         </button>

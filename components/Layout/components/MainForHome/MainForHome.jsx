@@ -209,7 +209,7 @@ const getData = async () => {
     addToCard(data)
       .then((e) => {
         cartByUserIDFunc();
-        console.log(e);
+        console.log(e, "lplp");
       })
       .catch((e) => {
         console.log(e);
