@@ -29,6 +29,9 @@ import { MobileFooter } from "../MobileFooter/MobileFooter";
 
 const MainForHome = (props) => {
   const [optionsTitle, setOptionsData] = useState([]);
+  console.log('====================================');
+  console.log(optionsTitle,"hello");
+  console.log('====================================');
 
   const settings = {
     dots: false,
@@ -116,9 +119,8 @@ const MainForHome = (props) => {
 
   const [allProductsTitle, setAllProductsData] = useState([]);
   useEffect(() => {
-    productFilter({}).then((items) => {
-      console.log(items.data.results, "dsjkahdjkash");
-      setAllProductsData(items.data.results);
+    allProducts().then((items) => {
+      setAllProductsData(items.data.results.splice(0, 15));
     });
   }, []);
 
@@ -763,7 +765,7 @@ const getData = async () => {
                               className="rating-reviews"
                             >
                               ({e.product.rating}
-                              reviews)
+                              Baxış)
                             </a>
                           </div>
                           <div className="product-price">$235.35 </div>
@@ -779,7 +781,7 @@ const getData = async () => {
                               onClick={() => {
                                 addToCardFunc(e.id);
                               }}
-                              title="Add to Cart"
+                              title="Səbətə əlavə et"
                             >
                               <i className="w-icon-cart"></i> Səbətə əlavə et
                             </a>
@@ -811,7 +813,7 @@ const getData = async () => {
           </div>
           <div className="container mt-1 pt-2">
             <div className="filter-with-title appear-animate">
-              <h2 className="title">Bütün məhsullar</h2>
+              <h2 className="title">Ən Yeni Mehsullar</h2>
               <ul
                 className="nav-filters filter-boxed"
                 data-target="#products-1" style={{display:"none"}}
@@ -863,7 +865,7 @@ const getData = async () => {
                           onClick={() => {
                             addToCardFunc(e.id);
                           }}
-                          title="Add to cart"
+                          title="Səbətə əlavə et"
                         ></a>
                         <a
                           href="#"
@@ -909,7 +911,7 @@ const getData = async () => {
                         </div>
                         <a href={`shop/${e.id}`} className="rating-reviews">
                           ({e.rating}
-                          reviews)
+                          Baxış)
                         </a>
                       </div>
                       <div className="product-pa-wrapper">
@@ -918,8 +920,14 @@ const getData = async () => {
                     </div>
                   </div>
                 </div>
-                
               ))}
+            </div>
+
+            <div className="text-right mb-2">
+              <a href="/shop" className="font-weight-bold ml-2 ls-25">
+                Daha çox məhsul
+                <i class="w-icon-long-arrow-right"></i>
+              </a>
             </div>
             {/*<div className="toolbox toolbox-pagination justify-content-between">*/}
             {/*    <p className="showing-info mb-2 mb-sm-0">*/}
@@ -972,7 +980,7 @@ const getData = async () => {
                     <div className="swiper-slide brand-col">
                       <div
                         style={{
-                          width: "80%",
+                          width: "200px",
                           height: "10%",
                           position: "relative",
                           left: "40px",
@@ -1282,7 +1290,7 @@ const getData = async () => {
                   </div>
                   <a href="product-default.html" className="rating-reviews">
                     ({e.rating}
-                    reviews)
+                    Baxış)
                   </a>
                 </div>
               ))}

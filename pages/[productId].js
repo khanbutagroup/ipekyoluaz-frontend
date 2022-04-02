@@ -1348,7 +1348,7 @@ const productId = (props) =>{
                                   href="product-default.html"
                                   className="rating-reviews"
                                 >
-                                  (3 reviews)
+                                  (3 Baxış)
                                 </a>
                               </div>
                               <div className="product-pa-wrapper">
@@ -1435,7 +1435,7 @@ const productId = (props) =>{
                                   href="product-default.html"
                                   className="rating-reviews"
                                 >
-                                  (10 reviews)
+                                  (10 Baxış)
                                 </a>
                               </div>
                               <div className="product-pa-wrapper">
@@ -1502,7 +1502,7 @@ const productId = (props) =>{
                                   href="product-default.html"
                                   className="rating-reviews"
                                 >
-                                  (5 reviews)
+                                  (5 Baxış)
                                 </a>
                               </div>
                               <div className="product-pa-wrapper">
@@ -1568,7 +1568,7 @@ const productId = (props) =>{
                                   href="product-default.html"
                                   className="rating-reviews"
                                 >
-                                  (7 reviews)
+                                  (7 Baxış)
                                 </a>
                               </div>
                               <div className="product-pa-wrapper">
@@ -1632,7 +1632,7 @@ const productId = (props) =>{
                                   href="product-default.html"
                                   className="rating-reviews"
                                 >
-                                  (3 reviews)
+                                  (3 Baxış)
                                 </a>
                               </div>
                               <div className="product-pa-wrapper">
@@ -1719,7 +1719,7 @@ const productId = (props) =>{
                                   href="product-default.html"
                                   className="rating-reviews"
                                 >
-                                  (10 reviews)
+                                  (10 Baxış)
                                 </a>
                               </div>
                               <div className="product-pa-wrapper">
@@ -1786,7 +1786,7 @@ const productId = (props) =>{
                                   href="product-default.html"
                                   className="rating-reviews"
                                 >
-                                  (5 reviews)
+                                  (5 Baxış)
                                 </a>
                               </div>
                               <div className="product-pa-wrapper">
@@ -1852,7 +1852,7 @@ const productId = (props) =>{
                                   href="product-default.html"
                                   className="rating-reviews"
                                 >
-                                  (7 reviews)
+                                  (7 Baxış)
                                 </a>
                               </div>
                               <div className="product-pa-wrapper">
@@ -1931,7 +1931,7 @@ const productId = (props) =>{
                                   href="product-default.html"
                                   className="rating-reviews"
                                 >
-                                  (3 reviews)
+                                  (3 Baxış)
                                 </a>
                               </div>
                               <div className="product-pa-wrapper">
@@ -2018,7 +2018,7 @@ const productId = (props) =>{
                                   href="product-default.html"
                                   className="rating-reviews"
                                 >
-                                  (10 reviews)
+                                  (10 Baxış)
                                 </a>
                               </div>
                               <div className="product-pa-wrapper">
@@ -2085,7 +2085,7 @@ const productId = (props) =>{
                                   href="product-default.html"
                                   className="rating-reviews"
                                 >
-                                  (5 reviews)
+                                  (5 Baxış)
                                 </a>
                               </div>
                               <div className="product-pa-wrapper">
@@ -2151,7 +2151,7 @@ const productId = (props) =>{
                                   href="product-default.html"
                                   className="rating-reviews"
                                 >
-                                  (7 reviews)
+                                  (7 Baxış)
                                 </a>
                               </div>
                               <div className="product-pa-wrapper">
@@ -2215,7 +2215,7 @@ const productId = (props) =>{
                                   href="product-default.html"
                                   className="rating-reviews"
                                 >
-                                  (3 reviews)
+                                  (3 Baxış)
                                 </a>
                               </div>
                               <div className="product-pa-wrapper">
@@ -2260,7 +2260,7 @@ const productId = (props) =>{
                                 <a
                                   href="#"
                                   className="btn-product-icon btn-cart w-icon-cart"
-                                  title="Add to cart"
+                                  title="Səbətə əlavə et"
                                 ></a>
                                 <a
                                   href="#"
@@ -2302,7 +2302,7 @@ const productId = (props) =>{
                                   href="product-default.html"
                                   className="rating-reviews"
                                 >
-                                  (10 reviews)
+                                  (10 Baxış)
                                 </a>
                               </div>
                               <div className="product-pa-wrapper">
@@ -2329,7 +2329,7 @@ const productId = (props) =>{
                                 <a
                                   href="#"
                                   className="btn-product-icon btn-cart w-icon-cart"
-                                  title="Add to cart"
+                                  title="Səbətə əlavə et"
                                 ></a>
                                 <a
                                   href="#"
@@ -2369,7 +2369,7 @@ const productId = (props) =>{
                                   href="product-default.html"
                                   className="rating-reviews"
                                 >
-                                  (5 reviews)
+                                  (5 Baxış)
                                 </a>
                               </div>
                               <div className="product-pa-wrapper">
@@ -2393,7 +2393,7 @@ const productId = (props) =>{
                                 <a
                                   href="#"
                                   className="btn-product-icon btn-cart w-icon-cart"
-                                  title="Add to cart"
+                                  title="Səbətə əlavə et"
                                 ></a>
                                 <a
                                   href="#"
@@ -2435,7 +2435,7 @@ const productId = (props) =>{
                                   href="product-default.html"
                                   className="rating-reviews"
                                 >
-                                  (7 reviews)
+                                  (7 Baxış)
                                 </a>
                               </div>
                               <div className="product-pa-wrapper">

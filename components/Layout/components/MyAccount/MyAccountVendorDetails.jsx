@@ -349,7 +349,7 @@ export default function MyAccountVendorDetails(){
                                                     <div className="product-thumbs swiper-wrapper row cols-4 gutter-sm">
                                                         <div className="product-thumb swiper-slide">
                                                             <figure className="product-image" style={{backgroundColor: '#f5f5f5', width:"100px", height:"100px",display:"flex",justifyContent:"center",alignItems:"center"}}>
-                                                                <h5>Şəkil əlavə edin</h5>
+                                                                <h5 style={{fontSize:"10px"}}>Şəkil əlavə edin</h5>
                                                                 <img src={selectedFile1}  data-zoom-image={selectedFile1}/>
                                                             </figure>
                                                         </div>

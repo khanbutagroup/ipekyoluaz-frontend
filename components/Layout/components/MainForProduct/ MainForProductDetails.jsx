@@ -272,7 +272,7 @@ export default function  MainForProductDetails(props){
                                     <span className="ratings" style={{width:'80%'}}></span>
                                     <span className="tooltiptext tooltip-top"></span>
                                 </div>
-                                <a href="#" className="rating-reviews">(3 Reviews)</a>
+                                <a href="#" className="rating-reviews">(3 Baxış)</a>
                             </div>
 
                             <div className="product-short-desc">

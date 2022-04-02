@@ -86,6 +86,9 @@ export default function Compare(){
                                 <div className="compare-row cols-xl-5 cols-lg-4 cols-md-3 cols-2 compare-products">
                                     <div className="compare-col compare-field">Məhsul</div>
                                     {compareItem.map(e=>(
+                                        console.log('===================================='),
+                                        console.log(e),
+                                        console.log('===================================='),
                                         <div className="compare-col compare-product">
                                             <a href="#" className="btn remove-product" onClick={()=>{removeProduct(e.id)}}><i
                                                 className="w-icon-times-solid"></i></a>
@@ -142,7 +145,7 @@ export default function Compare(){
                                                     <span className="tooltiptext tooltip-top"></span>
                                                 </div>
                                                 <a href="product-default.html" className="rating-reviews">({e.rating}
-                                                    Reviews)</a>
+                                                    Baxış)</a>
                                             </div>
                                         </div>
                                     ))}
