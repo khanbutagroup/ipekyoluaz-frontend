@@ -29,6 +29,9 @@ import { MobileFooter } from "../MobileFooter/MobileFooter";
 
 const MainForHome = (props) => {
   const [optionsTitle, setOptionsData] = useState([]);
+  console.log('====================================');
+  console.log(optionsTitle,"hello");
+  console.log('====================================');
 
   const settings = {
     dots: false,
@@ -763,7 +766,7 @@ const getData = async () => {
                               className="rating-reviews"
                             >
                               ({e.product.rating}
-                              reviews)
+                              Baxış)
                             </a>
                           </div>
                           <div className="product-price">$235.35 </div>
@@ -779,7 +782,7 @@ const getData = async () => {
                               onClick={() => {
                                 addToCardFunc(e.id);
                               }}
-                              title="Add to Cart"
+                              title="Səbətə əlavə et"
                             >
                               <i className="w-icon-cart"></i> Səbətə əlavə et
                             </a>
@@ -811,7 +814,7 @@ const getData = async () => {
           </div>
           <div className="container mt-1 pt-2">
             <div className="filter-with-title appear-animate">
-              <h2 className="title">Bütün məhsullar</h2>
+              <h2 className="title">Ən Yeni Mehsullar</h2>
               <ul
                 className="nav-filters filter-boxed"
                 data-target="#products-1" style={{display:"none"}}
@@ -863,7 +866,7 @@ const getData = async () => {
                           onClick={() => {
                             addToCardFunc(e.id);
                           }}
-                          title="Add to cart"
+                          title="Səbətə əlavə et"
                         ></a>
                         <a
                           href="#"
@@ -909,7 +912,7 @@ const getData = async () => {
                         </div>
                         <a href={`shop/${e.id}`} className="rating-reviews">
                           ({e.rating}
-                          reviews)
+                          Baxış)
                         </a>
                       </div>
                       <div className="product-pa-wrapper">
@@ -1282,7 +1285,7 @@ const getData = async () => {
                   </div>
                   <a href="product-default.html" className="rating-reviews">
                     ({e.rating}
-                    reviews)
+                    Baxış)
                   </a>
                 </div>
               ))}

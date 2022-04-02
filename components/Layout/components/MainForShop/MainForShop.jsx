@@ -60,6 +60,7 @@ export default function MainForShop() {
     return () => (mounted = false);
   }, []);
   const [allProductsTitle, allProductsData] = useState([]);
+  console.log(allProductsTitle,"hello");
   const [paginationPrev, paginationPrevData] = useState([]);
   const [paginationNext, paginationNextData] = useState([]);
 
@@ -827,7 +828,7 @@ export default function MainForShop() {
                           <div className="product-details">
                             <div className="product-cat">
                               <a href="shop-banner-sidebar.html">
-                                sub_sub_category
+                                {e?.sub_sub_category?.title} 
                               </a>
                             </div>
                             <h3 className="product-name">
@@ -846,7 +847,7 @@ export default function MainForShop() {
                                 className="rating-reviews"
                               >
                                 ({e?.rating}
-                                reviews)
+                                Baxış)
                               </a>
                             </div>
                             <div className="product-pa-wrapper">
@@ -911,7 +912,7 @@ export default function MainForShop() {
                               className="rating-reviews"
                             >
                               ({e.rating}
-                              Reviews)
+                                Baxış)
                             </a>
                           </div>
                           <div className="product-price">

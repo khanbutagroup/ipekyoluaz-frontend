@@ -233,7 +233,7 @@ export default function MainForMoreProducts(){
                                                         <span className="tooltiptext tooltip-top"></span>
                                                     </div>
                                                     <a href={`/${e.product.id}`} className="rating-reviews">({e.product.rating}
-                                                        reviews)</a>
+                                                        Baxış)</a>
                                                 </div>
                                                 <div className="product-price">{e.discount_price}</div>
                                                 <ul className="product-desc">

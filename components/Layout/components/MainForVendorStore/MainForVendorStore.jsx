@@ -658,7 +658,7 @@ export default function MainForVendorStore(props) {
                               <a
                                 href="#"
                                 className="btn-product-icon btn-cart w-icon-cart"
-                                title="Add to cart"
+                                title="Səbətə əlavə et"
                               ></a>
                               <a
                                 href="#"
@@ -699,7 +699,7 @@ export default function MainForVendorStore(props) {
                                 className="rating-reviews"
                               >
                                 ({e.rating}
-                                reviews)
+                                  Baxış)
                               </a>
                             </div>
                             <div className="product-pa-wrapper">
@@ -764,7 +764,7 @@ export default function MainForVendorStore(props) {
                               className="rating-reviews"
                             >
                               ({e.rating}
-                              Reviews)
+                                Baxış)
                             </a>
                           </div>
                           <div className="product-price">
