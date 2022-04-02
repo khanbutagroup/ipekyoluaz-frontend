@@ -1254,7 +1254,7 @@ export default function HeaderForHome(){
                                             <a href="/about">Haqqımızda</a>
                                         </li>
                                         <li>
-                                            <a href="/contact">Əlaqə</a>
+                                            <a href="/elaqe">Əlaqə</a>
                                         </li>
                                         <li>
                                             <a href="/faq">Faq</a>
