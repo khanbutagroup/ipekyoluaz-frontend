@@ -119,9 +119,8 @@ const MainForHome = (props) => {
 
   const [allProductsTitle, setAllProductsData] = useState([]);
   useEffect(() => {
-    productFilter({}).then((items) => {
-      console.log(items.data.results, "dsjkahdjkash");
-      setAllProductsData(items.data.results);
+    allProducts().then((items) => {
+      setAllProductsData(items.data.results.splice(0, 15));
     });
   }, []);
 
@@ -921,8 +920,14 @@ const getData = async () => {
                     </div>
                   </div>
                 </div>
-                
               ))}
+            </div>
+
+            <div className="text-right mb-2">
+              <a href="/shop" className="font-weight-bold ml-2 ls-25">
+                Daha çox məhsul
+                <i class="w-icon-long-arrow-right"></i>
+              </a>
             </div>
             {/*<div className="toolbox toolbox-pagination justify-content-between">*/}
             {/*    <p className="showing-info mb-2 mb-sm-0">*/}
@@ -975,7 +980,7 @@ const getData = async () => {
                     <div className="swiper-slide brand-col">
                       <div
                         style={{
-                          width: "80%",
+                          width: "200px",
                           height: "10%",
                           position: "relative",
                           left: "40px",

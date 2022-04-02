@@ -60,7 +60,6 @@ export default function MainForShop() {
     return () => (mounted = false);
   }, []);
   const [allProductsTitle, allProductsData] = useState([]);
-  console.log(allProductsTitle,"hello");
   const [paginationPrev, paginationPrevData] = useState([]);
   const [paginationNext, paginationNextData] = useState([]);
 
