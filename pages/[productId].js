@@ -1,15 +1,17 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import NavbarForAllPage from "../components/Layout/components/AllHeader/NavbarForAllPage";
 import MobileMenu from "../components/Layout/components/AllHeader/MobileMenu";
 import Footer from "../components/Layout/components/Footer/Footer";
 import axios from 'axios'
 import MainForProductDetails from '../components/Layout/components/MainForProduct/ MainForProductDetails'
+import { FaStar } from 'react-icons/fa'
+import { addToCardMain } from '../store/actions';
 
 
 const productId = (props) =>{
 
+const [allProducts, setAllProducts] = useState([])
 
-    
 
     const [showMe, setShowMe] = useState("none");
     function showMeFunc() {
@@ -20,9 +22,44 @@ const productId = (props) =>{
     }
   }
   
+  useEffect(() => {
+      getMoreProducts()
+  }, [])
 
   console.log(props.product, "papa")
 
+
+  const getMoreProducts = async() => {
+       await axios.get(`https://api.ipekyolu.az/api/product-by-user-id/${props.product.user.id}`)
+      .then(res => setAllProducts(res.data))
+      .catch(err => err)
+  }
+
+  const userCardApi = "https://api.ipekyolu.az/api/add-to-cart/"
+  const cardUserIdApi = "https://api.ipekyolu.az/api/user-cart/"
+
+
+  const addToCardF = (id) => {
+      const data = {quantity: 1, product: id}
+      const userToken = localStorage.getItem("username")
+
+      axios.post(userCardApi ,data, { 'headers': { 'Authorization': `Bearer ${userToken}` }})
+      .then((res) => {cardByUserId() ;res.data})
+      .catch(err => console.log(err, "lala"))
+
+  }
+
+
+
+  const cardByUserId = () => {
+      const userId = localStorage.getItem("userId")
+      return (
+          axios.get(cardUserIdApi+userId)
+          .then(dispatch(addToCardMain(res => res.data.product_version)))
+          .catch(console.log(err => err))
+      )
+      
+  }
 
 
 
@@ -331,7 +368,7 @@ const productId = (props) =>{
                     <div className="card">
                       <div className="card-header ls-normal">
                         <a href="#product-tab-description" className="collapse">
-                          Description
+                          Ətraflı
                         </a>
                       </div>
                       <div
@@ -340,19 +377,10 @@ const productId = (props) =>{
                       >
                         <div className="row">
                           <div className="col-md-6">
-                            <p className="mb-4">
+                            <p className="mb-4" style={{"height": "215px"}}>
                               {props.product.description}
                             </p>
-                            <ul className="list-type-check list-style-none pl-0">
-                              <li>
-                                {props.product.short_desc1}
-                              </li>
-                              <li>{props.product.short_desc2}</li>
-                              <li>
-                                {props.product.short_desc3}
-                              </li>
-                              
-                            </ul>
+                            
                           </div>
                           <div className="col-md-6">
                             <div className="banner banner-video product-video br-xs">
@@ -403,805 +431,11 @@ const productId = (props) =>{
                         </div>
                       </div>
                     </div>
-                    <div className="card">
-                      <div className="card-header ls-normal">
-                        <a href="#product-tab-reviews" className="expand">
-                          Customer Reviews(3)
-                        </a>
-                      </div>
-                      <div
-                        className="card-body collapsed"
-                        id="product-tab-reviews"
-                      >
-                        <div className="row mb-4">
-                          <div className="col-xl-4 col-lg-5 mb-4">
-                            <div className="ratings-wrapper">
-                              <div className="avg-rating-container">
-                                <h4 className="avg-mark font-weight-bolder ls-50">
-                                  3.3
-                                </h4>
-                                <div className="avg-rating">
-                                  <p className="text-dark mb-1">
-                                    Average Rating
-                                  </p>
-                                  <div className="ratings-container">
-                                    <div className="ratings-full">
-                                      <span
-                                        className="ratings"
-                                        style={{ width: "60%" }}
-                                      ></span>
-                                      <span className="tooltiptext tooltip-top"></span>
-                                    </div>
-                                    <a href="#" className="rating-reviews">
-                                      (3 Reviews)
-                                    </a>
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="ratings-value d-flex align-items-center text-dark ls-25">
-                                <span className="text-dark font-weight-bold">
-                                  66.7%
-                                </span>
-                                Recommended
-                                <span className="count">(2 of 3)</span>
-                              </div>
-                              <div className="ratings-list">
-                                <div className="ratings-container">
-                                  <div className="ratings-full">
-                                    <span
-                                      className="ratings"
-                                      style={{ width: "100%" }}
-                                    ></span>
-                                    <span className="tooltiptext tooltip-top"></span>
-                                  </div>
-                                  <div className="progress-bar progress-bar-sm ">
-                                    <span></span>
-                                  </div>
-                                  <div className="progress-value">
-                                    <mark>70%</mark>
-                                  </div>
-                                </div>
-                                <div className="ratings-container">
-                                  <div className="ratings-full">
-                                    <span
-                                      className="ratings"
-                                      style={{ width: "80%" }}
-                                    ></span>
-                                    <span className="tooltiptext tooltip-top"></span>
-                                  </div>
-                                  <div className="progress-bar progress-bar-sm ">
-                                    <span></span>
-                                  </div>
-                                  <div className="progress-value">
-                                    <mark>30%</mark>
-                                  </div>
-                                </div>
-                                <div className="ratings-container">
-                                  <div className="ratings-full">
-                                    <span
-                                      className="ratings"
-                                      style={{ width: "60%" }}
-                                    ></span>
-                                    <span className="tooltiptext tooltip-top"></span>
-                                  </div>
-                                  <div className="progress-bar progress-bar-sm ">
-                                    <span></span>
-                                  </div>
-                                  <div className="progress-value">
-                                    <mark>40%</mark>
-                                  </div>
-                                </div>
-                                <div className="ratings-container">
-                                  <div className="ratings-full">
-                                    <span
-                                      className="ratings"
-                                      style={{ width: "40%" }}
-                                    ></span>
-                                    <span className="tooltiptext tooltip-top"></span>
-                                  </div>
-                                  <div className="progress-bar progress-bar-sm ">
-                                    <span></span>
-                                  </div>
-                                  <div className="progress-value">
-                                    <mark>0%</mark>
-                                  </div>
-                                </div>
-                                <div className="ratings-container">
-                                  <div className="ratings-full">
-                                    <span
-                                      className="ratings"
-                                      style={{ width: "20%" }}
-                                    ></span>
-                                    <span className="tooltiptext tooltip-top"></span>
-                                  </div>
-                                  <div className="progress-bar progress-bar-sm ">
-                                    <span></span>
-                                  </div>
-                                  <div className="progress-value">
-                                    <mark>0%</mark>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="col-xl-8 col-lg-7 mb-4">
-                            <div className="review-form-wrapper">
-                              <h3 className="title tab-pane-title font-weight-bold mb-1">
-                                Submit Your Review
-                              </h3>
-                              <p className="mb-3">
-                                Your email address will not be published.
-                                Required fields are marked *
-                              </p>
-                              <form
-                                action="#"
-                                method="POST"
-                                className="review-form"
-                              >
-                                <div className="rating-form">
-                                  <label htmlFor="rating">
-                                    Your Rating Of This Product :
-                                  </label>
-                                  <span className="rating-stars">
-                                    <a className="star-1" href="#">
-                                      1
-                                    </a>
-                                    <a className="star-2" href="#">
-                                      2
-                                    </a>
-                                    <a className="star-3" href="#">
-                                      3
-                                    </a>
-                                    <a className="star-4" href="#">
-                                      4
-                                    </a>
-                                    <a className="star-5" href="#">
-                                      5
-                                    </a>
-                                  </span>
-                                  <select
-                                    name="rating"
-                                    id="rating"
-                                    required=""
-                                    style={{ display: "none" }}
-                                  >
-                                    <option value="">Rate…</option>
-                                    <option value="5">Perfect</option>
-                                    <option value="4">Good</option>
-                                    <option value="3">Average</option>
-                                    <option value="2">Not that bad</option>
-                                    <option value="1">Very poor</option>
-                                  </select>
-                                </div>
-                                <textarea
-                                  cols="30"
-                                  rows="6"
-                                  placeholder="Write Your Review Here..."
-                                  className="form-control"
-                                  id="review"
-                                ></textarea>
-                                <div className="row gutter-md">
-                                  <div className="col-md-6">
-                                    <input
-                                      type="text"
-                                      className="form-control"
-                                      placeholder="Your Name"
-                                      id="author"
-                                    />
-                                  </div>
-                                  <div className="col-md-6">
-                                    <input
-                                      type="text"
-                                      className="form-control"
-                                      placeholder="Your Email"
-                                      id="email_1"
-                                    />
-                                  </div>
-                                </div>
-                                <div className="form-group">
-                                  <input
-                                    type="checkbox"
-                                    className="custom-checkbox"
-                                    id="save-checkbox"
-                                  />
-                                  <label htmlFor="save-checkbox">
-                                    Save my name, email, and website in this
-                                    browser for the next time I comment.
-                                  </label>
-                                </div>
-                                <button type="submit" className="btn btn-dark">
-                                  Submit Review
-                                </button>
-                              </form>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="tab tab-nav-boxed tab-nav-outline tab-nav-center">
-                          <ul className="nav nav-tabs" role="tablist">
-                            <li className="nav-item">
-                              <a href="#show-all" className="nav-link active">
-                                Show All
-                              </a>
-                            </li>
-                            <li className="nav-item">
-                              <a href="#helpful-positive" className="nav-link">
-                                Most Helpful Positive
-                              </a>
-                            </li>
-                            <li className="nav-item">
-                              <a href="#helpful-negative" className="nav-link">
-                                Most Helpful Negative
-                              </a>
-                            </li>
-                            <li className="nav-item">
-                              <a href="#highest-rating" className="nav-link">
-                                Highest Rating
-                              </a>
-                            </li>
-                            <li className="nav-item">
-                              <a href="#lowest-rating" className="nav-link">
-                                Lowest Rating
-                              </a>
-                            </li>
-                          </ul>
-                          <div className="tab-content">
-                            <div className="tab-pane active" id="show-all">
-                              <ul className="comments list-style-none">
-                                <li className="comment">
-                                  <div className="comment-body">
-                                    <figure className="comment-avatar">
-                                      <img
-                                        src="assets/images/agents/1-100x100.png"
-                                        alt="Commenter Avatar"
-                                        width="90"
-                                        height="90"
-                                      />
-                                    </figure>
-                                    <div className="comment-content">
-                                      <h4 className="comment-author">
-                                        <a href="#">John Doe</a>
-                                        <span className="comment-date">
-                                          March 22, 2021 at 1:54 pm
-                                        </span>
-                                      </h4>
-                                      <div className="ratings-container comment-rating">
-                                        <div className="ratings-full">
-                                          <span
-                                            className="ratings"
-                                            style={{ width: "60%" }}
-                                          ></span>
-                                          <span className="tooltiptext tooltip-top"></span>
-                                        </div>
-                                      </div>
-                                      <p>
-                                        pellentesque habitant morbi tristique
-                                        senectus et. In dictum non consectetur a
-                                        erat. Nunc ultrices eros in cursus
-                                        turpis massa tincidunt ante in nibh
-                                        mauris cursus mattis. Cras ornare arcu
-                                        dui vivamus arcu felis bibendum ut
-                                        tristique.
-                                      </p>
-                                      <div className="comment-action">
-                                        <a
-                                          href="#"
-                                          className="btn btn-secondary btn-link btn-underline sm btn-icon-left font-weight-normal text-capitalize"
-                                        >
-                                          <i className="far fa-thumbs-up"></i>
-                                          Helpful (1)
-                                        </a>
-                                        <a
-                                          href="#"
-                                          className="btn btn-dark btn-link btn-underline sm btn-icon-left font-weight-normal text-capitalize"
-                                        >
-                                          <i className="far fa-thumbs-down"></i>
-                                          Unhelpful (0)
-                                        </a>
-                                        <div className="review-image">
-                                          <a href="#">
-                                            <figure>
-                                              <img
-                                                src="assets/images/products/default/review-img-1.jpg"
-                                                width="60"
-                                                height="60"
-                                                alt="Attachment image of John Doe's review on Electronics Black Wrist Watch"
-                                              />
-                                            </figure>
-                                          </a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </li>
-                                <li className="comment">
-                                  <div className="comment-body">
-                                    <figure className="comment-avatar">
-                                      <img
-                                        src="assets/images/agents/2-100x100.png"
-                                        alt="Commenter Avatar"
-                                        width="90"
-                                        height="90"
-                                      />
-                                    </figure>
-                                    <div className="comment-content">
-                                      <h4 className="comment-author">
-                                        <a href="#">John Doe</a>
-                                        <span className="comment-date">
-                                          March 22, 2021 at 1:52 pm
-                                        </span>
-                                      </h4>
-                                      <div className="ratings-container comment-rating">
-                                        <div className="ratings-full">
-                                          <span
-                                            className="ratings"
-                                            style={{ width: " 80%" }}
-                                          ></span>
-                                          <span className="tooltiptext tooltip-top"></span>
-                                        </div>
-                                      </div>
-                                      <p>
-                                        Nullam a magna porttitor, dictum risus
-                                        nec, faucibus sapien. Ultrices eros in
-                                        cursus turpis massa tincidunt ante in
-                                        nibh mauris cursus mattis. Cras ornare
-                                        arcu dui vivamus arcu felis bibendum ut
-                                        tristique.
-                                      </p>
-                                      <div className="comment-action">
-                                        <a
-                                          href="#"
-                                          className="btn btn-secondary btn-link btn-underline sm btn-icon-left font-weight-normal text-capitalize"
-                                        >
-                                          <i className="far fa-thumbs-up"></i>
-                                          Helpful (1)
-                                        </a>
-                                        <a
-                                          href="#"
-                                          className="btn btn-dark btn-link btn-underline sm btn-icon-left font-weight-normal text-capitalize"
-                                        >
-                                          <i className="far fa-thumbs-down"></i>
-                                          Unhelpful (0)
-                                        </a>
-                                        <div className="review-image">
-                                          <a href="#">
-                                            <figure>
-                                              <img
-                                                src="assets/images/products/default/review-img-2.jpg"
-                                                width="60"
-                                                height="60"
-                                                alt="Attachment image of John Doe's review on Electronics Black Wrist Watch"
-                                              />
-                                            </figure>
-                                          </a>
-                                          <a href="#">
-                                            <figure>
-                                              <img
-                                                src="assets/images/products/default/review-img-3.jpg"
-                                                width="60"
-                                                height="60"
-                                                alt="Attachment image of John Doe's review on Electronics Black Wrist Watch"
-                                              />
-                                            </figure>
-                                          </a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </li>
-                                <li className="comment">
-                                  <div className="comment-body">
-                                    <figure className="comment-avatar">
-                                      <img
-                                        src="assets/images/agents/3-100x100.png"
-                                        alt="Commenter Avatar"
-                                        width="90"
-                                        height="90"
-                                      />
-                                    </figure>
-                                    <div className="comment-content">
-                                      <h4 className="comment-author">
-                                        <a href="#">John Doe</a>
-                                        <span className="comment-date">
-                                          March 22, 2021 at 1:21 pm
-                                        </span>
-                                      </h4>
-                                      <div className="ratings-container comment-rating">
-                                        <div className="ratings-full">
-                                          <span
-                                            className="ratings"
-                                            style={{ width: "60%" }}
-                                          ></span>
-                                          <span className="tooltiptext tooltip-top"></span>
-                                        </div>
-                                      </div>
-                                      <p>
-                                        In fermentum et sollicitudin ac orci
-                                        phasellus. A condimentum vitae sapien
-                                        pellentesque habitant morbi tristique
-                                        senectus et. In dictum non consectetur a
-                                        erat. Nunc scelerisque viverra mauris in
-                                        aliquam sem fringilla.
-                                      </p>
-                                      <div className="comment-action">
-                                        <a
-                                          href="#"
-                                          className="btn btn-secondary btn-link btn-underline sm btn-icon-left font-weight-normal text-capitalize"
-                                        >
-                                          <i className="far fa-thumbs-up"></i>
-                                          Helpful (0)
-                                        </a>
-                                        <a
-                                          href="#"
-                                          className="btn btn-dark btn-link btn-underline sm btn-icon-left font-weight-normal text-capitalize"
-                                        >
-                                          <i className="far fa-thumbs-down"></i>
-                                          Unhelpful (1)
-                                        </a>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </li>
-                              </ul>
-                            </div>
-                            <div className="tab-pane" id="helpful-positive">
-                              <ul className="comments list-style-none">
-                                <li className="comment">
-                                  <div className="comment-body">
-                                    <figure className="comment-avatar">
-                                      <img
-                                        src="assets/images/agents/1-100x100.png"
-                                        alt="Commenter Avatar"
-                                        width="90"
-                                        height="90"
-                                      />
-                                    </figure>
-                                    <div className="comment-content">
-                                      <h4 className="comment-author">
-                                        <a href="#">John Doe</a>
-                                        <span className="comment-date">
-                                          March 22, 2021 at 1:54 pm
-                                        </span>
-                                      </h4>
-                                      <div className="ratings-container comment-rating">
-                                        <div className="ratings-full">
-                                          <span
-                                            className="ratings"
-                                            style={{ width: "60%" }}
-                                          ></span>
-                                          <span className="tooltiptext tooltip-top"></span>
-                                        </div>
-                                      </div>
-                                      <p>
-                                        pellentesque habitant morbi tristique
-                                        senectus et. In dictum non consectetur a
-                                        erat. Nunc ultrices eros in cursus
-                                        turpis massa tincidunt ante in nibh
-                                        mauris cursus mattis. Cras ornare arcu
-                                        dui vivamus arcu felis bibendum ut
-                                        tristique.
-                                      </p>
-                                      <div className="comment-action">
-                                        <a
-                                          href="#"
-                                          className="btn btn-secondary btn-link btn-underline sm btn-icon-left font-weight-normal text-capitalize"
-                                        >
-                                          <i className="far fa-thumbs-up"></i>
-                                          Helpful (1)
-                                        </a>
-                                        <a
-                                          href="#"
-                                          className="btn btn-dark btn-link btn-underline sm btn-icon-left font-weight-normal text-capitalize"
-                                        >
-                                          <i className="far fa-thumbs-down"></i>
-                                          Unhelpful (0)
-                                        </a>
-                                        <div className="review-image">
-                                          <a href="#">
-                                            <figure>
-                                              <img
-                                                src="assets/images/products/default/review-img-1.jpg"
-                                                width="60"
-                                                height="60"
-                                                alt="Attachment image of John Doe's review on Electronics Black Wrist Watch"
-                                              />
-                                            </figure>
-                                          </a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </li>
-                                <li className="comment">
-                                  <div className="comment-body">
-                                    <figure className="comment-avatar">
-                                      <img
-                                        src="assets/images/agents/2-100x100.png"
-                                        alt="Commenter Avatar"
-                                        width="90"
-                                        height="90"
-                                      />
-                                    </figure>
-                                    <div className="comment-content">
-                                      <h4 className="comment-author">
-                                        <a href="#">John Doe</a>
-                                        <span className="comment-date">
-                                          March 22, 2021 at 1:52 pm
-                                        </span>
-                                      </h4>
-                                      <div className="ratings-container comment-rating">
-                                        <div className="ratings-full">
-                                          <span
-                                            className="ratings"
-                                            style={{ width: "80%" }}
-                                          ></span>
-                                          <span className="tooltiptext tooltip-top"></span>
-                                        </div>
-                                      </div>
-                                      <p>
-                                        Nullam a magna porttitor, dictum risus
-                                        nec, faucibus sapien. Ultrices eros in
-                                        cursus turpis massa tincidunt ante in
-                                        nibh mauris cursus mattis. Cras ornare
-                                        arcu dui vivamus arcu felis bibendum ut
-                                        tristique.
-                                      </p>
-                                      <div className="comment-action">
-                                        <a
-                                          href="#"
-                                          className="btn btn-secondary btn-link btn-underline sm btn-icon-left font-weight-normal text-capitalize"
-                                        >
-                                          <i className="far fa-thumbs-up"></i>
-                                          Helpful (1)
-                                        </a>
-                                        <a
-                                          href="#"
-                                          className="btn btn-dark btn-link btn-underline sm btn-icon-left font-weight-normal text-capitalize"
-                                        >
-                                          <i className="far fa-thumbs-down"></i>
-                                          Unhelpful (0)
-                                        </a>
-                                        <div className="review-image">
-                                          <a href="#">
-                                            <figure>
-                                              <img
-                                                src="assets/images/products/default/review-img-2.jpg"
-                                                width="60"
-                                                height="60"
-                                                alt="Attachment image of John Doe's review on Electronics Black Wrist Watch"
-                                              />
-                                            </figure>
-                                          </a>
-                                          <a href="#">
-                                            <figure>
-                                              <img
-                                                src="assets/images/products/default/review-img-3.jpg"
-                                                width="60"
-                                                height="60"
-                                                alt="Attachment image of John Doe's review on Electronics Black Wrist Watch"
-                                              />
-                                            </figure>
-                                          </a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </li>
-                              </ul>
-                            </div>
-                            <div className="tab-pane" id="helpful-negative">
-                              <ul className="comments list-style-none">
-                                <li className="comment">
-                                  <div className="comment-body">
-                                    <figure className="comment-avatar">
-                                      <img
-                                        src="assets/images/agents/3-100x100.png"
-                                        alt="Commenter Avatar"
-                                        width="90"
-                                        height="90"
-                                      />
-                                    </figure>
-                                    <div className="comment-content">
-                                      <h4 className="comment-author">
-                                        <a href="#">John Doe</a>
-                                        <span className="comment-date">
-                                          March 22, 2021 at 1:21 pm
-                                        </span>
-                                      </h4>
-                                      <div className="ratings-container comment-rating">
-                                        <div className="ratings-full">
-                                          <span
-                                            className="ratings"
-                                            style={{ width: "60%" }}
-                                          ></span>
-                                          <span className="tooltiptext tooltip-top"></span>
-                                        </div>
-                                      </div>
-                                      <p>
-                                        In fermentum et sollicitudin ac orci
-                                        phasellus. A condimentum vitae sapien
-                                        pellentesque habitant morbi tristique
-                                        senectus et. In dictum non consectetur a
-                                        erat. Nunc scelerisque viverra mauris in
-                                        aliquam sem fringilla.
-                                      </p>
-                                      <div className="comment-action">
-                                        <a
-                                          href="#"
-                                          className="btn btn-secondary btn-link btn-underline sm btn-icon-left font-weight-normal text-capitalize"
-                                        >
-                                          <i className="far fa-thumbs-up"></i>
-                                          Helpful (0)
-                                        </a>
-                                        <a
-                                          href="#"
-                                          className="btn btn-dark btn-link btn-underline sm btn-icon-left font-weight-normal text-capitalize"
-                                        >
-                                          <i className="far fa-thumbs-down"></i>
-                                          Unhelpful (1)
-                                        </a>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </li>
-                              </ul>
-                            </div>
-                            <div className="tab-pane" id="highest-rating">
-                              <ul className="comments list-style-none">
-                                <li className="comment">
-                                  <div className="comment-body">
-                                    <figure className="comment-avatar">
-                                      <img
-                                        src="assets/images/agents/2-100x100.png"
-                                        alt="Commenter Avatar"
-                                        width="90"
-                                        height="90"
-                                      />
-                                    </figure>
-                                    <div className="comment-content">
-                                      <h4 className="comment-author">
-                                        <a href="#">John Doe</a>
-                                        <span className="comment-date">
-                                          March 22, 2021 at 1:52 pm
-                                        </span>
-                                      </h4>
-                                      <div className="ratings-container comment-rating">
-                                        <div className="ratings-full">
-                                          <span
-                                            className="ratings"
-                                            style={{ width: "80%" }}
-                                          ></span>
-                                          <span className="tooltiptext tooltip-top"></span>
-                                        </div>
-                                      </div>
-                                      <p>
-                                        Nullam a magna porttitor, dictum risus
-                                        nec, faucibus sapien. Ultrices eros in
-                                        cursus turpis massa tincidunt ante in
-                                        nibh mauris cursus mattis. Cras ornare
-                                        arcu dui vivamus arcu felis bibendum ut
-                                        tristique.
-                                      </p>
-                                      <div className="comment-action">
-                                        <a
-                                          href="#"
-                                          className="btn btn-secondary btn-link btn-underline sm btn-icon-left font-weight-normal text-capitalize"
-                                        >
-                                          <i className="far fa-thumbs-up"></i>
-                                          Helpful (1)
-                                        </a>
-                                        <a
-                                          href="#"
-                                          className="btn btn-dark btn-link btn-underline sm btn-icon-left font-weight-normal text-capitalize"
-                                        >
-                                          <i className="far fa-thumbs-down"></i>
-                                          Unhelpful (0)
-                                        </a>
-                                        <div className="review-image">
-                                          <a href="#">
-                                            <figure>
-                                              <img
-                                                src="assets/images/products/default/review-img-2.jpg"
-                                                width="60"
-                                                height="60"
-                                                alt="Attachment image of John Doe's review on Electronics Black Wrist Watch"
-                                              />
-                                            </figure>
-                                          </a>
-                                          <a href="#">
-                                            <figure>
-                                              <img
-                                                src="assets/images/products/default/review-img-3.jpg"
-                                                width="60"
-                                                height="60"
-                                                alt="Attachment image of John Doe's review on Electronics Black Wrist Watch"
-                                              />
-                                            </figure>
-                                          </a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </li>
-                              </ul>
-                            </div>
-                            <div className="tab-pane" id="lowest-rating">
-                              <ul className="comments list-style-none">
-                                <li className="comment">
-                                  <div className="comment-body">
-                                    <figure className="comment-avatar">
-                                      <img
-                                        src="assets/images/agents/1-100x100.png"
-                                        alt="Commenter Avatar"
-                                        width="90"
-                                        height="90"
-                                      />
-                                    </figure>
-                                    <div className="comment-content">
-                                      <h4 className="comment-author">
-                                        <a href="#">John Doe</a>
-                                        <span className="comment-date">
-                                          March 22, 2021 at 1:54 pm
-                                        </span>
-                                      </h4>
-                                      <div className="ratings-container comment-rating">
-                                        <div className="ratings-full">
-                                          <span
-                                            className="ratings"
-                                            style={{ width: "60%" }}
-                                          ></span>
-                                          <span className="tooltiptext tooltip-top"></span>
-                                        </div>
-                                      </div>
-                                      <p>
-                                        pellentesque habitant morbi tristique
-                                        senectus et. In dictum non consectetur a
-                                        erat. Nunc ultrices eros in cursus
-                                        turpis massa tincidunt ante in nibh
-                                        mauris cursus mattis. Cras ornare arcu
-                                        dui vivamus arcu felis bibendum ut
-                                        tristique.
-                                      </p>
-                                      <div className="comment-action">
-                                        <a
-                                          href="#"
-                                          className="btn btn-secondary btn-link btn-underline sm btn-icon-left font-weight-normal text-capitalize"
-                                        >
-                                          <i className="far fa-thumbs-up"></i>
-                                          Helpful (1)
-                                        </a>
-                                        <a
-                                          href="#"
-                                          className="btn btn-dark btn-link btn-underline sm btn-icon-left font-weight-normal text-capitalize"
-                                        >
-                                          <i className="far fa-thumbs-down"></i>
-                                          Unhelpful (0)
-                                        </a>
-                                        <div className="review-image">
-                                          <a href="#">
-                                            <figure>
-                                              <img
-                                                src="assets/images/products/default/review-img-3.jpg"
-                                                width="60"
-                                                height="60"
-                                                alt="Attachment image of John Doe's review on Electronics Black Wrist Watch"
-                                              />
-                                            </figure>
-                                          </a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </li>
-                              </ul>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    
                     <div className="card">
                       <div className="card-header ls-normal">
                         <a href="#product-tab-vendor" className="expand">
-                          Vendor Info
+                          Mağaza haqqında 
                         </a>
                       </div>
                       <div
@@ -1212,7 +446,7 @@ const productId = (props) =>{
                           <div className="col-md-6 mb-4">
                             <figure className="vendor-banner br-sm">
                               <img
-                                src="assets/images/products/vendor-banner.jpg"
+                                src={`https://api.ipekyolu.az${props.product.user.cover_image}`}
                                 alt="Vendor Banner"
                                 width="610"
                                 height="295"
@@ -1225,7 +459,7 @@ const productId = (props) =>{
                               <figure className="vendor-logo mr-4">
                                 <a href="#">
                                   <img
-                                    src="assets/images/products/vendor-logo.jpg"
+                                    src={`https://api.ipekyolu.az${props.product.user.logo}`}
                                     alt="Vendor Logo"
                                     width="80"
                                     height="80"
@@ -1234,44 +468,39 @@ const productId = (props) =>{
                               </figure>
                               <div>
                                 <div className="vendor-name">
-                                  <a href="#">Jone Doe</a>
+                                  <a href={`vendorStore/${props.product.user.id}`}>{props.product.user.name}</a>
                                 </div>
                                 <div className="ratings-container">
-                                  <div className="ratings-full">
-                                    <span
-                                      className="ratings"
-                                      style={{ width: "90%" }}
-                                    ></span>
-                                    <span className="tooltiptext tooltip-top"></span>
-                                  </div>
-                                  <a href="#" className="rating-reviews">
-                                    (32 Reviews)
-                                  </a>
+
+                                  
+                                  {[ ...Array(props.product.user.rating)].map(star => (
+                                  <FaStar color="fda706"/>
+                                    ))}
+                                 
                                 </div>
                               </div>
                             </div>
                             <ul className="vendor-info list-style-none pl-0">
                               <li className="store-name">
-                                <label>Store Name:</label>
-                                <span className="detail">OAIO Store</span>
+                                <label>Mağazanın adı: </label>
+                                <span className="detail">{props.product.user.name}</span>
                               </li>
                               <li className="store-address">
-                                <label>Address:</label>
+                                <label>Ünvan: </label>
                                 <span className="detail">
-                                  Steven Street, El Carjon, CA 92020, United
-                                  States (US)
+                                {props.product.user.city}
                                 </span>
                               </li>
                               <li className="store-phone">
-                                <label>Phone:</label>
-                                <a href="#tel:">1234567890</a>
+                                <label>Əlaqə:</label>
+                                <a href="#tel:">{props.product.user.number}</a>
                               </li>
                             </ul>
                             <a
-                              href="vendor-dokan-store.html"
+                              href={`vendorStore/${props.product.user.id}`}
                               className="btn btn-dark btn-link btn-underline btn-icon-right"
                             >
-                              Visit Store
+                              Mağazanı ziyarət et
                               <i className="w-icon-long-arrow-right"></i>
                             </a>
                           </div>
@@ -1281,1172 +510,79 @@ const productId = (props) =>{
                   </div>
                   <section className="vendor-product-section">
                     <div className="title-link-wrapper mb-4">
-                      <h4 className="title text-left">
-                        More Products From This Vendor
+                      <h4 className="title text-left" style={{fontWeight:"800"}}>
+                      "{props.product.user.name}"dan daha çox məhsul
                       </h4>
                       <a
-                        href="#"
+                        href={`vendorStore/${props.product.user.id}`}
                         className="btn btn-dark btn-link btn-slide-right btn-icon-right"
                       >
-                        More Products<i className="w-icon-long-arrow-right"></i>
+                        Daha çox məhsul<i className="w-icon-long-arrow-right"></i>
                       </a>
                     </div>
                     <div>
                       <div className="product-wrapper row cols-lg-4 cols-md-3 cols-sm-2 cols-2">
-                        <div className="product-wrap">
-                          <div className="product text-center">
-                            <figure className="product-media">
-                              <a href="product-default.html">
-                                <img
-                                  src="assets/images/shop/1.jpg"
-                                  alt="Product"
-                                  width="300"
-                                  height="338"
-                                />
-                              </a>
-                              <div className="product-action-horizontal">
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-cart w-icon-cart"
-                                  title="SƏBƏTƏ ƏLAVƏ ET"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-wishlist w-icon-heart"
-                                  title="Bəyəndiklərim"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-compare w-icon-compare"
-                                  title="Müqayisə"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-quickview w-icon-search"
-                                  title="Cəld Baxış"
-                                ></a>
-                              </div>
-                            </figure>
-                            <div className="product-details">
-                              <div className="product-cat">
-                                <a href="shop-banner-sidebar.html">
-                                  Electronics
-                                </a>
-                              </div>
-                              <h3 className="product-name">
-                                <a href="product-default.html">3D Television</a>
-                              </h3>
-                              <div className="ratings-container">
-                                <div className="ratings-full">
-                                  <span
-                                    className="ratings"
-                                    style={{ width: "100%" }}
-                                  ></span>
-                                  <span className="tooltiptext tooltip-top"></span>
-                                </div>
-                                <a
-                                  href="product-default.html"
-                                  className="rating-reviews"
-                                >
-                                  (3 Baxış)
-                                </a>
-                              </div>
-                              <div className="product-pa-wrapper">
-                                <div className="product-price">$220.00</div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="product-wrap">
-                          <div className="product text-center">
-                            <figure className="product-media">
-                              <a href="product-default.html">
-                                <img
-                                  src="assets/images/shop/2-1.jpg"
-                                  alt="Product"
-                                  width="300"
-                                  height="338"
-                                />
-                                <img
-                                  src="assets/images/shop/2-2.jpg"
-                                  alt="Product"
-                                  width="300"
-                                  height="338"
-                                />
-                              </a>
-                              <div
-                                className="product-countdown-container"
-                                style={{ height: "35px" }}
-                              >
-                                <div
-                                  className="product-countdown countdown-compact"
-                                  data-until="2021, 9, 9"
-                                  data-format="DHMS"
-                                  data-compact="false"
-                                  style={{ fontSize: "20px" }}
-                                  data-labels-short="Days, Hours, Mins, Secs"
-                                >
-                                  00:00:00:00
-                                </div>
-                              </div>
-                              <div className="product-action-horizontal">
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-cart w-icon-cart"
-                                  title="SƏBƏTƏ ƏLAVƏ ET"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-wishlist w-icon-heart"
-                                  title="Bəyəndiklərim"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-compare w-icon-compare"
-                                  title="Müqayisə"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-quickview w-icon-search"
-                                  title="Cəld Baxış"
-                                ></a>
-                              </div>
-                            </figure>
-                            <div className="product-details">
-                              <div className="product-cat">
-                                <a href="shop-banner-sidebar.html">
-                                  Electronics
-                                </a>
-                              </div>
-                              <h3 className="product-name">
-                                <a href="product-default.html">
-                                  Alarm Clock With Lamp
-                                </a>
-                              </h3>
-                              <div className="ratings-container">
-                                <div className="ratings-full">
-                                  <span
-                                    className="ratings"
-                                    style={{ width: "100%" }}
-                                  ></span>
-                                  <span className="tooltiptext tooltip-top"></span>
-                                </div>
-                                <a
-                                  href="product-default.html"
-                                  className="rating-reviews"
-                                >
-                                  (10 Baxış)
-                                </a>
-                              </div>
-                              <div className="product-pa-wrapper">
-                                <div className="product-price">
-                                  <ins className="new-price">$30.00</ins>
-                                  <del className="old-price">$60.00</del>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="product-wrap">
-                          <div className="product text-center">
-                            <figure className="product-media">
-                              <a href="product-default.html">
-                                <img
-                                  src="assets/images/shop/3.jpg"
-                                  alt="Product"
-                                  width="300"
-                                  height="338"
-                                />
-                              </a>
-                              <div className="product-action-horizontal">
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-cart w-icon-cart"
-                                  title="SƏBƏTƏ ƏLAVƏ ET"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-wishlist w-icon-heart"
-                                  title="Bəyəndiklərim"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-compare w-icon-compare"
-                                  title="Müqayisə"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-quickview w-icon-search"
-                                  title="Cəld Baxış"
-                                ></a>
-                              </div>
-                            </figure>
-                            <div className="product-details">
-                              <div className="product-cat">
-                                <a href="shop-banner-sidebar.html">
-                                  Electronics
-                                </a>
-                              </div>
-                              <h3 className="product-name">
-                                <a href="product-default.html">Apple Laptop</a>
-                              </h3>
-                              <div className="ratings-container">
-                                <div className="ratings-full">
-                                  <span
-                                    className="ratings"
-                                    style={{ width: "80%" }}
-                                  ></span>
-                                  <span className="tooltiptext tooltip-top"></span>
-                                </div>
-                                <a
-                                  href="product-default.html"
-                                  className="rating-reviews"
-                                >
-                                  (5 Baxış)
-                                </a>
-                              </div>
-                              <div className="product-pa-wrapper">
-                                <div className="product-price">$1,000.00</div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="product-wrap">
-                          <div className="product text-center">
-                            <figure className="product-media">
-                              <a href="product-default.html">
-                                <img
-                                  src="assets/images/shop/4.jpg"
-                                  alt="Product"
-                                  width="300"
-                                  height="338"
-                                />
-                              </a>
-                              <div className="product-action-horizontal">
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-cart w-icon-cart"
-                                  title="SƏBƏTƏ ƏLAVƏ ET"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-wishlist w-icon-heart"
-                                  title="Bəyəndiklərim"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-compare w-icon-compare"
-                                  title="Müqayisə"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-quickview w-icon-search"
-                                  title="Cəld Baxış"
-                                ></a>
-                              </div>
-                            </figure>
-                            <div className="product-details">
-                              <div className="product-cat">
-                                <a href="shop-banner-sidebar.html">
-                                  Electronics
-                                </a>
-                              </div>
-                              <h3 className="product-name">
-                                <a href="product-default.html">
-                                  Attachable Charge Alarm
-                                </a>
-                              </h3>
-                              <div className="ratings-container">
-                                <div className="ratings-full">
-                                  <span
-                                    className="ratings"
-                                    style={{ width: "60%" }}
-                                  ></span>
-                                  <span className="tooltiptext tooltip-top"></span>
-                                </div>
-                                <a
-                                  href="product-default.html"
-                                  className="rating-reviews"
-                                >
-                                  (7 Baxış)
-                                </a>
-                              </div>
-                              <div className="product-pa-wrapper">
-                                <div className="product-price">$15.00</div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="product-wrap">
-                          <div className="product text-center">
-                            <figure className="product-media">
-                              <a href="product-default.html">
-                                <img
-                                  src="assets/images/shop/1.jpg"
-                                  alt="Product"
-                                  width="300"
-                                  height="338"
-                                />
-                              </a>
-                              <div className="product-action-horizontal">
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-cart w-icon-cart"
-                                  title="SƏBƏTƏ ƏLAVƏ ET"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-wishlist w-icon-heart"
-                                  title="Bəyəndiklərim"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-compare w-icon-compare"
-                                  title="Müqayisə"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-quickview w-icon-search"
-                                  title="Cəld Baxış"
-                                ></a>
-                              </div>
-                            </figure>
-                            <div className="product-details">
-                              <div className="product-cat">
-                                <a href="shop-banner-sidebar.html">
-                                  Electronics
-                                </a>
-                              </div>
-                              <h3 className="product-name">
-                                <a href="product-default.html">3D Television</a>
-                              </h3>
-                              <div className="ratings-container">
-                                <div className="ratings-full">
-                                  <span
-                                    className="ratings"
-                                    style={{ width: "100%" }}
-                                  ></span>
-                                  <span className="tooltiptext tooltip-top"></span>
-                                </div>
-                                <a
-                                  href="product-default.html"
-                                  className="rating-reviews"
-                                >
-                                  (3 Baxış)
-                                </a>
-                              </div>
-                              <div className="product-pa-wrapper">
-                                <div className="product-price">$220.00</div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="product-wrap">
-                          <div className="product text-center">
-                            <figure className="product-media">
-                              <a href="product-default.html">
-                                <img
-                                  src="assets/images/shop/2-1.jpg"
-                                  alt="Product"
-                                  width="300"
-                                  height="338"
-                                />
-                                <img
-                                  src="assets/images/shop/2-2.jpg"
-                                  alt="Product"
-                                  width="300"
-                                  height="338"
-                                />
-                              </a>
-                              <div
-                                className="product-countdown-container"
-                                style={{ height: "35px" }}
-                              >
-                                <div
-                                  className="product-countdown countdown-compact"
-                                  data-until="2021, 9, 9"
-                                  data-format="DHMS"
-                                  data-compact="false"
-                                  style={{ fontSize: "20px" }}
-                                  data-labels-short="Days, Hours, Mins, Secs"
-                                >
-                                  00:00:00:00
-                                </div>
-                              </div>
-                              <div className="product-action-horizontal">
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-cart w-icon-cart"
-                                  title="SƏBƏTƏ ƏLAVƏ ET"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-wishlist w-icon-heart"
-                                  title="Bəyəndiklərim"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-compare w-icon-compare"
-                                  title="Müqayisə"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-quickview w-icon-search"
-                                  title="Cəld Baxış"
-                                ></a>
-                              </div>
-                            </figure>
-                            <div className="product-details">
-                              <div className="product-cat">
-                                <a href="shop-banner-sidebar.html">
-                                  Electronics
-                                </a>
-                              </div>
-                              <h3 className="product-name">
-                                <a href="product-default.html">
-                                  Alarm Clock With Lamp
-                                </a>
-                              </h3>
-                              <div className="ratings-container">
-                                <div className="ratings-full">
-                                  <span
-                                    className="ratings"
-                                    style={{ width: "100%" }}
-                                  ></span>
-                                  <span className="tooltiptext tooltip-top"></span>
-                                </div>
-                                <a
-                                  href="product-default.html"
-                                  className="rating-reviews"
-                                >
-                                  (10 Baxış)
-                                </a>
-                              </div>
-                              <div className="product-pa-wrapper">
-                                <div className="product-price">
-                                  <ins className="new-price">$30.00</ins>
-                                  <del className="old-price">$60.00</del>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="product-wrap">
-                          <div className="product text-center">
-                            <figure className="product-media">
-                              <a href="product-default.html">
-                                <img
-                                  src="assets/images/shop/3.jpg"
-                                  alt="Product"
-                                  width="300"
-                                  height="338"
-                                />
-                              </a>
-                              <div className="product-action-horizontal">
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-cart w-icon-cart"
-                                  title="SƏBƏTƏ ƏLAVƏ ET"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-wishlist w-icon-heart"
-                                  title="Bəyəndiklərim"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-compare w-icon-compare"
-                                  title="Müqayisə"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-quickview w-icon-search"
-                                  title="Cəld Baxış"
-                                ></a>
-                              </div>
-                            </figure>
-                            <div className="product-details">
-                              <div className="product-cat">
-                                <a href="shop-banner-sidebar.html">
-                                  Electronics
-                                </a>
-                              </div>
-                              <h3 className="product-name">
-                                <a href="product-default.html">Apple Laptop</a>
-                              </h3>
-                              <div className="ratings-container">
-                                <div className="ratings-full">
-                                  <span
-                                    className="ratings"
-                                    style={{ width: "80%" }}
-                                  ></span>
-                                  <span className="tooltiptext tooltip-top"></span>
-                                </div>
-                                <a
-                                  href="product-default.html"
-                                  className="rating-reviews"
-                                >
-                                  (5 Baxış)
-                                </a>
-                              </div>
-                              <div className="product-pa-wrapper">
-                                <div className="product-price">$1,000.00</div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="product-wrap">
-                          <div className="product text-center">
-                            <figure className="product-media">
-                              <a href="product-default.html">
-                                <img
-                                  src="assets/images/shop/4.jpg"
-                                  alt="Product"
-                                  width="300"
-                                  height="338"
-                                />
-                              </a>
-                              <div className="product-action-horizontal">
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-cart w-icon-cart"
-                                  title="SƏBƏTƏ ƏLAVƏ ET"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-wishlist w-icon-heart"
-                                  title="Bəyəndiklərim"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-compare w-icon-compare"
-                                  title="Müqayisə"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-quickview w-icon-search"
-                                  title="Cəld Baxış"
-                                ></a>
-                              </div>
-                            </figure>
-                            <div className="product-details">
-                              <div className="product-cat">
-                                <a href="shop-banner-sidebar.html">
-                                  Electronics
-                                </a>
-                              </div>
-                              <h3 className="product-name">
-                                <a href="product-default.html">
-                                  Attachable Charge Alarm
-                                </a>
-                              </h3>
-                              <div className="ratings-container">
-                                <div className="ratings-full">
-                                  <span
-                                    className="ratings"
-                                    style={{ width: "60%" }}
-                                  ></span>
-                                  <span className="tooltiptext tooltip-top"></span>
-                                </div>
-                                <a
-                                  href="product-default.html"
-                                  className="rating-reviews"
-                                >
-                                  (7 Baxış)
-                                </a>
-                              </div>
-                              <div className="product-pa-wrapper">
-                                <div className="product-price">$15.00</div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                       {allProducts?.slice(0,8).map((product) => (
+                         <div className="product-wrap">
+                         <div className="product text-center">
+                           <figure className="product-media">
+                             <a href="product-default.html">
+                               <img
+                                 src={`https://api.ipekyolu.az${product.main_image}`}
+                                 alt="Product"
+                                 width="300"
+                                 height="338"
+                               />
+                             </a>
+                             <div className="product-action-horizontal">
+                               <a
+                                 href="#"
+                                 className="btn-product-icon btn-cart w-icon-cart"
+                                 title="SƏBƏTƏ ƏLAVƏ ET"
+                                 onClick={() => addToCardF(product.id)}
+                               ></a>
+                               <a
+                                 href="#"
+                                 className="btn-product-icon btn-wishlist w-icon-heart"
+                                 title="Bəyəndiklərim"
+                               ></a>
+                               <a
+                                 href="#"
+                                 className="btn-product-icon btn-compare w-icon-compare"
+                                 title="Müqayisə"
+                               ></a>
+                               <a
+                                 href="#"
+                                 className="btn-product-icon btn-quickview w-icon-search"
+                                 title="Cəld Baxış"
+                               ></a>
+                             </div>
+                           </figure>
+                           <div className="product-details">
+                             <div className="product-cat">
+                               <a href="shop-banner-sidebar.html">
+                                 {product.sub_sub_category.title}
+                               </a>
+                             </div>
+                             <h3 className="product-name">
+                               <a href="product-default.html">{product.title}</a>
+                             </h3>
+                             <div className="ratings-container">
+
+                             </div>
+                             <div className="product-pa-wrapper">
+                               <div className="product-price">₼{product.price}</div>
+                             </div>
+                           </div>
+                         </div>
+                       </div>
+                       ))}                 
+                        
+
                       </div>
                     </div>
                   </section>
-                  <section className="related-product-section">
-                    <div className="title-link-wrapper mb-4">
-                      <h4 className="title">Related Products</h4>
-                      <a
-                        href="#"
-                        className="btn btn-dark btn-link btn-slide-right btn-icon-right"
-                      >
-                        More Products<i className="w-icon-long-arrow-right"></i>
-                      </a>
-                    </div>
-                    <div className="container">
-                      <div className="product-wrapper row cols-lg-4 cols-md-3 cols-sm-2 cols-2">
-                        <div className="product-wrap">
-                          <div className="product text-center">
-                            <figure className="product-media">
-                              <a href="product-default.html">
-                                <img
-                                  src="assets/images/shop/1.jpg"
-                                  alt="Product"
-                                  width="300"
-                                  height="338"
-                                />
-                              </a>
-                              <div className="product-action-horizontal">
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-cart w-icon-cart"
-                                  title="SƏBƏTƏ ƏLAVƏ ET"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-wishlist w-icon-heart"
-                                  title="Bəyəndiklərim"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-compare w-icon-compare"
-                                  title="Müqayisə"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-quickview w-icon-search"
-                                  title="Cəld Baxış"
-                                ></a>
-                              </div>
-                            </figure>
-                            <div className="product-details">
-                              <div className="product-cat">
-                                <a href="shop-banner-sidebar.html">
-                                  Electronics
-                                </a>
-                              </div>
-                              <h3 className="product-name">
-                                <a href="product-default.html">3D Television</a>
-                              </h3>
-                              <div className="ratings-container">
-                                <div className="ratings-full">
-                                  <span
-                                    className="ratings"
-                                    style={{ width: "100%" }}
-                                  ></span>
-                                  <span className="tooltiptext tooltip-top"></span>
-                                </div>
-                                <a
-                                  href="product-default.html"
-                                  className="rating-reviews"
-                                >
-                                  (3 Baxış)
-                                </a>
-                              </div>
-                              <div className="product-pa-wrapper">
-                                <div className="product-price">$220.00</div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="product-wrap">
-                          <div className="product text-center">
-                            <figure className="product-media">
-                              <a href="product-default.html">
-                                <img
-                                  src="assets/images/shop/2-1.jpg"
-                                  alt="Product"
-                                  width="300"
-                                  height="338"
-                                />
-                                <img
-                                  src="assets/images/shop/2-2.jpg"
-                                  alt="Product"
-                                  width="300"
-                                  height="338"
-                                />
-                              </a>
-                              <div
-                                className="product-countdown-container"
-                                style={{ height: "35px" }}
-                              >
-                                <div
-                                  className="product-countdown countdown-compact"
-                                  data-until="2021, 9, 9"
-                                  data-format="DHMS"
-                                  data-compact="false"
-                                  style={{ fontSize: "20px" }}
-                                  data-labels-short="Days, Hours, Mins, Secs"
-                                >
-                                  00:00:00:00
-                                </div>
-                              </div>
-                              <div className="product-action-horizontal">
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-cart w-icon-cart"
-                                  title="SƏBƏTƏ ƏLAVƏ ET"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-wishlist w-icon-heart"
-                                  title="Bəyəndiklərim"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-compare w-icon-compare"
-                                  title="Müqayisə"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-quickview w-icon-search"
-                                  title="Cəld Baxış"
-                                ></a>
-                              </div>
-                            </figure>
-                            <div className="product-details">
-                              <div className="product-cat">
-                                <a href="shop-banner-sidebar.html">
-                                  Electronics
-                                </a>
-                              </div>
-                              <h3 className="product-name">
-                                <a href="product-default.html">
-                                  Alarm Clock With Lamp
-                                </a>
-                              </h3>
-                              <div className="ratings-container">
-                                <div className="ratings-full">
-                                  <span
-                                    className="ratings"
-                                    style={{ width: "100%" }}
-                                  ></span>
-                                  <span className="tooltiptext tooltip-top"></span>
-                                </div>
-                                <a
-                                  href="product-default.html"
-                                  className="rating-reviews"
-                                >
-                                  (10 Baxış)
-                                </a>
-                              </div>
-                              <div className="product-pa-wrapper">
-                                <div className="product-price">
-                                  <ins className="new-price">$30.00</ins>
-                                  <del className="old-price">$60.00</del>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="product-wrap">
-                          <div className="product text-center">
-                            <figure className="product-media">
-                              <a href="product-default.html">
-                                <img
-                                  src="assets/images/shop/3.jpg"
-                                  alt="Product"
-                                  width="300"
-                                  height="338"
-                                />
-                              </a>
-                              <div className="product-action-horizontal">
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-cart w-icon-cart"
-                                  title="SƏBƏTƏ ƏLAVƏ ET"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-wishlist w-icon-heart"
-                                  title="Bəyəndiklərim"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-compare w-icon-compare"
-                                  title="Müqayisə"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-quickview w-icon-search"
-                                  title="Cəld Baxış"
-                                ></a>
-                              </div>
-                            </figure>
-                            <div className="product-details">
-                              <div className="product-cat">
-                                <a href="shop-banner-sidebar.html">
-                                  Electronics
-                                </a>
-                              </div>
-                              <h3 className="product-name">
-                                <a href="product-default.html">Apple Laptop</a>
-                              </h3>
-                              <div className="ratings-container">
-                                <div className="ratings-full">
-                                  <span
-                                    className="ratings"
-                                    style={{ width: "80%" }}
-                                  ></span>
-                                  <span className="tooltiptext tooltip-top"></span>
-                                </div>
-                                <a
-                                  href="product-default.html"
-                                  className="rating-reviews"
-                                >
-                                  (5 Baxış)
-                                </a>
-                              </div>
-                              <div className="product-pa-wrapper">
-                                <div className="product-price">$1,000.00</div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="product-wrap">
-                          <div className="product text-center">
-                            <figure className="product-media">
-                              <a href="product-default.html">
-                                <img
-                                  src="assets/images/shop/4.jpg"
-                                  alt="Product"
-                                  width="300"
-                                  height="338"
-                                />
-                              </a>
-                              <div className="product-action-horizontal">
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-cart w-icon-cart"
-                                  title="SƏBƏTƏ ƏLAVƏ ET"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-wishlist w-icon-heart"
-                                  title="Bəyəndiklərim"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-compare w-icon-compare"
-                                  title="Müqayisə"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-quickview w-icon-search"
-                                  title="Cəld Baxış"
-                                ></a>
-                              </div>
-                            </figure>
-                            <div className="product-details">
-                              <div className="product-cat">
-                                <a href="shop-banner-sidebar.html">
-                                  Electronics
-                                </a>
-                              </div>
-                              <h3 className="product-name">
-                                <a href="product-default.html">
-                                  Attachable Charge Alarm
-                                </a>
-                              </h3>
-                              <div className="ratings-container">
-                                <div className="ratings-full">
-                                  <span
-                                    className="ratings"
-                                    style={{ width: "60%" }}
-                                  ></span>
-                                  <span className="tooltiptext tooltip-top"></span>
-                                </div>
-                                <a
-                                  href="product-default.html"
-                                  className="rating-reviews"
-                                >
-                                  (7 Baxış)
-                                </a>
-                              </div>
-                              <div className="product-pa-wrapper">
-                                <div className="product-price">$15.00</div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="product-wrap">
-                          <div className="product text-center">
-                            <figure className="product-media">
-                              <a href="product-default.html">
-                                <img
-                                  src="assets/images/shop/1.jpg"
-                                  alt="Product"
-                                  width="300"
-                                  height="338"
-                                />
-                              </a>
-                              <div className="product-action-horizontal">
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-cart w-icon-cart"
-                                  title="SƏBƏTƏ ƏLAVƏ ET"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-wishlist w-icon-heart"
-                                  title="Bəyəndiklərim"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-compare w-icon-compare"
-                                  title="Müqayisə"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-quickview w-icon-search"
-                                  title="Cəld Baxış"
-                                ></a>
-                              </div>
-                            </figure>
-                            <div className="product-details">
-                              <div className="product-cat">
-                                <a href="shop-banner-sidebar.html">
-                                  Electronics
-                                </a>
-                              </div>
-                              <h3 className="product-name">
-                                <a href="product-default.html">3D Television</a>
-                              </h3>
-                              <div className="ratings-container">
-                                <div className="ratings-full">
-                                  <span
-                                    className="ratings"
-                                    style={{ width: "100%" }}
-                                  ></span>
-                                  <span className="tooltiptext tooltip-top"></span>
-                                </div>
-                                <a
-                                  href="product-default.html"
-                                  className="rating-reviews"
-                                >
-                                  (3 Baxış)
-                                </a>
-                              </div>
-                              <div className="product-pa-wrapper">
-                                <div className="product-price">$220.00</div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="product-wrap">
-                          <div className="product text-center">
-                            <figure className="product-media">
-                              <a href="product-default.html">
-                                <img
-                                  src="assets/images/shop/2-1.jpg"
-                                  alt="Product"
-                                  width="300"
-                                  height="338"
-                                />
-                                <img
-                                  src="assets/images/shop/2-2.jpg"
-                                  alt="Product"
-                                  width="300"
-                                  height="338"
-                                />
-                              </a>
-                              <div
-                                className="product-countdown-container"
-                                style={{ height: "35px" }}
-                              >
-                                <div
-                                  className="product-countdown countdown-compact"
-                                  data-until="2021, 9, 9"
-                                  data-format="DHMS"
-                                  data-compact="false"
-                                  style={{ fontSize: "20px" }}
-                                  data-labels-short="Days, Hours, Mins, Secs"
-                                >
-                                  00:00:00:00
-                                </div>
-                              </div>
-                              <div className="product-action-horizontal">
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-cart w-icon-cart"
-                                  title="Səbətə əlavə et"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-wishlist w-icon-heart"
-                                  title="Bəyəndiklərim"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-compare w-icon-compare"
-                                  title="Müqayisə"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-quickview w-icon-search"
-                                  title="Cəld Baxış"
-                                ></a>
-                              </div>
-                            </figure>
-                            <div className="product-details">
-                              <div className="product-cat">
-                                <a href="shop-banner-sidebar.html">
-                                  Electronics
-                                </a>
-                              </div>
-                              <h3 className="product-name">
-                                <a href="product-default.html">
-                                  Alarm Clock With Lamp
-                                </a>
-                              </h3>
-                              <div className="ratings-container">
-                                <div className="ratings-full">
-                                  <span
-                                    className="ratings"
-                                    style={{ width: "100%" }}
-                                  ></span>
-                                  <span className="tooltiptext tooltip-top"></span>
-                                </div>
-                                <a
-                                  href="product-default.html"
-                                  className="rating-reviews"
-                                >
-                                  (10 Baxış)
-                                </a>
-                              </div>
-                              <div className="product-pa-wrapper">
-                                <div className="product-price">
-                                  <ins className="new-price">$30.00</ins>
-                                  <del className="old-price">$60.00</del>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="product-wrap">
-                          <div className="product text-center">
-                            <figure className="product-media">
-                              <a href="product-default.html">
-                                <img
-                                  src="assets/images/shop/3.jpg"
-                                  alt="Product"
-                                  width="300"
-                                  height="338"
-                                />
-                              </a>
-                              <div className="product-action-horizontal">
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-cart w-icon-cart"
-                                  title="Səbətə əlavə et"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-wishlist w-icon-heart"
-                                  title="Bəyəndiklərim"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-compare w-icon-compare"
-                                  title="Müqayisə"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-quickview w-icon-search"
-                                  title="Cəld Baxış"
-                                ></a>
-                              </div>
-                            </figure>
-                            <div className="product-details">
-                              <div className="product-cat">
-                                <a href="shop-banner-sidebar.html">
-                                  Electronics
-                                </a>
-                              </div>
-                              <h3 className="product-name">
-                                <a href="product-default.html">Apple Laptop</a>
-                              </h3>
-                              <div className="ratings-container">
-                                <div className="ratings-full">
-                                  <span
-                                    className="ratings"
-                                    style={{ width: "80%" }}
-                                  ></span>
-                                  <span className="tooltiptext tooltip-top"></span>
-                                </div>
-                                <a
-                                  href="product-default.html"
-                                  className="rating-reviews"
-                                >
-                                  (5 Baxış)
-                                </a>
-                              </div>
-                              <div className="product-pa-wrapper">
-                                <div className="product-price">$1,000.00</div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="product-wrap">
-                          <div className="product text-center">
-                            <figure className="product-media">
-                              <a href="product-default.html">
-                                <img
-                                  src="assets/images/shop/4.jpg"
-                                  alt="Product"
-                                  width="300"
-                                  height="338"
-                                />
-                              </a>
-                              <div className="product-action-horizontal">
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-cart w-icon-cart"
-                                  title="Səbətə əlavə et"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-wishlist w-icon-heart"
-                                  title="Bəyəndiklərim"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-compare w-icon-compare"
-                                  title="Müqayisə"
-                                ></a>
-                                <a
-                                  href="#"
-                                  className="btn-product-icon btn-quickview w-icon-search"
-                                  title="Cəld Baxış"
-                                ></a>
-                              </div>
-                            </figure>
-                            <div className="product-details">
-                              <div className="product-cat">
-                                <a href="shop-banner-sidebar.html">
-                                  Electronics
-                                </a>
-                              </div>
-                              <h3 className="product-name">
-                                <a href="product-default.html">
-                                  Attachable Charge Alarm
-                                </a>
-                              </h3>
-                              <div className="ratings-container">
-                                <div className="ratings-full">
-                                  <span
-                                    className="ratings"
-                                    style={{ width: "60%" }}
-                                  ></span>
-                                  <span className="tooltiptext tooltip-top"></span>
-                                </div>
-                                <a
-                                  href="product-default.html"
-                                  className="rating-reviews"
-                                >
-                                  (7 Baxış)
-                                </a>
-                              </div>
-                              <div className="product-pa-wrapper">
-                                <div className="product-price">$15.00</div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </section>
+                  
                 </div>
                 <aside className="sidebar product-sidebar sidebar-fixed right-sidebar sticky-sidebar-wrapper">
                   <div className="sidebar-overlay"></div>
@@ -2461,7 +597,7 @@ const productId = (props) =>{
                       <div className="widget widget-products">
                         <div className="title-link-wrapper mb-2">
                           <h4 className="title title-link font-weight-bold">
-                            More Products
+                            Digərləri
                           </h4>
                         </div>
 
@@ -2479,11 +615,12 @@ const productId = (props) =>{
                           >
                             <div className="swiper-wrapper right-scroll">
                               <div className="widget-col swiper-slide">
-                                <div className="product product-widget">
+                                {allProducts?.slice(0,6).map((product) => (
+                                  <div className="product product-widget">
                                   <figure className="product-media">
-                                    <a href="#">
+                                    <a href={`/${product.id}`}>
                                       <img
-                                        src="assets/images/shop/13.jpg"
+                                        src={`https://api.ipekyolu.az${product.main_image}`}
                                         alt="Product"
                                         width="100"
                                         height="113"
@@ -2492,244 +629,23 @@ const productId = (props) =>{
                                   </figure>
                                   <div className="product-details">
                                     <h4 className="product-name">
-                                      <a href="#">Smart Watch</a>
+                                      <a href={`/${product.id}`}>{product.title}</a>
                                     </h4>
                                     <div className="ratings-container">
-                                      <div className="ratings-full">
-                                        <span
-                                          className="ratings"
-                                          style={{ width: "100%" }}
-                                        ></span>
-                                        <span className="tooltiptext tooltip-top"></span>
-                                      </div>
+                                      
+                                    {[ ...Array(product.rating)].map(star => (
+                                    <FaStar color="fda706"/>
+                                      ))}
                                     </div>
-                                    <div className="product-price">$80.00 </div>
+                                    <div className="product-price">₼ {product.price}</div>
                                   </div>
                                 </div>
-                                <div className="product product-widget">
-                                  <figure className="product-media">
-                                    <a href="#">
-                                      <img
-                                        src="assets/images/shop/14.jpg"
-                                        alt="Product"
-                                        width="100"
-                                        height="113"
-                                      />
-                                    </a>
-                                  </figure>
-                                  <div className="product-details">
-                                    <h4 className="product-name">
-                                      <a href="#">Sky Medical Facility</a>
-                                    </h4>
-                                    <div className="ratings-container">
-                                      <div className="ratings-full">
-                                        <span
-                                          className="ratings"
-                                          style={{ width: "80%" }}
-                                        ></span>
-                                        <span className="tooltiptext tooltip-top"></span>
-                                      </div>
-                                    </div>
-                                    <div className="product-price">$58.00</div>
-                                  </div>
-                                </div>
-                                <div className="product product-widget">
-                                  <figure className="product-media">
-                                    <a href="#">
-                                      <img
-                                        src="assets/images/shop/15.jpg"
-                                        alt="Product"
-                                        width="100"
-                                        height="113"
-                                      />
-                                    </a>
-                                  </figure>
-                                  <div className="product-details">
-                                    <h4 className="product-name">
-                                      <a href="#">Black Stunt Motor</a>
-                                    </h4>
-                                    <div className="ratings-container">
-                                      <div className="ratings-full">
-                                        <span
-                                          className="ratings"
-                                          style={{ width: "60%" }}
-                                        ></span>
-                                        <span className="tooltiptext tooltip-top"></span>
-                                      </div>
-                                    </div>
-                                    <div className="product-price">$374.00</div>
-                                  </div>
-                                </div>
-                                <div className="product product-widget">
-                                  <figure className="product-media">
-                                    <a href="#">
-                                      <img
-                                        src="assets/images/shop/13.jpg"
-                                        alt="Product"
-                                        width="100"
-                                        height="113"
-                                      />
-                                    </a>
-                                  </figure>
-                                  <div className="product-details">
-                                    <h4 className="product-name">
-                                      <a href="#">Smart Watch</a>
-                                    </h4>
-                                    <div className="ratings-container">
-                                      <div className="ratings-full">
-                                        <span
-                                          className="ratings"
-                                          style={{ width: "100%" }}
-                                        ></span>
-                                        <span className="tooltiptext tooltip-top"></span>
-                                      </div>
-                                    </div>
-                                    <div className="product-price">
-                                      $80.00 - $90.00
-                                    </div>
-                                  </div>
-                                </div>
-                                <div className="product product-widget">
-                                  <figure className="product-media">
-                                    <a href="#">
-                                      <img
-                                        src="assets/images/shop/14.jpg"
-                                        alt="Product"
-                                        width="100"
-                                        height="113"
-                                      />
-                                    </a>
-                                  </figure>
-                                  <div className="product-details">
-                                    <h4 className="product-name">
-                                      <a href="#">Sky Medical Facility</a>
-                                    </h4>
-                                    <div className="ratings-container">
-                                      <div className="ratings-full">
-                                        <span
-                                          className="ratings"
-                                          style={{ width: "80%" }}
-                                        ></span>
-                                        <span className="tooltiptext tooltip-top"></span>
-                                      </div>
-                                    </div>
-                                    <div className="product-price">$58.00</div>
-                                  </div>
-                                </div>
-                                <div className="product product-widget">
-                                  <figure className="product-media">
-                                    <a href="#">
-                                      <img
-                                        src="assets/images/shop/15.jpg"
-                                        alt="Product"
-                                        width="100"
-                                        height="113"
-                                      />
-                                    </a>
-                                  </figure>
-                                  <div className="product-details">
-                                    <h4 className="product-name">
-                                      <a href="#">Black Stunt Motor</a>
-                                    </h4>
-                                    <div className="ratings-container">
-                                      <div className="ratings-full">
-                                        <span
-                                          className="ratings"
-                                          style={{ width: "60%" }}
-                                        ></span>
-                                        <span className="tooltiptext tooltip-top"></span>
-                                      </div>
-                                    </div>
-                                    <div className="product-price">$374.00</div>
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="widget-col swiper-slide right-scroll">
-                                <div className="product product-widget">
-                                  <figure className="product-media">
-                                    <a href="#">
-                                      <img
-                                        src="assets/images/shop/16.jpg"
-                                        alt="Product"
-                                        width="100"
-                                        height="113"
-                                      />
-                                    </a>
-                                  </figure>
-                                  <div className="product-details">
-                                    <h4 className="product-name">
-                                      <a href="#">Skate Pan</a>
-                                    </h4>
-                                    <div className="ratings-container">
-                                      <div className="ratings-full">
-                                        <span
-                                          className="ratings"
-                                          style={{ width: "100%" }}
-                                        ></span>
-                                        <span className="tooltiptext tooltip-top"></span>
-                                      </div>
-                                    </div>
-                                    <div className="product-price">$278.00</div>
-                                  </div>
-                                </div>
-                                <div className="product product-widget">
-                                  <figure className="product-media">
-                                    <a href="#">
-                                      <img
-                                        src="assets/images/shop/17.jpg"
-                                        alt="Product"
-                                        width="100"
-                                        height="113"
-                                      />
-                                    </a>
-                                  </figure>
-                                  <div className="product-details">
-                                    <h4 className="product-name">
-                                      <a href="#">Modern Cooker</a>
-                                    </h4>
-                                    <div className="ratings-container">
-                                      <div className="ratings-full">
-                                        <span
-                                          className="ratings"
-                                          style={{ width: "80%" }}
-                                        ></span>
-                                        <span className="tooltiptext tooltip-top"></span>
-                                      </div>
-                                    </div>
-                                    <div className="product-price">$324.00</div>
-                                  </div>
-                                </div>
-                                <div className="product product-widget">
-                                  <figure className="product-media">
-                                    <a href="#">
-                                      <img
-                                        src="assets/images/shop/18.jpg"
-                                        alt="Product"
-                                        width="100"
-                                        height="113"
-                                      />
-                                    </a>
-                                  </figure>
-                                  <div className="product-details">
-                                    <h4 className="product-name">
-                                      <a href="#">CT Machine</a>
-                                    </h4>
-                                    <div className="ratings-container">
-                                      <div className="ratings-full">
-                                        <span
-                                          className="ratings"
-                                          style={{ width: "100%" }}
-                                        ></span>
-                                        <span className="tooltiptext tooltip-top"></span>
-                                      </div>
-                                    </div>
-                                    <div className="product-price">$236.00</div>
-                                  </div>
-                                </div>
+                                ))}
+                                
+                                
                               </div>
                             </div>
-                            <button className="swiper-button-next"></button>
-                            <button className="swiper-button-prev"></button>
+                            
                           </div>
                         </div>
                       </div>

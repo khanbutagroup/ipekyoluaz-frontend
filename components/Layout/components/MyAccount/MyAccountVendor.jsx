@@ -355,7 +355,9 @@ const convertBase64 = (file) => {
         .then(res=> console.log(res.data, "mama"))
         .catch(err => err)
 
-        router.reload()
+        setTimeout(() => {
+            router.reload()
+        }, 3000);
 
     }
 

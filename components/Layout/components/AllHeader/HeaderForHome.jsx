@@ -139,7 +139,7 @@ export default function HeaderForHome(){
             .catch(e=>console.log(e))
 
 
-            router.push('/')
+            
     }
 
     useEffect(() => {

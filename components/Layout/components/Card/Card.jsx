@@ -157,7 +157,7 @@ export default function Card() {
                         <tr>
                           <td className="product-thumbnail">
                             <div className="p-relative">
-                              <a href="product-default.html">
+                              <a href={`/${e.id}`}>
                                 <figure>
                                   <img
                                     src={`https://api.ipekyolu.az${e.product.main_image}`}
@@ -182,7 +182,7 @@ export default function Card() {
                             </div>
                           </td>
                           <td className="product-name">
-                            <a href="product-default.html">{e.product.title}</a>
+                            <a href={`/${e.id}`}>{e.product.title}</a>
                           </td>
                           <td className="product-price">
                             <span className="amount">₼ {e.product.price}</span>

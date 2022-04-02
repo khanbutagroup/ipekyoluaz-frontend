@@ -27,13 +27,6 @@ export default function MainForVendor() {
 
     useEffect(() => {
         getData()
-        // vendors()
-        //     .then(items => {
-        //         vendorsData(items.data.results)
-        //     })
-        //     .catch((e)=>{
-        //         console.log(e)
-        //     })
     }, [])
 
 

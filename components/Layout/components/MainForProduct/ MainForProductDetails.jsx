@@ -1,8 +1,5 @@
 import React, {useState} from "react";
 import { FaStar } from 'react-icons/fa'
-import { addToCard } from "../../../../services/card/addToCard";
-import { cartByUserID } from "../../../../services/card/cartByUserID";
-import { useDispatch, useSelector } from "react-redux";
 import { addToCardMain } from "../../../../store/actions";
 import axios from "axios";
 
@@ -27,7 +24,7 @@ export default function  MainForProductDetails(props){
 
 
     const cardByUserId = () => {
-        const userId = localStorage.get("userId")
+        const userId = localStorage.getItem("userId")
         return (
             axios.get(cardUserIdApi+userId)
             .then(dispatch(addToCardMain(res => res.data.product_version)))
@@ -109,16 +106,21 @@ export default function  MainForProductDetails(props){
                     <div className="social-links">
                         <div
                             className="social-icons social-no-color border-thin">
-                            <a href="#"
-                               className="social-icon social-facebook w-icon-facebook"></a>
-                            <a href="#"
+                            {props.product.user.social_icons?.map((icon) => (
+                                <a href={icon.url}
+                                className={icon.social_media.title == "Facebook"? "social-icon social-facebook w-icon-facebook" : icon.social_media.title == "Instagram"? "social-icon social-instagram fab fa-instagram" : icon.social_media.title == "Telegram"?  "social-icon social-twitter fab fa-telegram":  "social-icon social-whatsapp fab fa-whatsapp"} ></a>
+                            ))}
+                            
+
+
+
+                            {/* <a href="#"
                                className="social-icon social-instagram fab fa-instagram"></a>
                             <a href="#"
                                className="social-icon social-twitter fab fa-telegram"></a>
                             <a href="#"
-                               className="social-icon social-whatsapp fab fa-whatsapp"></a>
-                            <a href="#"
-                               className="social-icon social-youtube fab fa-linkedin-in"></a>
+                               className="social-icon social-whatsapp fab fa-whatsapp"></a> */}
+                            
                         </div>
                     </div>
                     <span className="divider d-xs-show"></span>
