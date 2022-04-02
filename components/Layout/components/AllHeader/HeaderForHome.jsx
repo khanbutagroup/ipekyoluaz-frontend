@@ -137,6 +137,9 @@ export default function HeaderForHome(){
                     })
             })
             .catch(e=>console.log(e))
+
+
+            router.push('/')
     }
 
     useEffect(() => {
@@ -574,11 +577,11 @@ export default function HeaderForHome(){
                                 <div className="tab-content">
                                     <div className="tab-pane active" id="sign-in">
                                         <div className="form-group mb-5">
-                                            <label>Codu daxil edin *</label>
+                                            <label>Kodu daxil edin *</label>
                                             <input type="text" onChange={e=>setNumberLogin(e.target.value)} className="form-control" name="password_1" id="password_1"
                                                    required/>
                                         </div>
-                                        <a href="#" className="btn btn-primary" onClick={()=> handleVerifyInput()}>Codu daxil edin</a>
+                                        <a href="#" className="btn btn-primary" onClick={()=> handleVerifyInput()}>Kodu daxil edin</a>
                                     </div>
 
                                     <div className="tab-pane" id="sign-up">
@@ -1254,7 +1257,7 @@ export default function HeaderForHome(){
                                             <a href="/about">Haqqımızda</a>
                                         </li>
                                         <li>
-                                            <a href="/contact">Əlaqə</a>
+                                            <a href="/elaqe">Əlaqə</a>
                                         </li>
                                         <li>
                                             <a href="/faq">Faq</a>
