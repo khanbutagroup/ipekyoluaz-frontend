@@ -247,9 +247,11 @@ const getData = async () => {
 
   const [allDiscountTitle, allDiscountData] = useState([]);
   useEffect(() => {
-    if (localStorage.getItem("allDiscountTitle")) {
+    console.log(localStorage.getItem("allDiscountTitle"), 'sdjshdfjhsdjfhds');
+    if (localStorage.getItem("allDiscountTitle") && localStorage.getItem("allDiscountTitle").length > 0) {
       allDiscountData(JSON.parse(localStorage.getItem("allDiscountTitle")));
     } else {
+      console.log('ssss111');
       allDiscount().then((items) => {
         localStorage.setItem(
           "allDiscountTitle",
@@ -711,7 +713,7 @@ const getData = async () => {
                     <div className="swiper-slide icon-box icon-box-side text-dark">
                       <div className="product product-list br-xs mb-0">
                         <figure className="product-media" >
-                          <a href={`/moreProducts/${e.product.id}`}>
+                          <a href={`/${e.product.id}`}>
                             <img
                               src={e.product.main_image}
                               alt="Product"
@@ -746,7 +748,7 @@ const getData = async () => {
                         </figure>
                         <div className="product-details">
                           <h4 className="product-name">
-                            <a href={`/moreProducts/${e.product.id}`}>
+                            <a href={`/${e.product.id}`}>
                               {e.product.title}
                             </a>
                           </h4>
@@ -768,7 +770,7 @@ const getData = async () => {
                               Baxış)
                             </a>
                           </div>
-                          <div className="product-price">$235.35 </div>
+                          <div className="product-price">₼ {e.product.price} </div>
                           <ul className="product-desc">
                             <li>{e.product.short_desc1}</li>
                             <li>{e.product.short_desc2}</li>
