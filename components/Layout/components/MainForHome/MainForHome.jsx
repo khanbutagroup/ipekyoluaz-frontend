@@ -846,7 +846,7 @@ const getData = async () => {
                 
                 <div
                   className="product-wrap"
-                  style={{ width: "50%", height: "50%" }}
+                  style={{ width: "50%", height: "50%"}}
                 >
                   <div className="product text-center">
                     <figure className="product-media">
@@ -854,7 +854,7 @@ const getData = async () => {
                         <img
                           src={e.main_image}
                           alt="Product"
-                          style={{ maxHeight: "150px",objectFit:"contain" }}
+                          style={{ maxHeight: "150px",objectFit:"contain" , cursor: "pointer" }}
 
                         />
                       </Link>

@@ -268,7 +268,7 @@ export default function MyAccountVendor(){
 // men yazdigim
 
 
-const [userModel, setUserModel] = useState([])
+const [userVendorData, setUserVendorData] = useState([])
 const [addressAddtional, setAddressAddtional] = useState("")
 const [avenue, setAvenue] = useState()
 const [city, setCity] = useState()
@@ -286,6 +286,20 @@ const [url3, setUrl3] = useState("")
 const [url4, setUrl4] = useState("")
 const [street, setStreet] = useState()
 const [emailUser, setEmailUser] = useState("")
+console.log(userVendorData, "affa")
+
+useEffect(() => {
+    getUserVendorData()
+}, [])
+
+
+
+const getUserVendorData = async() => {
+    let token = localStorage.getItem("username")
+    await axios.post('https://api.ipekyolu.az/api/auth/user-data/', {}, {"headers" : {'Authorization': `Bearer ${token}`}})
+    .then(res => setUserVendorData(res.data))
+    .catch(err => err)
+}
 
 
 const uploadImageCover = async(e) => {
@@ -351,13 +365,13 @@ const convertBase64 = (file) => {
 
 
         }
-        const {data, status} = axios.patch(`https://api.ipekyolu.az/api/auth/user/${id}`, body)
-        .then(res=> console.log(res.data, "mama"))
+        axios.patch(`https://api.ipekyolu.az/api/auth/user/${id}`, body)
+        .then(res=> res.data)
         .catch(err => err)
 
-        setTimeout(() => {
-            router.reload()
-        }, 3000);
+        // setTimeout(() => {
+        //     router.reload()
+        // }, 3000);
 
     }
 
@@ -724,7 +738,7 @@ const convertBase64 = (file) => {
                                                                         name="colors"
                                                                         options={optionsTitle}
                                                                         className="basic-multi-select"
-                                                                        placeholder={"Şəhər"}
+                                                                        placeholder={userVendorData.city}
                                                                         classNamePrefix="select"
                                                                         onChange={setCity}
                                                                     />
