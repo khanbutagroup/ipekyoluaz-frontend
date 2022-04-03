@@ -269,6 +269,7 @@ export default function HeaderForHome(){
     };
 
     // SEARCH FUNCTIONALITY
+    const [search, setSearch] = useState('');
     const [searchData, setSearchData] = useState([]);
     const [categoryData, setCategoryData] = useState([]);
     const [categoryId, setCategoryId] = useState("")
@@ -296,6 +297,7 @@ export default function HeaderForHome(){
     
     
     const searchInput = (e) => {
+        setSearch(e.target.value);
         const body = {title : e.target.value}
         body.title != "" && axios.post(searchAPI, body)
             .then(res => setSearchData(res.data.results))
@@ -684,7 +686,7 @@ export default function HeaderForHome(){
 
                 <div className="header-middle">
                     <div className="container" style={{position: "relative"}}>
-                        <div className={styles.searchContainer} style={{display: situtaion}}>
+                        {/* <div className={styles.searchContainer} style={{display: situtaion}}>
                             
                             {products.map((product) => (
                                 <Link href={`/${product.id}`}>
@@ -702,7 +704,7 @@ export default function HeaderForHome(){
                             ))}
                             
                             
-                        </div>
+                        </div> */}
                         <div className="header-left mr-md-4">
                             <a href="#" className="mobile-menu-toggle text-white w-icon-hamburger" aria-label="menu-toggle">
                             </a>
@@ -727,8 +729,16 @@ export default function HeaderForHome(){
                                 </div>
                                 <input type="text" className="form-control bg-white" onChange={(e) => searchInput(e)} name="search" id="search"
                                        placeholder="Axtarın..." required/>
-                                <button className="btn btn-search" type="button" onClick={()=>mainSearch()}><i className="w-icon-search"></i>
+
+                                       <Link href={{
+                                           pathname: "/shop",
+                                           query: {
+                                               q:search,
+                                           }
+                                       }}  style={{display:"flex",background:"white"}}>
+                                <button className="btn btn-search" type="button" onClick={()=>{}}><i className="w-icon-search"></i>
                                 </button>
+                                       </Link>
                             </form>
                         </div>
                         <div className="header-right ml-4">

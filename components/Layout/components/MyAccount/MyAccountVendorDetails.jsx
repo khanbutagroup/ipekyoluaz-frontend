@@ -8,6 +8,7 @@ import ReactPlayer from 'react-player'
 import { TagsInput } from "react-tag-input-component";
 import {subCategories} from "../../../../services/subCategories";
 import Camera from "../../../../public/camera.png";
+import { categories } from "../../../../services/categories";
 export default function MyAccountVendorDetails(){
 
     const [test, testData] = useState([]);
@@ -15,32 +16,62 @@ export default function MyAccountVendorDetails(){
     useEffect(() => {
         let mounted = true;
         let options = []
-        subCategories()
-            .then(items => {
-                if(mounted) {
-                    const data = items.data.map(e=>{
-                        options.push({value:e['id'], label:e['title']})
+        let optionsSub = []
+        let storeCategory = JSON.parse(localStorage.getItem('userData')).category;
+        
+        categories().then(items => {
+            console.log(items.data, 'daaataaa');
+            console.log(storeCategory, 'daaataaa');
+
+            items?.data?.map(item => {
+                if (item?.category_reklam?.id === storeCategory) {
+                    item?.sub_categories?.map(subItem => {
+                        console.log(subItem, 'subItem');
+                        options.push({
+                            value: subItem?.id,
+                            label: subItem?.title
+                        })
+
+                        subItem?.sub_sub_categories?.map(subSubItem => {
+                            optionsSub.push({
+                                value: subSubItem?.id,
+                                label: subSubItem?.title
+                            })
+                        })
                     })
+
                     optionsSubCategoriesData(options)
+                    optionsData(optionsSub)
                 }
             })
+        })
+        // subCategories()
+        //     .then(items => {
+        //         console.log(items.data, 'logsss');
+        //         if(mounted) {
+        //             const data = items.data.map(e=>{
+        //                 options.push({value:e['id'], label:e['title']})
+        //             })
+        //             optionsSubCategoriesData(options)
+        //         }
+        //     })
         return () => mounted = false;
     }, [])
     const [optionsTitle, optionsData] = useState([]);
-    useEffect(() => {
-        let mounted = true;
-        let options = []
-        subSubCategories()
-            .then(items => {
-                if(mounted) {
-                    const data = items.data.map(e=>{
-                        options.push({value:e['id'], label:e['title']})
-                    })
-                    optionsData(options)
-                }
-            })
-        return () => mounted = false;
-    }, [])
+    // useEffect(() => {
+    //     let mounted = true;
+    //     let options = []
+    //     subSubCategories()
+    //         .then(items => {
+    //             if(mounted) {
+    //                 const data = items.data.map(e=>{
+    //                     options.push({value:e['id'], label:e['title']})
+    //                 })
+    //                 optionsData(options)
+    //             }
+    //         })
+    //     return () => mounted = false;
+    // }, [])
     let handleChange = (selectedOptions) => {
         sendDataUrl(selectedOptions)
     }
@@ -378,27 +409,27 @@ export default function MyAccountVendorDetails(){
                                                            onChange={e=>setProductName(e.target.value)}
                                                            className="form-control form-control-md mb-0"/>
                                                 </div>
-                                                <div className="form-group mb-3">
-                                                    <Select
-                                                        name="colors"
-                                                        options={optionsTitle}
-                                                        className="basic-multi-select"
-                                                        placeholder={"sub sub kateqoriya seç"}
-                                                        classNamePrefix="select"
-                                                        onChange={handleChangeSub}
-                                                    />
-                                                </div>
+                                            
                                                 <div className="form-group mb-3">
                                                     <Select
                                                         name="colors"
                                                         options={optionsSubCategories}
                                                         className="basic-multi-select"
-                                                        placeholder={"sub kateqoriya seç"}
+                                                        placeholder={"Sub Kateqoriya Seç"}
                                                         classNamePrefix="select"
                                                         onChange={handleChangeSubSub}
                                                     />
                                                 </div>
-
+                                                <div className="form-group mb-3">
+                                                    <Select
+                                                        name="colors"
+                                                        options={optionsTitle}
+                                                        className="basic-multi-select"
+                                                        placeholder={"Sub-Sub Kateqoriya Seç"}
+                                                        classNamePrefix="select"
+                                                        onChange={handleChangeSub}
+                                                    />
+                                                </div>
                                                 <div className="product-price">
                                                     <ins className="new-price">
                                                         <div className="product-short-desc">
