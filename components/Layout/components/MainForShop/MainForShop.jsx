@@ -13,8 +13,10 @@ import { categoryBanner } from "../../../../services/categoryBanner";
 import parse from "html-react-parser";
 import { filterPrices } from "../../../../services/filterPrices";
 import { MobileFooter } from "../MobileFooter/MobileFooter";
+import { useRouter } from "next/router";
+import axios from "axios";
 
-export default function MainForShop() {
+export default function MainForShop(props) {
   const [optionsTitle, optionsData] = useState([]);
   const [displayedBenefits, displayedBenefitsData] = useState([]);
   const [subSubCategoriesTitle, subSubCategoriesData] = useState([]);
@@ -143,9 +145,23 @@ export default function MainForShop() {
   //     });
   //     filtersBySubsubData(modifiedData);
   // }
+
+  const router = useRouter();
+  const { query } = router;
   const [checkedData, setCheckedData] = useState(false);
   const [checkedData1, setCheckedData1] = useState(false);
   const [checkedData2, setCheckedData2] = useState(false);
+  const [empty,setEmpty] = useState(false)
+  const searchAPI = "https://api.ipekyolu.az/api/product-search/";
+
+  useEffect(() => {
+    if (query.q && query.q !== "") {
+      axios.post(searchAPI, { title: query.q }).then(res => {
+          allProductsData(res.data.results);
+      })
+    }
+  }, [query]);
+
   const handleChangeSubCategories = (e, id, title) => {
     let data = { sub_category: title };
     if (checkedData1 == false) {
@@ -403,7 +419,7 @@ export default function MainForShop() {
       // });
 
       subCategoriesTitle.map((item) => {
-        console.log(item, 'item111');
+        console.log(item, "item111");
         setCategory(item?.sub_sub_categories);
 
         // setCategory(item);
@@ -461,18 +477,19 @@ export default function MainForShop() {
             <div className="container">
               <div style={{ height: "250px" }}>
                 {categoryBannerData.map((e) => (
+                  console.log(e, "e"),
                   <div
                     className="shop-default-banner banner d-flex align-items-center mb-5 br-xs"
                     style={{
-                      backgroundImage: "url(" + e.image + ")",
+                      backgroundImage: "url("  + 'https://api.ipekyolu.az' + e.image + ")",
                       backgroundColor: "#FFC74E",
                     }}
                   >
-                    <div className="banner-content" style={{zIndex:"0"}}>
+                    <div className="banner-content" style={{ zIndex: "0" }}>
                       <h4 className="banner-subtitle font-weight-bold"></h4>
                       <h3 className="banner-title text-white text-uppercase font-weight-bolder ls-normal"></h3>
                       <a
-                        href={e.button_link}
+                        href={`https://${e.button_link}`}
                         className="btn btn-dark btn-rounded btn-icon-right"
                       >
                         {e.button_text}
@@ -783,7 +800,7 @@ export default function MainForShop() {
                     className="product-wrapper row cols-lg-4 cols-md-3 cols-sm-2 cols-2"
                     style={{ display: showMe ? " " : "none" }}
                   >
-                    {allProductsTitle?.map((e) => (
+                    {allProductsTitle.length > 0 ? allProductsTitle?.map((e) => (
                       <div className="product-wrap">
                         <div className="product text-center">
                           <figure className="product-media">
@@ -793,10 +810,8 @@ export default function MainForShop() {
                                 alt="Product"
                                 width="300"
                                 height="338"
-                                style={{maxHeight: "100px !important"}}
+                                style={{ maxHeight: "100px !important" }}
                               />
-                              
-                              
                             </a>
                             <div className="product-action-horizontal">
                               <a
@@ -827,7 +842,7 @@ export default function MainForShop() {
                           <div className="product-details">
                             <div className="product-cat">
                               <a href="shop-banner-sidebar.html">
-                                {e?.sub_sub_category?.title} 
+                                {e?.sub_sub_category?.title}
                               </a>
                             </div>
                             <h3 className="product-name">
@@ -855,14 +870,14 @@ export default function MainForShop() {
                           </div>
                         </div>
                       </div>
-                    ))}
+                    )): <h3 style={{textAlign:"center",marginTop:"10px"}}>Məhsul tapılmadı</h3>}
                   </div>
 
                   <div
                     className="product-wrapper row cols-xl-1 cols-sm-1 cols-xs-1 cols-1"
                     style={{ display: showMe ? "none" : " " }}
                   >
-                    {allProductsTitle?.map((e) => (
+                    {allProductsTitle.length > 0 ? allProductsTitle?.map((e) => (
                       <div className="product product-list">
                         <figure className="product-media">
                           <a href={`/${e.id}`}>
@@ -911,7 +926,7 @@ export default function MainForShop() {
                               className="rating-reviews"
                             >
                               ({e.rating}
-                                Baxış)
+                              Baxış)
                             </a>
                           </div>
                           <div className="product-price">
@@ -948,7 +963,7 @@ export default function MainForShop() {
                           </div>
                         </div>
                       </div>
-                    ))}
+                    )): <p>Not found</p>}
                   </div>
 
                   <div className="toolbox toolbox-pagination justify-content-between">
@@ -990,7 +1005,7 @@ export default function MainForShop() {
           </div>
         </main>
       </div>
-      <MobileFooter/>
+      <MobileFooter />
       <a
         id="scroll-top"
         className="scroll-top"
