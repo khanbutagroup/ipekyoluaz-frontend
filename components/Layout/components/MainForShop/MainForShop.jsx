@@ -489,7 +489,7 @@ export default function MainForShop(props) {
                       <h4 className="banner-subtitle font-weight-bold"></h4>
                       <h3 className="banner-title text-white text-uppercase font-weight-bolder ls-normal"></h3>
                       <a
-                        href={`https://${e.button_link}`}
+                        href={e.button_link}
                         className="btn btn-dark btn-rounded btn-icon-right"
                       >
                         {e.button_text}
