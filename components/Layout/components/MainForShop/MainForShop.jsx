@@ -62,8 +62,9 @@ export default function MainForShop(props) {
     return () => (mounted = false);
   }, []);
   const [allProductsTitle, allProductsData] = useState([]);
-  const [paginationPrev, paginationPrevData] = useState([]);
-  const [paginationNext, paginationNextData] = useState([]);
+  const [paginationPrev, paginationPrevData] = useState("");
+  const [paginationNext, paginationNextData] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
 
   const [page, setPage] = useState(null);
   const [sizeForPage, setsizeForPage] = useState(null);
@@ -83,10 +84,31 @@ export default function MainForShop(props) {
         setSizeAllData(sizeData);
         setCount(items.data.count);
         allProductsData(items.data.results);
+        // console.log(items.data.next, 'predsds');
+        paginationNextData(items.data.next);
       }
     });
     return () => (mounted = false);
   }, []);
+
+  const pageChangeNext = () => {
+    axios.get(paginationNext).then((res) => {
+      console.log(res.data, "itterrer");
+      allProductsData(res.data.results);
+      paginationNextData(res.data.next);
+      paginationPrevData(res.data.previous);
+      setCurrentPage(currentPage + 1);
+    });
+  };
+
+  const pageChangePrev = () => {
+    axios.get(paginationPrev).then((res) => {
+      console.log(res.data.previous, "itterrer");
+      allProductsData(res.data.results);
+      paginationPrevData(res.data.previous);
+      setCurrentPage(currentPage - 1);
+    });
+  };
 
   const [categoryBannerData, setCategoryBanner] = useState([]);
   useEffect(() => {
@@ -151,14 +173,14 @@ export default function MainForShop(props) {
   const [checkedData, setCheckedData] = useState(false);
   const [checkedData1, setCheckedData1] = useState(false);
   const [checkedData2, setCheckedData2] = useState(false);
-  const [empty,setEmpty] = useState(false)
+  const [empty, setEmpty] = useState(false);
   const searchAPI = "https://api.ipekyolu.az/api/product-search/";
 
   useEffect(() => {
     if (query.q && query.q !== "") {
-      axios.post(searchAPI, { title: query.q }).then(res => {
-          allProductsData(res.data.results);
-      })
+      axios.post(searchAPI, { title: query.q }).then((res) => {
+        allProductsData(res.data.results);
+      });
     }
   }, [query]);
 
@@ -366,6 +388,9 @@ export default function MainForShop(props) {
   const setPageFunc = (p, s) => {
     allProducts(p, s).then((items) => {
       allProductsData(items.data.results);
+      paginationNextData(items.data.next);
+      paginationPrevData(items.data.previous);
+      setCurrentPage(p)
     });
   };
   const [productByIdItem, productByIdData] = useState([]);
@@ -476,28 +501,32 @@ export default function MainForShop(props) {
           <div className="page-content">
             <div className="container">
               <div style={{ height: "250px" }}>
-                {categoryBannerData.map((e) => (
-                  console.log(e, "e"),
-                  <div
-                    className="shop-default-banner banner d-flex align-items-center mb-5 br-xs"
-                    style={{
-                      backgroundImage: "url("  + 'https://api.ipekyolu.az' + e.image + ")",
-                      backgroundColor: "#FFC74E",
-                    }}
-                  >
-                    <div className="banner-content" style={{ zIndex: "0" }}>
-                      <h4 className="banner-subtitle font-weight-bold"></h4>
-                      <h3 className="banner-title text-white text-uppercase font-weight-bolder ls-normal"></h3>
-                      <a
-                        href={e.button_link}
-                        className="btn btn-dark btn-rounded btn-icon-right"
+                {categoryBannerData.map(
+                  (e) => (
+                    (
+                      <div
+                        className="shop-default-banner banner d-flex align-items-center mb-5 br-xs"
+                        style={{
+                          backgroundImage:
+                            "url(" + "https://api.ipekyolu.az" + e.image + ")",
+                          backgroundColor: "#FFC74E",
+                        }}
                       >
-                        {e.button_text}
-                        <i className="w-icon-long-arrow-right"></i>
-                      </a>
-                    </div>
-                  </div>
-                ))}
+                        <div className="banner-content" style={{ zIndex: "0" }}>
+                          <h4 className="banner-subtitle font-weight-bold"></h4>
+                          <h3 className="banner-title text-white text-uppercase font-weight-bolder ls-normal"></h3>
+                          <a
+                            href={e.button_link}
+                            className="btn btn-dark btn-rounded btn-icon-right"
+                          >
+                            {e.button_text}
+                            <i className="w-icon-long-arrow-right"></i>
+                          </a>
+                        </div>
+                      </div>
+                    )
+                  )
+                )}
               </div>
               <div className="shop-content row gutter-lg mb-10">
                 <aside className="sidebar shop-sidebar sticky-sidebar-wrapper sidebar-fixed">
@@ -800,25 +829,165 @@ export default function MainForShop(props) {
                     className="product-wrapper row cols-lg-4 cols-md-3 cols-sm-2 cols-2"
                     style={{ display: showMe ? " " : "none" }}
                   >
-                    {allProductsTitle.length > 0 ? allProductsTitle?.map((e) => (
-                      <div className="product-wrap">
-                        <div className="product text-center">
+                    {allProductsTitle.length > 0 ? (
+                      allProductsTitle?.map((e) => (
+                        <div className="product-wrap">
+                          <div className="product text-center">
+                            <figure className="product-media">
+                              <a href={`/${e?.id}`}>
+                                <img
+                                  src={e?.main_image}
+                                  alt="Product"
+                                  width="300"
+                                  height="338"
+                                  style={{ maxHeight: "100px !important" }}
+                                />
+                              </a>
+                              <div className="product-action-horizontal">
+                                <a
+                                  href="#"
+                                  className="btn-product-icon btn-cart w-icon-cart"
+                                  title="Səbətə Əlavə Et"
+                                ></a>
+                                <a
+                                  href="#"
+                                  className="btn-product-icon btn-wishlist w-icon-heart"
+                                  title="Bəyəndiklərim"
+                                ></a>
+                                <a
+                                  href="#"
+                                  className="btn-product-icon btn-compare w-icon-compare"
+                                  title="Müqayisə"
+                                ></a>
+                                <a
+                                  href="#"
+                                  className="btn-product-icon btn-quickview w-icon-search"
+                                  onClick={() => {
+                                    setProductByIdFunc(e?.id);
+                                  }}
+                                  title="Cəld Baxış"
+                                ></a>
+                              </div>
+                            </figure>
+                            <div className="product-details">
+                              <div className="product-cat">
+                                <a href="shop-banner-sidebar.html">
+                                  {e?.sub_sub_category?.title}
+                                </a>
+                              </div>
+                              <h3 className="product-name">
+                                <a href="product-default.html">{e?.title}</a>
+                              </h3>
+                              <div className="ratings-container">
+                                <div className="ratings-full">
+                                  <span
+                                    className="ratings"
+                                    style={{ width: `${18 * e?.rating + "%"}` }}
+                                  ></span>
+                                  <span className="tooltiptext tooltip-top"></span>
+                                </div>
+                                <a
+                                  href="product-default.html"
+                                  className="rating-reviews"
+                                >
+                                  ({e?.rating}
+                                  Baxış)
+                                </a>
+                              </div>
+                              <div className="product-pa-wrapper">
+                                <div className="product-price">
+                                  ₼ {e?.price}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      ))
+                    ) : (
+                      <h3 style={{ textAlign: "center", marginTop: "10px" }}>
+                        Məhsul tapılmadı
+                      </h3>
+                    )}
+                  </div>
+
+                  <div
+                    className="product-wrapper row cols-xl-1 cols-sm-1 cols-xs-1 cols-1"
+                    style={{ display: showMe ? "none" : " " }}
+                  >
+                    {allProductsTitle.length > 0 ? (
+                      allProductsTitle?.map((e) => (
+                        <div className="product product-list">
                           <figure className="product-media">
-                            <a href={`/${e?.id}`}>
+                            <a href={`/${e.id}`}>
                               <img
-                                src={e?.main_image}
+                                src={`https://api.ipekyolu.az${e?.images[0]}`}
                                 alt="Product"
                                 width="300"
                                 height="338"
-                                style={{ maxHeight: "100px !important" }}
                               />
                             </a>
-                            <div className="product-action-horizontal">
+                            <div className="product-action-vertical">
                               <a
                                 href="#"
-                                className="btn-product-icon btn-cart w-icon-cart"
-                                title="Səbətə Əlavə Et"
+                                className="btn-product-icon btn-quickview w-icon-search"
+                                title="Cəld Baxış"
                               ></a>
+                            </div>
+                            {/*<div className="product-countdown-container" style={{height: '35px'}}>*/}
+                            {/*    <div className="product-countdown countdown-compact" data-until="2021, 9, 9"*/}
+                            {/*         data-format="DHMS" data-compact="false"*/}
+                            {/*         style={{fontSize: '20px'}}*/}
+                            {/*         data-labels-short="Days, Hours, Mins, Secs">*/}
+                            {/*        00:00:00:00*/}
+                            {/*    </div>*/}
+                            {/*</div>*/}
+                          </figure>
+                          <div className="product-details">
+                            <div className="product-cat">
+                              <a href="shop-banner-sidebar.html">
+                                sub_sub_category
+                              </a>
+                            </div>
+                            <h4 className="product-name">
+                              <a href="product-default.html">{e.title}</a>
+                            </h4>
+                            <div className="ratings-container">
+                              <div className="ratings-full">
+                                <span
+                                  className="ratings"
+                                  style={{ width: `${18 * e.rating + "%"}` }}
+                                ></span>
+                                <span className="tooltiptext tooltip-top"></span>
+                              </div>
+                              <a
+                                href="product-default.html"
+                                className="rating-reviews"
+                              >
+                                ({e.rating}
+                                Baxış)
+                              </a>
+                            </div>
+                            <div className="product-price">
+                              <ins className="new-price">{e.price}₼</ins>
+                              {/*<del className="old-price">$60.00</del>*/}
+                            </div>
+                            <div className="product-desc">
+                              <div className="product-short-desc">
+                                <ul className="list-type-check list-style-none">
+                                  <li>{e.short_desc1}</li>
+                                  <li>{e.short_desc2}</li>
+                                  <li>{e.short_desc3}</li>
+                                </ul>
+                              </div>
+                            </div>
+                            <div className="product-action">
+                              <a
+                                href="#"
+                                className="btn-product btn-cart"
+                                title="Səbətə əlavə et"
+                              >
+                                <i className="w-icon-cart"></i> Səbətə əlavə et
+                              </a>
                               <a
                                 href="#"
                                 className="btn-product-icon btn-wishlist w-icon-heart"
@@ -829,141 +998,13 @@ export default function MainForShop(props) {
                                 className="btn-product-icon btn-compare w-icon-compare"
                                 title="Müqayisə"
                               ></a>
-                              <a
-                                href="#"
-                                className="btn-product-icon btn-quickview w-icon-search"
-                                onClick={() => {
-                                  setProductByIdFunc(e?.id);
-                                }}
-                                title="Cəld Baxış"
-                              ></a>
-                            </div>
-                          </figure>
-                          <div className="product-details">
-                            <div className="product-cat">
-                              <a href="shop-banner-sidebar.html">
-                                {e?.sub_sub_category?.title}
-                              </a>
-                            </div>
-                            <h3 className="product-name">
-                              <a href="product-default.html">{e?.title}</a>
-                            </h3>
-                            <div className="ratings-container">
-                              <div className="ratings-full">
-                                <span
-                                  className="ratings"
-                                  style={{ width: `${18 * e?.rating + "%"}` }}
-                                ></span>
-                                <span className="tooltiptext tooltip-top"></span>
-                              </div>
-                              <a
-                                href="product-default.html"
-                                className="rating-reviews"
-                              >
-                                ({e?.rating}
-                                Baxış)
-                              </a>
-                            </div>
-                            <div className="product-pa-wrapper">
-                              <div className="product-price">₼ {e?.price}</div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    )): <h3 style={{textAlign:"center",marginTop:"10px"}}>Məhsul tapılmadı</h3>}
-                  </div>
-
-                  <div
-                    className="product-wrapper row cols-xl-1 cols-sm-1 cols-xs-1 cols-1"
-                    style={{ display: showMe ? "none" : " " }}
-                  >
-                    {allProductsTitle.length > 0 ? allProductsTitle?.map((e) => (
-                      <div className="product product-list">
-                        <figure className="product-media">
-                          <a href={`/${e.id}`}>
-                            <img
-                              src={`https://api.ipekyolu.az${e?.images[0]}`}
-                              alt="Product"
-                              width="300"
-                              height="338"
-                            />
-                          </a>
-                          <div className="product-action-vertical">
-                            <a
-                              href="#"
-                              className="btn-product-icon btn-quickview w-icon-search"
-                              title="Cəld Baxış"
-                            ></a>
-                          </div>
-                          {/*<div className="product-countdown-container" style={{height: '35px'}}>*/}
-                          {/*    <div className="product-countdown countdown-compact" data-until="2021, 9, 9"*/}
-                          {/*         data-format="DHMS" data-compact="false"*/}
-                          {/*         style={{fontSize: '20px'}}*/}
-                          {/*         data-labels-short="Days, Hours, Mins, Secs">*/}
-                          {/*        00:00:00:00*/}
-                          {/*    </div>*/}
-                          {/*</div>*/}
-                        </figure>
-                        <div className="product-details">
-                          <div className="product-cat">
-                            <a href="shop-banner-sidebar.html">
-                              sub_sub_category
-                            </a>
-                          </div>
-                          <h4 className="product-name">
-                            <a href="product-default.html">{e.title}</a>
-                          </h4>
-                          <div className="ratings-container">
-                            <div className="ratings-full">
-                              <span
-                                className="ratings"
-                                style={{ width: `${18 * e.rating + "%"}` }}
-                              ></span>
-                              <span className="tooltiptext tooltip-top"></span>
-                            </div>
-                            <a
-                              href="product-default.html"
-                              className="rating-reviews"
-                            >
-                              ({e.rating}
-                              Baxış)
-                            </a>
-                          </div>
-                          <div className="product-price">
-                            <ins className="new-price">{e.price}₼</ins>
-                            {/*<del className="old-price">$60.00</del>*/}
-                          </div>
-                          <div className="product-desc">
-                            <div className="product-short-desc">
-                              <ul className="list-type-check list-style-none">
-                                <li>{e.short_desc1}</li>
-                                <li>{e.short_desc2}</li>
-                                <li>{e.short_desc3}</li>
-                              </ul>
-                            </div>
-                          </div>
-                          <div className="product-action">
-                            <a
-                              href="#"
-                              className="btn-product btn-cart"
-                              title="Səbətə əlavə et"
-                            >
-                              <i className="w-icon-cart"></i> Səbətə əlavə et
-                            </a>
-                            <a
-                              href="#"
-                              className="btn-product-icon btn-wishlist w-icon-heart"
-                              title="Bəyəndiklərim"
-                            ></a>
-                            <a
-                              href="#"
-                              className="btn-product-icon btn-compare w-icon-compare"
-                              title="Müqayisə"
-                            ></a>
-                          </div>
-                        </div>
-                      </div>
-                    )): <p>Not found</p>}
+                      ))
+                    ) : (
+                      <p>Not found</p>
+                    )}
                   </div>
 
                   <div className="toolbox toolbox-pagination justify-content-between">
@@ -972,20 +1013,23 @@ export default function MainForShop(props) {
                     {/*</p>*/}
                     <ul className="pagination">
                       <li className="prev disabled">
-                        <a
-                          href={paginationPrev}
-                          aria-label="Previous"
-                          tabIndex="-1"
-                          aria-disabled="true"
-                        >
-                          <i className="w-icon-long-arrow-left"></i>Əvvəlki
-                        </a>
+                        {paginationPrev && (
+                          <a
+                            onClick={() => pageChangePrev()}
+                            href="#"
+                            aria-label="Previous"
+                            tabIndex="-1"
+                            aria-disabled="true"
+                          >
+                            <i className="w-icon-long-arrow-left"></i>Əvvəlki
+                          </a>
+                        )}
                       </li>
                       {sizeAllData.map((e, i) => (
-                        <li className="page-item active">
+                        <li className={`page-item ${currentPage === i + 1 && 'active'}`}>
                           <a
                             className="page-link"
-                            href=""
+                            href="#"
                             onClick={() => setPageFunc(i + 1, e.size)}
                           >
                             {i + 1}
@@ -993,9 +1037,15 @@ export default function MainForShop(props) {
                         </li>
                       ))}
                       <li className="next">
-                        <a href={paginationNext} aria-label="Next">
-                          Sonrakı<i className="w-icon-long-arrow-right"></i>
-                        </a>
+                        {paginationNext && (
+                          <a
+                            onClick={() => pageChangeNext()}
+                            href="#"
+                            aria-label="Next"
+                          >
+                            Sonrakı<i className="w-icon-long-arrow-right"></i>
+                          </a>
+                        )}
                       </li>
                     </ul>
                   </div>
