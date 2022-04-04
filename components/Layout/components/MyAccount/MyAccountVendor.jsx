@@ -365,18 +365,18 @@ const convertBase64 = (file) => {
         .catch(err => err)
 
 
-        if (password, password2, password3 != "" && password2 == password3){
-            const bodyPass = {
-                number: userVendorData.number,
-                code: password, 
-                password: password2,
-                confirm_password: password3
-            }
+        // if (password, password2, password3 != "" && password2 == password3){
+        //     const bodyPass = {
+        //         number: userVendorData.number,
+        //         code: password, 
+        //         password: password2,
+        //         confirm_password: password3
+        //     }
 
-            axios.post('https://api.ipekyolu.az/api/auth/reset-password/', bodyPass)
-            .then(res => res.data)
-            .catch(err => err)
-        }
+        //     axios.post('https://api.ipekyolu.az/api/auth/reset-password/', bodyPass)
+        //     .then(res => res.data)
+        //     .catch(err => err)
+        // }
 
         // setTimeout(() => {
         //     router.reload()
@@ -729,7 +729,7 @@ const convertBase64 = (file) => {
                                                             <div className="col-md-6 mt-2">
                                                                 <div className="form-group" style={{backgroundColor:"#f5f5f5", borderRadius:"2rem", padding:"7px"}}>
                                                                     <input type="text"  style={{backgroundColor:"#ffff",marginTop: '7px'}} id="firstname" name="firstname"
-                                                                           defaultValue={name}
+                                                                           defaultValue={userVendorData?.name}
                                                                            onChange={e=>setShopName(e.target.value)}
                                                                            placeholder="Mağaza adı" className="form-control form-control-md"/>
                                                                 </div>
@@ -737,7 +737,7 @@ const convertBase64 = (file) => {
                                                             <div className="col-md-6 mt-2">
                                                                 <div className="form-group" style={{backgroundColor:"#f5f5f5", borderRadius:"2rem", padding:"7px"}}>
                                                                     <input type="tel" style={{backgroundColor:"#ffff",marginTop: '7px'}} id="display-name"
-                                                                           value={phoneNumber}
+                                                                           value={userVendorData?.number}
                                                                            onChange={e=>setPhoneNumber(e.target.value)}
                                                                            name="display_name" placeholder="Əlaqə nömrəsı" className="form-control form-control-md"/>
                                                                 </div>
@@ -746,9 +746,9 @@ const convertBase64 = (file) => {
                                                         <div className="row " style={{margin:"1px"}}>
                                                             <div className="col-md-6 mt-2">
                                                                 <div className="form-group" style={{backgroundColor:"#f5f5f5", borderRadius:"2rem", padding:"7px"}}>
-                                                                    <input type="text"  style={{backgroundColor:"#ffff",marginTop: '7px'}} id="firstname" name="firstname"
-                                                                           defaultValue={email}
-                                                                           onChange={e=>setEmailUser('email', e.target.value)}
+                                                                    <input type="email"  style={{backgroundColor:"#ffff",marginTop: '7px'}} id="firstname" name="firstname"
+                                                                           defaultValue={userVendorData?.email}
+                                                                           onChange={e=>setEmailUser(e.target.value)}
                                                                            placeholder="E-mail Ünvan" className="form-control form-control-md"/>
                                                                 </div>
                                                             </div>
