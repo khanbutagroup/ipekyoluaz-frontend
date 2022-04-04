@@ -1016,7 +1016,7 @@ const convertBase64 = (file) => {
                                                                 onClick={()=>{saveChangeVendor()}}
                                                                 className="btn btn-dark btn-rounded btn-sm mb-4 mt-5">Dəyişiklikləri yadda saxla
                                                         </button>
-                                                        <div> <label htmlFor="display-name">Açilma tarixi: {userVendorData.created_at.slice(0,10) }</label></div>
+                                                        <div> <label htmlFor="display-name">Açilma tarixi: {userVendorData.created_at?.slice(0,10) }</label></div>
                                                     </form>
                                                 </div>
                                             </div>
