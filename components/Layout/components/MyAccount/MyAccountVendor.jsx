@@ -14,12 +14,26 @@ import {savaChangeVendorAccount} from "../../../../services/savaChangeVendorAcco
 import { MobileFooter } from "../MobileFooter/MobileFooter";
 import axios from "axios";
 import { useRouter } from "next/router";
+import Modal from 'react-modal'
+import styles from '../../../../public/assets/css/myAccountVendor.module.css'
 
 
 
 export default function MyAccountVendor(){
     const router = useRouter()
     
+
+
+
+
+
+
+
+
+
+
+
+
 
     
     const [optionsTitle, optionsData] = useState([]);
@@ -218,8 +232,8 @@ export default function MyAccountVendor(){
         windowImg2 = JSON.parse(localStorage.getItem('userData')).logo ? JSON.parse(localStorage.getItem('userData')).logo : null
         windowImg1 = JSON.parse(localStorage.getItem('userData')).cover_image ? JSON.parse(localStorage.getItem('userData')).cover_image : null
     }
-    const [selectedFile1, setSelectedFile1] = useState(windowImg1);
-    const [selectedFile2, setSelectedFile2] = useState(windowImg2);
+    const [selectedFile1, setSelectedFile1] = useState();
+    const [selectedFile2, setSelectedFile2] = useState();
     const [password3, setPassword3] = useState(windowPassword3);
     const [password2, setPassword2] = useState(windowPassword2);
     const [password, setPassword] = useState(windowPassword);
@@ -229,32 +243,8 @@ export default function MyAccountVendor(){
     const [email, setEmail] = useState(windowEmail);
     const [othersPlace, setOthersPlace] = useState(windowOthersPlace);
 
-    // const saveChangeVendor = () => {
-    //     console.log(iconChange1T.label)
-    //     let data = {
-    //         name: name,
-    //         address: email,
-    //         address_addtional: othersPlace,
-    //         cover_image: windowImg2,
-    //         logo: windowImg1,
-    //         city:optionsHandleChange,
-    //         region:optionsHandleChangeRegions,
-    //         avenue:optionsHandleChangeAvenues,
-    //         street:optionsHandleChangeStreets,
-    //         social_icons:[
-    //             {url:iconUrl1,social_media:iconChange1T.label},
-    //             {url:iconUrl2,social_media:iconChange2T.label},
-    //             {url:iconUrl3,social_media:iconChange3T.label},
-    //             {url:iconUrl4,social_media:iconChange4T.label}
-    //         ]
 
-    //     }
-    //     console.log(data)
-    //     savaChangeVendorAccount(localStorage.getItem("userId")).then((e)=>{
-    //         console.log(e,data)
-    //     })
-    // }
-
+console.log(selectedFile1, "sekil")
 
 
 
@@ -287,6 +277,7 @@ const [url4, setUrl4] = useState("")
 const [street, setStreet] = useState()
 const [emailUser, setEmailUser] = useState("")
 console.log(userVendorData, "affa")
+console.log(coverImage, "fafa")
 
 useEffect(() => {
     getUserVendorData()
@@ -303,7 +294,9 @@ const getUserVendorData = async() => {
 
 
 const uploadImageCover = async(e) => {
+    const fileForCoverLabel = window.URL.createObjectURL(e.target.files[0])
     const file = e.target.files[0]
+    setSelectedFile1(fileForCoverLabel)
     const base64 = await convertBase64(file)
     setCoverImage(base64)
 
@@ -311,7 +304,9 @@ const uploadImageCover = async(e) => {
 
 
 const uploadImageLogo = async(e) => {
+    const fileForLogoLabel = window.URL.createObjectURL(e.target.files[0])
     const file = e.target.files[0]
+    setSelectedFile2(fileForLogoLabel)
     const base64 = await convertBase64(file)
     setLogo(base64)
 }
@@ -369,6 +364,20 @@ const convertBase64 = (file) => {
         .then(res=> res.data)
         .catch(err => err)
 
+
+        if (password, password2, password3 != "" && password2 == password3){
+            const bodyPass = {
+                number: userVendorData.number,
+                code: password, 
+                password: password2,
+                confirm_password: password3
+            }
+
+            axios.post('https://api.ipekyolu.az/api/auth/reset-password/', bodyPass)
+            .then(res => res.data)
+            .catch(err => err)
+        }
+
         // setTimeout(() => {
         //     router.reload()
         // }, 3000);
@@ -377,6 +386,15 @@ const convertBase64 = (file) => {
 
 
 
+
+
+    const [modalSit, setModalSit] = useState(false)
+
+
+    const editProduct = async(id) => {
+        setModalSit(true)
+        await axios.get("https://api.ipekyolu.az/")
+    }
 
 
 
@@ -659,7 +677,6 @@ const convertBase64 = (file) => {
                                                     <table className="shop-table account-orders-table mb-6">
                                                         <thead>
                                                         <tr>
-                                                            <th className="order-id">N</th>
                                                             <th className="order-date">Məhsulun Tarix</th>
                                                             <th className="order-status">Məhsulun kodu</th>
                                                             <th className="order-total">Məhsulun adı</th>
@@ -670,21 +687,27 @@ const convertBase64 = (file) => {
                                                         <tbody>
                                                         {userProductsTitle.map(e=>(
                                                             <tr>
-                                                                <td className="order-id">{e.id}</td>
-                                                                <td className="order-date pr-3">{e.created_at.slice(1,10)}</td>
-                                                                <td className="order-status pr-3">bos</td>
+                                                                <td className="order-date pr-3">{e.created_at.slice(0,10)}</td>
+                                                                <td className="order-status pr-3">{e.code}</td>
                                                                 <td className="order-status pr-3">{e.title}</td>
-                                                                <td className="order-status pr-3">bos</td>
-                                                                <td className="order-status pr-3">{e.price}</td>
+                                                                <td className="order-status pr-3">{e.category.title}</td>
+                                                                <td className="order-status pr-3">₼ {e.price}</td>
                                                                 {/*<td className="order-total">*/}
                                                                 {/*    */}
                                                                 {/*    <span className="order-price">$121.00</span> for*/}
                                                                 {/*    <span className="order-quantity"> 1</span> item*/}
                                                                 {/*</td>*/}
-                                                                <td className="order-action">
-                                                                    <a href="#"
-                                                                       className="btn btn-outline btn-default btn-block btn-sm btn-rounded">Dəyiş</a>
-                                                                </td>
+                                                                <ul role="tablist">
+                                                                        <li>
+                                                                        <td className="order-action">
+                                                                            <a 
+                                                                    href="#account-dashboard"
+                                                                        // onClick={() => {editProduct(e.id)}}
+                                                                       className="btn btn-outline btn-default btn-block btn-sm btn-rounded" >Dəyiş</a>
+                                                                            </td>
+                                                                        </li>
+                                                                </ul>
+                                                                
                                                                 <td className="order-action">
                                                                     <a href="#"
                                                                        className="btn btn-outline btn-default btn-block btn-sm btn-rounded redColor"  onClick={()=>{deleteUserProduct(e.id)}}>Sil</a>
@@ -706,7 +729,7 @@ const convertBase64 = (file) => {
                                                             <div className="col-md-6 mt-2">
                                                                 <div className="form-group" style={{backgroundColor:"#f5f5f5", borderRadius:"2rem", padding:"7px"}}>
                                                                     <input type="text"  style={{backgroundColor:"#ffff",marginTop: '7px'}} id="firstname" name="firstname"
-                                                                           value={name}
+                                                                           defaultValue={name}
                                                                            onChange={e=>setShopName(e.target.value)}
                                                                            placeholder="Mağaza adı" className="form-control form-control-md"/>
                                                                 </div>
@@ -738,7 +761,7 @@ const convertBase64 = (file) => {
                                                                         name="colors"
                                                                         options={optionsTitle}
                                                                         className="basic-multi-select"
-                                                                        placeholder={userVendorData.city}
+                                                                        placeholder={userVendorData.city?.title}
                                                                         classNamePrefix="select"
                                                                         onChange={setCity}
                                                                     />
@@ -750,7 +773,7 @@ const convertBase64 = (file) => {
                                                                         name="colors"
                                                                         options={optionsRegions}
                                                                         className="basic-multi-select"
-                                                                        placeholder={"Rayon"}
+                                                                        placeholder={userVendorData.region?.title}
                                                                         classNamePrefix="select"
                                                                         onChange={setRegion}
                                                                     />
@@ -762,7 +785,7 @@ const convertBase64 = (file) => {
                                                                         name="colors"
                                                                         options={optionsAvenues}
                                                                         className="basic-multi-select"
-                                                                        placeholder={"Qəsəbə"}
+                                                                        placeholder={userVendorData.avenue?.title}
                                                                         classNamePrefix="select"
                                                                         onChange={setAvenue}
                                                                     />
@@ -774,7 +797,7 @@ const convertBase64 = (file) => {
                                                                         name="colors"
                                                                         options={optionsStreets}
                                                                         className="basic-multi-select"
-                                                                        placeholder={"Küçə"}
+                                                                        placeholder={userVendorData.region?.title}
                                                                         classNamePrefix="select"
                                                                         onChange={setStreet}
                                                                     />
@@ -783,7 +806,7 @@ const convertBase64 = (file) => {
                                                             <div className="col-md-12">
                                                                     <div className="form-group">
                                                                         <input type="text" id="display-name"
-                                                                               value={othersPlace}
+                                                                               defaultValue={userVendorData.address_addtional?.title}
                                                                                onChange={e=>setAddressAddtional(e.target.value)}
                                                                                style={{backgroundColor:"#ffff",marginTop: '7px'}} name="display_name" placeholder="Digəri" className="form-control form-control-md mb-0"/>
                                                                     </div>
@@ -798,7 +821,7 @@ const convertBase64 = (file) => {
                                                                         name="colors"
                                                                         options={optionsCategoria}
                                                                         className="basic-multi-select"
-                                                                        placeholder={"Kateqoriya"}
+                                                                        placeholder={userVendorData.category?.title}
                                                                         classNamePrefix="select"
                                                                         onChange={handleChangeCategoria}
                                                                     />
@@ -837,6 +860,7 @@ const convertBase64 = (file) => {
                                                                                     name="colors"
                                                                                     options={iconTitle}
                                                                                     className="basic-multi-select"
+                                                                                    
                                                                                     placeholder={"Social Icons"}
                                                                                     classNamePrefix="select"
                                                                                     onChange={setSocialMedia1}
@@ -928,8 +952,13 @@ const convertBase64 = (file) => {
                                                                                name="frr" id="frr"
                                                                                className="inputFile"
                                                                                onChange={uploadImageCover}/>
-                                                                        <label htmlFor="frr" style={{backgroundImage:"url(" + selectedFile1 + ")",width:'500px', height:'200px'}}>
-                                                                           <span style={{justifyContent:"center", display:"flex",position:"relative", top:"80px",  fontSize:"20px"}}><i className="w-icon-map-marker mr-1"></i></span>
+                                                                        <label htmlFor="frr" style={{backgroundImage: `url(${selectedFile1})`,width:'500px', height:'200px'}}>
+                                                                            {!selectedFile1 && userVendorData.cover_image &&
+                                                                            <img src={`https://api.ipekyolu.az${userVendorData.cover_image ?? userVendorData.cover_image}`}width="100%" height="200px" style={{maxHeight: "200px"}}/>
+                                                                            }
+                                                                            {!selectedFile1 && !userVendorData.cover_image && 
+                                                                            <span style={{justifyContent:"center", display:"flex",position:"relative", top:"80px",  fontSize:"20px"}}>Şəkil yüklə</span>
+                                                                         }
                                                                         </label>
                                                                     </form>
                                                                 </div>
@@ -940,8 +969,13 @@ const convertBase64 = (file) => {
                                                                                name="dd" id="dd"
                                                                                className="inputFile"
                                                                                onChange={uploadImageLogo}/>
-                                                                        <label htmlFor="dd" style={{backgroundImage:"url(" + selectedFile2 + ")",width:'600px', height:'200px',}}>
-                                                                            <span style={{justifyContent:"center", display:"flex",position:"relative", top:"80px", left:"-150px",  fontSize:"20px"}}><i className="w-icon-map-marker mr-1"></i></span>
+                                                                        <label htmlFor="dd" style={{backgroundImage:"url(" + selectedFile2 + ")",width:'600px', height:'200px'}}>
+                                                                            {!selectedFile2 && userVendorData.logo &&
+                                                                             <img src={`https://api.ipekyolu.az${userVendorData.logo ?? userVendorData.logo}`} width="100%" height="200px" style={{maxHeight: "200px"}}/>
+                                                                            }
+                                                                            {!selectedFile2 && !userVendorData.logo &&
+                                                                             <span style={{justifyContent:"center", display:"flex",position:"relative", top:"80px", left:"-150px",  fontSize:"20px"}}>Şəkil yüklə</span>
+                                                                            }
                                                                         </label>
                                                                     </form>
                                                                 </div>
@@ -982,7 +1016,7 @@ const convertBase64 = (file) => {
                                                                 onClick={()=>{saveChangeVendor()}}
                                                                 className="btn btn-dark btn-rounded btn-sm mb-4 mt-5">Dəyişiklikləri yadda saxla
                                                         </button>
-                                                        <div> <label htmlFor="display-name">Açilma tarixi: 1/31/2022</label></div>
+                                                        <div> <label htmlFor="display-name">Açilma tarixi: {userVendorData.created_at.slice(0,10) }</label></div>
                                                     </form>
                                                 </div>
                                             </div>
@@ -1007,5 +1041,277 @@ const convertBase64 = (file) => {
                             r="34" ></circle>
                 </svg>
             </a>
+
+
+
+
+            <Modal isOpen={modalSit}>
+                <div className={styles.closeContainer}></div>
+                    <i onClick={() => {setModalSit(false)}} class="bi bi-x" style={{cursor: "pointer", color: "red"}}>X</i>
+                    <main className="main mb-10 pb-1">
+                        <div className="page-content">
+                            <div className="container">
+                                <div className="row gutter-lg">
+                                    <div className="product product-single row mb-2">
+                                        <div className="col-md-6 mb-4 mb-md-8">
+                                            <div className="product-gallery product-gallery-sticky">
+                                                <div
+                                                    className="swiper-container product-single-swiper swiper-theme nav-inner"
+                                                    data-swiper-options="{
+                                                            'navigation': {
+                                                                'nextEl': '.swiper-button-next',
+                                                                'prevEl': '.swiper-button-prev'
+                                                            }
+                                                        }">
+                                                    <div className="swiper-wrapper row cols-1 gutter-no">
+                                                        <div className="swiper-slide">
+                                                            <figure className="product-image">
+                                                                <div>
+                                                                    <form  className="p-5">
+                                                                        <input type="file"
+                                                                               accept=".jpg, .jpeg, .png"
+                                                                               name="file1" id="file1"
+                                                                               className="inputFile"
+                                                                            //    onChange={(e) => handleFileUploadFile1(e)}
+                                                                               />
+                                                                        <label htmlFor="file1" style={{backgroundImage:"url(" + selectedFile1 + ")",width:'800px', height:'490px',cursor:"pointer"}}>
+                                                                            <span style={{justifyContent:"center", display:"flex",position:"relative", top:"232px", left:"-197px", cursor:"pointer"}}>
+                                                                                <h5 style={{fontSize:"25px",opacity:"0.5"}}>Şəkil əlavə edin</h5>
+                                                                                </span>
+                                                                        </label>
+                                                                    </form>
+                                                                </div>
+                                                            </figure>
+                                                        </div>
+                                                        <div className="swiper-slide">
+                                                            <figure className="product-image" style={{cursor:"pointer"}}>
+                                                                <form>
+                                                                    <input type="file"
+                                                                           accept=".jpg, .jpeg, .png"
+                                                                           name="file2" id="file2"
+                                                                           className="inputFile"
+                                                                        //    onChange={(e) => handleFileUploadFile2(e)}
+                                                                           />
+
+
+                                                                    <label htmlFor="file2" style={{width:"800px", height:"490px"}}>
+                                                                        <img src={selectedFile2}  data-zoom-image={selectedFile2}/>
+                                                                    </label>
+                                                                </form>
+                                                            </figure>
+                                                        </div>
+                                                        <div className="swiper-slide">
+                                                            <figure className="product-image">
+                                                                <form>
+                                                                    <input type="file"
+                                                                           accept=".jpg, .jpeg, .png"
+                                                                           name="file4" id="file4"
+                                                                           className="inputFile"
+                                                                        //    onChange={(e) => handleFileUploadFile3(e)}
+                                                                           />
+
+                                                                    <label htmlFor="file4" style={{width:"800px", height:"490px"}}>
+                                                                        <img 
+                                                                        // src={selectedFile3}  data-zoom-image={selectedFile3}
+                                                                        />
+                                                                    </label>
+                                                                </form>
+                                                            </figure>
+                                                        </div>
+                                                        <div className="swiper-slide">
+                                                            <figure className="product-image">
+                                                                <form>
+                                                                    <input type="file"
+                                                                           accept=".jpg, .jpeg, .png"
+                                                                           name="file3" id="file3"
+                                                                           className="inputFile"
+                                                                        //    onChange={(e) => handleFileUploadFile4(e)}
+                                                                           />
+
+                                                                    <label htmlFor="file3" style={{width:"800px", height:"490px"}}>
+                                                                        <img 
+                                                                        // src={selectedFile4}  data-zoom-image={selectedFile4}
+                                                                        />
+                                                                    </label>
+                                                                </form>
+                                                            </figure>
+                                                        </div>
+                                                    </div>
+                                                    <button className="swiper-button-next"></button>
+                                                    <button className="swiper-button-prev"></button>
+                                                </div>
+                                                <div className="product-thumbs-wrap swiper-container"
+                                                     data-swiper-options="{
+                                                            'navigation': {
+                                                                'nextEl': '.swiper-button-next',
+                                                                'prevEl': '.swiper-button-prev'
+                                                            }
+                                                        }">
+                                                    <div className="product-thumbs swiper-wrapper row cols-4 gutter-sm">
+                                                        <div className="product-thumb swiper-slide">
+                                                            <figure className="product-image" style={{backgroundColor: '#f5f5f5', width:"100px", height:"100px",display:"flex",justifyContent:"center",alignItems:"center"}}>
+                                                                <h5 style={{fontSize:"10px"}}>Şəkil əlavə edin</h5>
+                                                                <img 
+                                                                // src={selectedFile1}  data-zoom-image={selectedFile1}
+                                                                />
+                                                            </figure>
+                                                        </div>
+                                                        <div className="product-thumb swiper-slide" style={{backgroundColor: '#f5f5f5', width:"100px", height:"100px"}}>
+                                                            <img
+                                                            //  src={selectedFile2}  data-zoom-image={selectedFile2}
+                                                             />
+                                                        </div>
+                                                        <div className="product-thumb swiper-slide" style={{backgroundColor: '#f5f5f5'}}>
+                                                            <img 
+                                                            // src={selectedFile3}  data-zoom-image={selectedFile3}
+                                                            />
+                                                        </div>
+                                                        <div className="product-thumb swiper-slide" style={{backgroundColor: '#f5f5f5'}}>
+                                                            <img 
+                                                            // src={selectedFile4}  data-zoom-image={selectedFile4}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <button className="swiper-button-next"></button>
+                                                    <button className="swiper-button-prev"></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="col-md-6 mb-6 mt-4 mb-md-8">
+                                            <div className="product-details" data-sticky-options="{'minWidth': 767}">
+                                                <div className="form-group mb-3">
+                                                    <input type="text" id="display-name"
+                                                           placeholder="Məhsulun adı"
+                                                        //    onChange={e=>setProductName(e.target.value)}
+                                                           className="form-control form-control-md mb-0"/>
+                                                </div>
+                                            
+                                                <div className="form-group mb-3">
+                                                    <Select
+                                                        name="colors"
+                                                        // options={optionsSubCategories}
+                                                        className="basic-multi-select"
+                                                        placeholder={"Sub Kateqoriya Seç"}
+                                                        classNamePrefix="select"
+                                                        // onChange={handleChangeSubSub}
+                                                    />
+                                                </div>
+                                                <div className="form-group mb-3">
+                                                    <Select
+                                                        name="colors"
+                                                        // options={optionsTitle}
+                                                        className="basic-multi-select"
+                                                        placeholder={"Sub-Sub Kateqoriya Seç"}
+                                                        classNamePrefix="select"
+                                                        // onChange={handleChangeSub}
+                                                    />
+                                                </div>
+                                                <div className="product-price">
+                                                    <ins className="new-price">
+                                                        <div className="product-short-desc">
+                                                            <ul className="list-type-check-new-price list-style-none">
+                                                                <li><input
+                                                                    type="text"
+                                                                    id="email_1"
+                                                                    name="email_1"
+                                                                    // onChange={e=>setPrice(e.target.value)}
+                                                                    className="form-control form-control-md"/></li>
+                                                            </ul>
+                                                        </div>
+                                                    </ins>
+                                                </div>
+
+
+                                                <div className="product-short-desc">
+                                                    <ul className="list-type-check list-style-none">
+                                                        <li><input type="text" 
+                                                        // onChange={e=>setShortDesc1(e.target.value)} 
+                                                        id="email_1" name="email_1" className="form-control form-control-md"/></li>
+                                                        <br/>
+                                                        <li><input type="text"
+                                                        //  onChange={e=>setShortDesc2(e.target.value)} 
+                                                         id="email_1" name="email_1" className="form-control form-control-md"/></li>
+                                                        <br/>
+                                                        <li><input type="text" 
+                                                        // onChange={e=>setShortDesc3(e.target.value)} 
+                                                        id="email_1" name="email_1" className="form-control form-control-md"/></li>
+                                                    </ul>
+                                                </div>
+
+                                                <textarea 
+                                                // onChange={e=>setDescription(e.target.value)} 
+                                                className="form-control form-control-md mb-4" placeholder="Təsvir"
+                                                          name="w3review" rows="4" cols="50">
+                                                    </textarea>
+                                                <div>
+                                                    {/* {test.map(e=>( */}
+                                                        <div className="row">
+                                                            <div className="form-group col-md-3 mb-8 pt-2">
+                                                                <label htmlFor="display-name" style={{fontSize:"15px",paddingTop:'34px',textAlign:"center"}}>
+                                                                    {/* {e.title} */}
+                                                                    </label>
+                                                            </div>
+                                                            <div className="form-group col-md-9 mb-3">
+                                                                <input type="text" id="email_1" name="email_1"
+                                                                    //    onChange={m=>setFormGroup({"the_filter": e.id, "value": m.target.value})}
+                                                                       className="form-control form-control-md"/>
+                                                            </div>
+                                                        </div>
+                                                    {/* ))} */}
+                                                </div>
+
+                                                <div className="row mb-4 mt-3">
+                                                    <div className="col-md-6">
+                                                        <figure className="product-image">
+                                                            <div>
+                                                                <form>
+                                                                    <input type="file"
+                                                                           className="inputFile"
+                                                                           name="file0e9" id="file0e9"
+                                                                        //    onChange={handleVideoUpload} 
+                                                                           />
+                                                                    <label htmlFor="file0e9" style={{width:"200px", height:"100px"}}>
+                                                                        {/* <ReactPlayer
+                                                                            url={videoFilePathEEE}  
+                                                                            playIcon={<button>Play</button>} width="100%" height="100%" controls /> */}
+                                                                    </label>
+                                                                </form>
+                                                            </div>
+
+                                                        </figure>
+                                                    </div>
+                                                    <div className="col-md-6">
+                                                        <div>
+                                                            <pre>
+                                                                {/* {JSON.stringify(selected)} */}
+                                                                </pre>
+                                                            {/* <TagsInput
+                                                                value={selected}
+                                                                onChange={setSelected}
+                                                                name="tags"
+                                                                placeHolder="Tags Əlavə Et"
+                                                            /> */}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    className="fix-bottom product-sticky-content sticky-content">
+                                                    <div className="product-form container">
+                                                        <button className="btn btn-primary btn-cart" 
+                                                        // onClick={handleAddInput}
+                                                        >
+                                                            <i className="w-icon-cart"></i>
+                                                            <span>Məhsul elavə et</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </main>    
+                 </Modal>
         </>
     )}
