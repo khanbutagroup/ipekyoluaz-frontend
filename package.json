@@ -23,9 +23,11 @@
     "video-react": "^0.15.0"
   },
   "devDependencies": {
+    "@next/eslint-plugin-next": "^12.1.4",
     "axios": "^0.26.1",
     "eslint": "8.11.0",
     "eslint-config-next": "12.1.0",
+    "eslint-config-prettier": "^8.5.0",
     "html-react-parser": "^1.4.8",
     "react-phone-input-2": "^2.15.0",
     "react-player": "^2.9.0",

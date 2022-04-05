@@ -390,10 +390,16 @@ const convertBase64 = (file) => {
 
     const [modalSit, setModalSit] = useState(false)
 
+    const [productSpecs, setProductSpecs] = useState([])
+
+    console.log(productSpecs, "zaza")
+
 
     const editProduct = async(id) => {
         setModalSit(true)
-        await axios.get("https://api.ipekyolu.az/")
+        await axios.get(`https://api.ipekyolu.az/api/products/${id}`)
+        .then(res => setProductSpecs(res.data,))
+        .catch(err => err)
     }
 
 
@@ -697,16 +703,15 @@ const convertBase64 = (file) => {
                                                                 {/*    <span className="order-price">$121.00</span> for*/}
                                                                 {/*    <span className="order-quantity"> 1</span> item*/}
                                                                 {/*</td>*/}
-                                                                <ul role="tablist">
-                                                                        <li>
+                                                                
                                                                         <td className="order-action">
                                                                             <a 
-                                                                    href="#account-dashboard"
-                                                                        // onClick={() => {editProduct(e.id)}}
+                                                                    // href="#account-dashboard"
+                                                                        onClick={() => {editProduct(e.id)}}
                                                                        className="btn btn-outline btn-default btn-block btn-sm btn-rounded" >Dəyiş</a>
                                                                             </td>
-                                                                        </li>
-                                                                </ul>
+                                                                        
+                                                                
                                                                 
                                                                 <td className="order-action">
                                                                     <a href="#"
@@ -1075,6 +1080,7 @@ const convertBase64 = (file) => {
                                                                             //    onChange={(e) => handleFileUploadFile1(e)}
                                                                                />
                                                                         <label htmlFor="file1" style={{backgroundImage:"url(" + selectedFile1 + ")",width:'800px', height:'490px',cursor:"pointer"}}>
+                                                                            <img src={`https://api.ipekyolu.az${productSpecs?.main_image}`} width="100%" height="100%" style={{maxHeight: "100% !important", objectFit: "contain"}}/>
                                                                             <span style={{justifyContent:"center", display:"flex",position:"relative", top:"232px", left:"-197px", cursor:"pointer"}}>
                                                                                 <h5 style={{fontSize:"25px",opacity:"0.5"}}>Şəkil əlavə edin</h5>
                                                                                 </span>
@@ -1100,42 +1106,7 @@ const convertBase64 = (file) => {
                                                                 </form>
                                                             </figure>
                                                         </div>
-                                                        <div className="swiper-slide">
-                                                            <figure className="product-image">
-                                                                <form>
-                                                                    <input type="file"
-                                                                           accept=".jpg, .jpeg, .png"
-                                                                           name="file4" id="file4"
-                                                                           className="inputFile"
-                                                                        //    onChange={(e) => handleFileUploadFile3(e)}
-                                                                           />
-
-                                                                    <label htmlFor="file4" style={{width:"800px", height:"490px"}}>
-                                                                        <img 
-                                                                        // src={selectedFile3}  data-zoom-image={selectedFile3}
-                                                                        />
-                                                                    </label>
-                                                                </form>
-                                                            </figure>
-                                                        </div>
-                                                        <div className="swiper-slide">
-                                                            <figure className="product-image">
-                                                                <form>
-                                                                    <input type="file"
-                                                                           accept=".jpg, .jpeg, .png"
-                                                                           name="file3" id="file3"
-                                                                           className="inputFile"
-                                                                        //    onChange={(e) => handleFileUploadFile4(e)}
-                                                                           />
-
-                                                                    <label htmlFor="file3" style={{width:"800px", height:"490px"}}>
-                                                                        <img 
-                                                                        // src={selectedFile4}  data-zoom-image={selectedFile4}
-                                                                        />
-                                                                    </label>
-                                                                </form>
-                                                            </figure>
-                                                        </div>
+                                                        
                                                     </div>
                                                     <button className="swiper-button-next"></button>
                                                     <button className="swiper-button-prev"></button>
@@ -1181,9 +1152,10 @@ const convertBase64 = (file) => {
                                             <div className="product-details" data-sticky-options="{'minWidth': 767}">
                                                 <div className="form-group mb-3">
                                                     <input type="text" id="display-name"
-                                                           placeholder="Məhsulun adı"
+                                                        defaultValue={productSpecs?.title}
+                                                        placeholder="Məhsulun adı"
                                                         //    onChange={e=>setProductName(e.target.value)}
-                                                           className="form-control form-control-md mb-0"/>
+                                                        className="form-control form-control-md mb-0"/>
                                                 </div>
                                             
                                                 <div className="form-group mb-3">
@@ -1191,7 +1163,7 @@ const convertBase64 = (file) => {
                                                         name="colors"
                                                         // options={optionsSubCategories}
                                                         className="basic-multi-select"
-                                                        placeholder={"Sub Kateqoriya Seç"}
+                                                        placeholder={productSpecs.sub_category?.title}
                                                         classNamePrefix="select"
                                                         // onChange={handleChangeSubSub}
                                                     />
@@ -1201,7 +1173,7 @@ const convertBase64 = (file) => {
                                                         name="colors"
                                                         // options={optionsTitle}
                                                         className="basic-multi-select"
-                                                        placeholder={"Sub-Sub Kateqoriya Seç"}
+                                                        placeholder={productSpecs.sub_sub_category?.title}
                                                         classNamePrefix="select"
                                                         // onChange={handleChangeSub}
                                                     />
@@ -1210,10 +1182,13 @@ const convertBase64 = (file) => {
                                                     <ins className="new-price">
                                                         <div className="product-short-desc">
                                                             <ul className="list-type-check-new-price list-style-none">
-                                                                <li><input
+                                                            ₼ 
+                                                                <li>
+                                                                    <input
                                                                     type="text"
                                                                     id="email_1"
                                                                     name="email_1"
+                                                                    defaultValue={productSpecs?.price}
                                                                     // onChange={e=>setPrice(e.target.value)}
                                                                     className="form-control form-control-md"/></li>
                                                             </ul>
@@ -1225,14 +1200,17 @@ const convertBase64 = (file) => {
                                                 <div className="product-short-desc">
                                                     <ul className="list-type-check list-style-none">
                                                         <li><input type="text" 
+                                                        defaultValue={productSpecs?.short_desc1}
                                                         // onChange={e=>setShortDesc1(e.target.value)} 
                                                         id="email_1" name="email_1" className="form-control form-control-md"/></li>
                                                         <br/>
                                                         <li><input type="text"
+                                                        defaultValue={productSpecs?.short_desc2}
                                                         //  onChange={e=>setShortDesc2(e.target.value)} 
                                                          id="email_1" name="email_1" className="form-control form-control-md"/></li>
                                                         <br/>
                                                         <li><input type="text" 
+                                                        defaultValue={productSpecs?.short_desc3}
                                                         // onChange={e=>setShortDesc3(e.target.value)} 
                                                         id="email_1" name="email_1" className="form-control form-control-md"/></li>
                                                     </ul>
@@ -1240,24 +1218,12 @@ const convertBase64 = (file) => {
 
                                                 <textarea 
                                                 // onChange={e=>setDescription(e.target.value)} 
+                                                defaultValue={productSpecs?.description}
                                                 className="form-control form-control-md mb-4" placeholder="Təsvir"
                                                           name="w3review" rows="4" cols="50">
                                                     </textarea>
                                                 <div>
-                                                    {/* {test.map(e=>( */}
-                                                        <div className="row">
-                                                            <div className="form-group col-md-3 mb-8 pt-2">
-                                                                <label htmlFor="display-name" style={{fontSize:"15px",paddingTop:'34px',textAlign:"center"}}>
-                                                                    {/* {e.title} */}
-                                                                    </label>
-                                                            </div>
-                                                            <div className="form-group col-md-9 mb-3">
-                                                                <input type="text" id="email_1" name="email_1"
-                                                                    //    onChange={m=>setFormGroup({"the_filter": e.id, "value": m.target.value})}
-                                                                       className="form-control form-control-md"/>
-                                                            </div>
-                                                        </div>
-                                                    {/* ))} */}
+                                                    
                                                 </div>
 
                                                 <div className="row mb-4 mt-3">
