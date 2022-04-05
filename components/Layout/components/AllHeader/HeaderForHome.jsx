@@ -1228,7 +1228,7 @@ export default function HeaderForHome(){
                                                                         <h4 className="menu-title">{e.title}</h4>
                                                                         <hr className="divider"/>
                                                                         <ul>
-                                                                            {e.sub_sub_categories.map(e=>(<li><a href={`/shop/${item.id}`}>{e.title}</a></li>))}
+                                                                            {e.sub_sub_categories.map(s=>(<li><a href={`/shop/${item.id}?main_category=${item.id}&sub_category=${e.id}&sub_sub_category=${s.id}`}>{s.title}</a></li>))}
                                                                         </ul>
                                                                     </div>
                                                                 ))}

@@ -84,7 +84,6 @@ export default function MainForShop(props) {
         setSizeAllData(sizeData);
         setCount(items.data.count);
         allProductsData(items.data.results);
-        // console.log(items.data.next, 'predsds');
         paginationNextData(items.data.next);
       }
     });
@@ -93,7 +92,6 @@ export default function MainForShop(props) {
 
   const pageChangeNext = () => {
     axios.get(paginationNext).then((res) => {
-      console.log(res.data, "itterrer");
       allProductsData(res.data.results);
       paginationNextData(res.data.next);
       paginationPrevData(res.data.previous);
@@ -103,7 +101,6 @@ export default function MainForShop(props) {
 
   const pageChangePrev = () => {
     axios.get(paginationPrev).then((res) => {
-      console.log(res.data.previous, "itterrer");
       allProductsData(res.data.results);
       paginationPrevData(res.data.previous);
       setCurrentPage(currentPage - 1);
@@ -174,6 +171,9 @@ export default function MainForShop(props) {
   const [checkedData1, setCheckedData1] = useState(false);
   const [checkedData2, setCheckedData2] = useState(false);
   const [empty, setEmpty] = useState(false);
+  const [mainCategory, setMainCategory] = useState("");
+  const [subCategory, setSubCategory] = useState("");
+  const [subSubCategory, setSubSubCategory] = useState("");
   const searchAPI = "https://api.ipekyolu.az/api/product-search/";
 
   useEffect(() => {
@@ -181,6 +181,12 @@ export default function MainForShop(props) {
       axios.post(searchAPI, { title: query.q }).then((res) => {
         allProductsData(res.data.results);
       });
+    }
+
+    if (query.main_category && query.sub_category && query.sub_sub_category) {
+      setMainCategory(query.main_category);
+      setSubCategory(query.sub_category);
+      setSubSubCategory(query.sub_sub_category);
     }
   }, [query]);
 
@@ -390,7 +396,7 @@ export default function MainForShop(props) {
       allProductsData(items.data.results);
       paginationNextData(items.data.next);
       paginationPrevData(items.data.previous);
-      setCurrentPage(p)
+      setCurrentPage(p);
     });
   };
   const [productByIdItem, productByIdData] = useState([]);
@@ -501,32 +507,28 @@ export default function MainForShop(props) {
           <div className="page-content">
             <div className="container">
               <div style={{ height: "250px" }}>
-                {categoryBannerData.map(
-                  (e) => (
-                    (
-                      <div
-                        className="shop-default-banner banner d-flex align-items-center mb-5 br-xs"
-                        style={{
-                          backgroundImage:
-                            "url(" + "https://api.ipekyolu.az" + e.image + ")",
-                          backgroundColor: "#FFC74E",
-                        }}
+                {categoryBannerData.map((e) => (
+                  <div
+                    className="shop-default-banner banner d-flex align-items-center mb-5 br-xs"
+                    style={{
+                      backgroundImage:
+                        "url(" + "https://api.ipekyolu.az" + e.image + ")",
+                      backgroundColor: "#FFC74E",
+                    }}
+                  >
+                    <div className="banner-content" style={{ zIndex: "0" }}>
+                      <h4 className="banner-subtitle font-weight-bold"></h4>
+                      <h3 className="banner-title text-white text-uppercase font-weight-bolder ls-normal"></h3>
+                      <a
+                        href={e.button_link}
+                        className="btn btn-dark btn-rounded btn-icon-right"
                       >
-                        <div className="banner-content" style={{ zIndex: "0" }}>
-                          <h4 className="banner-subtitle font-weight-bold"></h4>
-                          <h3 className="banner-title text-white text-uppercase font-weight-bolder ls-normal"></h3>
-                          <a
-                            href={e.button_link}
-                            className="btn btn-dark btn-rounded btn-icon-right"
-                          >
-                            {e.button_text}
-                            <i className="w-icon-long-arrow-right"></i>
-                          </a>
-                        </div>
-                      </div>
-                    )
-                  )
-                )}
+                        {e.button_text}
+                        <i className="w-icon-long-arrow-right"></i>
+                      </a>
+                    </div>
+                  </div>
+                ))}
               </div>
               <div className="shop-content row gutter-lg mb-10">
                 <aside className="sidebar shop-sidebar sticky-sidebar-wrapper sidebar-fixed">
@@ -558,43 +560,44 @@ export default function MainForShop(props) {
                             overflowX: "hidden",
                           }}
                         >
-                          {optionsTitle.map((item, index) => (
-                            <div
-                              onChange={(e) =>
-                                handleChangeAllCategories(
-                                  e,
-                                  item.id,
-                                  item.title
-                                )
-                              }
-                            >
-                              <div key={item.id} className="mt-2">
-                                <input
-                                  type="checkbox"
-                                  value={item.id}
-                                  style={{ width: " 20px", height: "24px" }}
-                                  checked={
-                                    urlCategoriaId === item.id && checkedData2
-                                      ? true && checkedData2
-                                      : item.isChecked && checkedData2
+                          {optionsTitle.map(
+                            (item, index) => (
+                              console.log("item.id", mainCategory),
+                              (
+                                <div
+                                  onChange={(e) =>
+                                    handleChangeAllCategories(
+                                      e,
+                                      item.id,
+                                      item.title
+                                    )
                                   }
-                                  id={`options` + item.id}
-                                />
-                                <label
-                                  htmlFor={`options` + item.id}
-                                  className="ml-2"
-                                  style={{
-                                    position: "relative",
-                                    top: "-5px",
-                                    cursor: "pointer",
-                                  }}
                                 >
-                                  {item.title}
-                                </label>
-                                <br />
-                              </div>
-                            </div>
-                          ))}
+                                  <div key={item.id} className="mt-2">
+                                    <input
+                                      type="checkbox"
+                                      value={item.id}
+                                      style={{ width: " 20px", height: "24px" }}
+                                      checked={mainCategory == item.id}
+                                      id={`options` + item.id}
+                                    />
+                                    <label
+                                      htmlFor={`options` + item.id}
+                                      className="ml-2"
+                                      style={{
+                                        position: "relative",
+                                        top: "-5px",
+                                        cursor: "pointer",
+                                      }}
+                                    >
+                                      {item.title}
+                                    </label>
+                                    <br />
+                                  </div>
+                                </div>
+                              )
+                            )
+                          )}
                         </ul>
                       </div>
                       <div className="widget widget-collapsible">
@@ -624,11 +627,7 @@ export default function MainForShop(props) {
                                   type="checkbox"
                                   value={item?.id}
                                   style={{ width: " 20px", height: "24px" }}
-                                  checked={
-                                    urlCategoriaId === item.id && checkedData1
-                                      ? true && checkedData1
-                                      : item.isChecked && checkedData1
-                                  }
+                                  checked={subCategory == item?.id}
                                   id={`sub` + item?.id}
                                 />
                                 <label
@@ -679,11 +678,7 @@ export default function MainForShop(props) {
                                       : item.id
                                   }
                                   style={{ width: " 20px", height: "24px" }}
-                                  checked={
-                                    urlCategoriaId === item.id && checkedData
-                                      ? true && checkedData
-                                      : item.isChecked && checkedData
-                                  }
+                                  checked={subSubCategory == item?.id}
                                   id={`subSub` + item?.id}
                                 />
                                 <label
@@ -1026,7 +1021,11 @@ export default function MainForShop(props) {
                         )}
                       </li>
                       {sizeAllData.map((e, i) => (
-                        <li className={`page-item ${currentPage === i + 1 && 'active'}`}>
+                        <li
+                          className={`page-item ${
+                            currentPage === i + 1 && "active"
+                          }`}
+                        >
                           <a
                             className="page-link"
                             href="#"
